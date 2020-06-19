@@ -14,6 +14,7 @@
 		00B3F623249CE70900C24FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B3F621249CE70900C24FDC /* Main.storyboard */; };
 		00B3F625249CE70B00C24FDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B3F624249CE70B00C24FDC /* Assets.xcassets */; };
 		00B3F628249CE70B00C24FDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B3F626249CE70B00C24FDC /* LaunchScreen.storyboard */; };
+		00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F62F249D073F00C24FDC /* SlickNotes.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		00B3F624249CE70B00C24FDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00B3F627249CE70B00C24FDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00B3F629249CE70B00C24FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00B3F630249D073F00C24FDC /* SlickNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlickNotes.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		00B3F618249CE70900C24FDC /* SlickNotes */ = {
 			isa = PBXGroup;
 			children = (
+				00B3F632249D074B00C24FDC /* CoreDataModel */,
 				00B3F619249CE70900C24FDC /* AppDelegate.swift */,
 				00B3F61B249CE70900C24FDC /* SceneDelegate.swift */,
 				00B3F61D249CE70900C24FDC /* MasterViewController.swift */,
@@ -68,6 +71,14 @@
 				00B3F629249CE70B00C24FDC /* Info.plist */,
 			);
 			path = SlickNotes;
+			sourceTree = "<group>";
+		};
+		00B3F632249D074B00C24FDC /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				00B3F62F249D073F00C24FDC /* SlickNotes.xcdatamodeld */,
+			);
+			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 				00B3F61A249CE70900C24FDC /* AppDelegate.swift in Sources */,
 				00B3F61C249CE70900C24FDC /* SceneDelegate.swift in Sources */,
 				00B3F61E249CE70900C24FDC /* MasterViewController.swift in Sources */,
+				00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */,
 				00B3F620249CE70900C24FDC /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +352,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		00B3F62F249D073F00C24FDC /* SlickNotes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				00B3F630249D073F00C24FDC /* SlickNotes.xcdatamodel */,
+			);
+			currentVersion = 00B3F630249D073F00C24FDC /* SlickNotes.xcdatamodel */;
+			path = SlickNotes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 00B3F60E249CE70900C24FDC /* Project object */;
 }
