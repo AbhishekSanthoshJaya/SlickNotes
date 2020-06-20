@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
     
@@ -14,7 +15,9 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
     @IBOutlet weak var noteTextTextView: UITextView!
     @IBOutlet weak var noteDoneButton: UIButton!
     @IBOutlet weak var noteDateLabel: UILabel!
-    
+    let locationManager = CLLocationManager()
+    var userLocation: CLLocation!
+
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
     private(set) var changingReallySimpleNote : SlickNotes?
     
@@ -51,7 +54,11 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         let note = SlickNotes(
             noteTitle:     noteTitleTextField.text!,
             noteText:      noteTextTextView.text,
-            noteTimeStamp: noteCreationTimeStamp)
+            noteTimeStamp: noteCreationTimeStamp,
+            latitude: String(userLocation.coordinate.latitude),
+            longitude: String(userLocation.coordinate.longitude)
+
+            )
 
         SlickNotesStorage.storage.addNote(noteToBeAdded: note)
         
@@ -69,7 +76,11 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
                     noteId:        changingReallySimpleNote.noteId,
                     noteTitle:     noteTitleTextField.text!,
                     noteText:      noteTextTextView.text,
-                    noteTimeStamp: noteCreationTimeStamp)
+                    noteTimeStamp: noteCreationTimeStamp,
+                    latitude: String(userLocation.coordinate.latitude),
+                     longitude: String(userLocation.coordinate.longitude)
+                    
+                    )
             )
             // navigate back to list of notes
             performSegue(
@@ -98,6 +109,15 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         
         // set text view delegate so that we can react on text change
         noteTextTextView.delegate = self
+        
+        // Add delegate
+        locationManager.delegate = self
+        
+        // request permission
+        locationManager.requestWhenInUseAuthorization()
+        
+        // update map info
+        locationManager.startUpdatingLocation()
         
         // check if we are in create mode or in change mode
         if let changingReallySimpleNote = self.changingReallySimpleNote {
@@ -149,4 +169,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         }
     }
 
+}
+
+
+extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userLocation = locations[0]
+        
+        
+    }
 }

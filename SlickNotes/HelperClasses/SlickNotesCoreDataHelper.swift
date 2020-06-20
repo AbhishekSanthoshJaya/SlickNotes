@@ -42,6 +42,14 @@ class SlickNotesCoreDataHelper
             noteToBeCreated.noteTimeStamp,
             forKey: "noteTimeStamp")
         
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.latitude,
+        forKey: "latitude")
+        
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.longitude,
+        forKey: "longitude")
+        
         do {
             try intoManagedObjectContext.save()
             count += 1
@@ -103,7 +111,12 @@ class SlickNotesCoreDataHelper
                     noteId:        noteManagedObjectRead.value(forKey: "noteId")        as! UUID,
                     noteTitle:     noteManagedObjectRead.value(forKey: "noteTitle")     as! String,
                     noteText:      noteManagedObjectRead.value(forKey: "noteText")      as! String,
-                    noteTimeStamp: noteManagedObjectRead.value(forKey: "noteTimeStamp") as! Int64))
+                    noteTimeStamp: noteManagedObjectRead.value(forKey: "noteTimeStamp") as! Int64,
+                    
+                    latitude: noteManagedObjectRead.value(forKey: "latitude") as! String,
+                    longitude: noteManagedObjectRead.value(forKey: "longitude") as! String
+
+                    ))
             }
         } catch let error as NSError {
             // TODO error handling
@@ -133,7 +146,9 @@ class SlickNotesCoreDataHelper
                 noteId:        noteManagedObjectToBeRead.value(forKey: "noteId")        as! UUID,
                 noteTitle:     noteManagedObjectToBeRead.value(forKey: "noteTitle")     as! String,
                 noteText:      noteManagedObjectToBeRead.value(forKey: "noteText")      as! String,
-                noteTimeStamp: noteManagedObjectToBeRead.value(forKey: "noteTimeStamp") as! Int64)
+                noteTimeStamp: noteManagedObjectToBeRead.value(forKey: "noteTimeStamp") as! Int64,
+            latitude: noteManagedObjectToBeRead.value(forKey: "latitude") as! String,
+                longitude: noteManagedObjectToBeRead.value(forKey: "longitude") as! String)
         } catch let error as NSError {
             // TODO error handling
             print("Could not read. \(error), \(error.userInfo)")
