@@ -50,4 +50,69 @@ class SlickNotesCoreDataHelper
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    static func changeNoteInCoreData(
+        noteToBeChanged:        SlickNotes,
+        inManagedObjectContext: NSManagedObjectContext) {
+        
+        // read managed object
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        
+        let noteIdPredicate = NSPredicate(format: "noteId = %@", noteToBeChanged.noteId as CVarArg)
+        
+        fetchRequest.predicate = noteIdPredicate
+        
+        do {
+            let fetchedNotesFromCoreData = try inManagedObjectContext.fetch(fetchRequest)
+            let noteManagedObjectToBeChanged = fetchedNotesFromCoreData[0] as! NSManagedObject
+            
+            // make the changes
+            noteManagedObjectToBeChanged.setValue(
+                noteToBeChanged.noteTitle,
+                forKey: "noteTitle")
+
+            noteManagedObjectToBeChanged.setValue(
+                noteToBeChanged.noteText,
+                forKey: "noteText")
+
+            noteManagedObjectToBeChanged.setValue(
+                noteToBeChanged.noteTimeStamp,
+                forKey: "noteTimeStamp")
+
+            // save
+            try inManagedObjectContext.save()
+
+        } catch let error as NSError {
+            // TODO error handling
+            print("Could not change. \(error), \(error.userInfo)")
+        }
+    }
+    
+    static func readNotesFromCoreData(fromManagedObjectContext: NSManagedObjectContext) -> [SlickNotes] {
+
+        var returnedNotes = [SlickNotes]()
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        fetchRequest.predicate = nil
+        
+        do {
+            let fetchedNotesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)
+            fetchedNotesFromCoreData.forEach { (fetchRequestResult) in
+                let noteManagedObjectRead = fetchRequestResult as! NSManagedObject
+                returnedNotes.append(SlickNotes.init(
+                    noteId:        noteManagedObjectRead.value(forKey: "noteId")        as! UUID,
+                    noteTitle:     noteManagedObjectRead.value(forKey: "noteTitle")     as! String,
+                    noteText:      noteManagedObjectRead.value(forKey: "noteText")      as! String,
+                    noteTimeStamp: noteManagedObjectRead.value(forKey: "noteTimeStamp") as! Int64))
+            }
+        } catch let error as NSError {
+            // TODO error handling
+            print("Could not read. \(error), \(error.userInfo)")
+        }
+        
+        // set note count
+        self.count = returnedNotes.count
+        
+        return returnedNotes
+    }
 }
