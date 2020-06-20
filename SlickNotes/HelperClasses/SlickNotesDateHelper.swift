@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SlickNotesDataHelper {
+class SlickNotesDateHelper {
     
     static func convertDate(date: Date) -> String {
         let formatter = DateFormatter()
