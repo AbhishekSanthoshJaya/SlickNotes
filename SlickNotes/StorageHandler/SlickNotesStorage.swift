@@ -114,4 +114,7 @@ class SlickNotesStorage {
             }
         }
     }
+    func count() -> Int {
+        return SlickNotesCoreDataHelper.count
+    }
 }

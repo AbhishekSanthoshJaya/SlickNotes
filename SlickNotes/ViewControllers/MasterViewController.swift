@@ -35,8 +35,8 @@ class MasterViewController: UITableViewController {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        // set context in the storage
-        SlickNotesStorage.storage.setManagedContext(managedObjectContext: managedContext)
+        / // set context in the storage
+        SlickNotes.storage.setManagedContext(managedObjectContext: managedContext)
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
 

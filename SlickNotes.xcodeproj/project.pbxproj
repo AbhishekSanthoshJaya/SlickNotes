@@ -49,6 +49,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00531F51249E352B0065CF8F /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */,
+				00531F4F249E308C0065CF8F /* SlickNotesCoreDataHelper.swift */,
+			);
+			path = HelperClasses;
+			sourceTree = "<group>";
+		};
+		00531F52249E355B0065CF8F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00B3F636249D83CB00C24FDC /* SlickNotes.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00531F53249E35700065CF8F /* StorageHandler */ = {
+			isa = PBXGroup;
+			children = (
+				00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */,
+			);
+			path = StorageHandler;
+			sourceTree = "<group>";
+		};
+		00531F54249E35920065CF8F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				00B3F61D249CE70900C24FDC /* MasterViewController.swift */,
+				00B3F61F249CE70900C24FDC /* DetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		00B3F60D249CE70900C24FDC = {
 			isa = PBXGroup;
 			children = (
@@ -68,20 +102,18 @@
 		00B3F618249CE70900C24FDC /* SlickNotes */ = {
 			isa = PBXGroup;
 			children = (
+				00531F54249E35920065CF8F /* ViewControllers */,
+				00531F53249E35700065CF8F /* StorageHandler */,
+				00531F52249E355B0065CF8F /* Model */,
+				00531F51249E352B0065CF8F /* HelperClasses */,
 				00B3F633249D80FC00C24FDC /* Extensions */,
 				00B3F632249D074B00C24FDC /* CoreDataModel */,
 				00B3F619249CE70900C24FDC /* AppDelegate.swift */,
 				00B3F61B249CE70900C24FDC /* SceneDelegate.swift */,
-				00B3F61D249CE70900C24FDC /* MasterViewController.swift */,
-				00B3F61F249CE70900C24FDC /* DetailViewController.swift */,
 				00B3F621249CE70900C24FDC /* Main.storyboard */,
 				00B3F624249CE70B00C24FDC /* Assets.xcassets */,
 				00B3F626249CE70B00C24FDC /* LaunchScreen.storyboard */,
 				00B3F629249CE70B00C24FDC /* Info.plist */,
-				00B3F636249D83CB00C24FDC /* SlickNotes.swift */,
-				00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */,
-				00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */,
-				00531F4F249E308C0065CF8F /* SlickNotesCoreDataHelper.swift */,
 			);
 			path = SlickNotes;
 			sourceTree = "<group>";
