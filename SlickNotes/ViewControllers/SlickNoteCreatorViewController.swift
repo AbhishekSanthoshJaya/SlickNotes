@@ -17,7 +17,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
     private(set) var changingReallySimpleNote : SlickNotes?
-
+    
     @IBAction func noteTitleChanged(_ sender: UITextField, forEvent event: UIEvent) {
         if self.changingReallySimpleNote != nil {
             // change mode

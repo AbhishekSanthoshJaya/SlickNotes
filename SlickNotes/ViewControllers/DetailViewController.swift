@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
                let dateLabel = noteDate,
                let textView = noteTextTextView {
                 topicLabel.text = detail.noteTitle
-                dateLabel.text = ReallySimpleNoteDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
+                dateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
                 textView.text = detail.noteText
             }
         }
