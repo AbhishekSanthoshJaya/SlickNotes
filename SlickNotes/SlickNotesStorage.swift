@@ -27,11 +27,25 @@ class SlickNotesStorage {
     func setManagedContext(managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
         self.managedContextHasBeenSet = true
-        let notes = SlickNotesDataHelper.readNotesFromCoreData(fromManagedObjectContext: self.managedObjectContext)
-        currentIndex = SlickNotesDataHelper.count
+        let notes = SlickNotesCoreDataHelper.readNotesFromCoreData(fromManagedObjectContext: self.managedObjectContext)
+        currentIndex = SlickNotesCoreDataHelper.count
         for (index, note) in notes.enumerated() {
             noteIndexToIdDict[index] = note.noteId
         }
     }
     }
+    
+    func addNote(noteToBeAdded: SlickNotes) {
+        if managedContextHasBeenSet {
+            // add note UUID to the dictionary
+            noteIndexToIdDict[currentIndex] = noteToBeAdded.noteId
+            SlickNotesCoreDataHelper.createNoteInCoreData(
+                noteToBeCreated:          noteToBeAdded,
+                intoManagedObjectContext: self.managedObjectContext)
+            // increase index
+            currentIndex += 1
+        }
+    }
+    
+    
 }
