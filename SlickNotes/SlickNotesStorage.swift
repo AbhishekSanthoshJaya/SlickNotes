@@ -47,5 +47,71 @@ class SlickNotesStorage {
         }
     }
     
+    func removeNote(at: Int) {
+        if managedContextHasBeenSet {
+            // check input index
+            if at < 0 || at > currentIndex-1 {
+                // TODO error handling
+                return
+            }
+            // get note UUID from the dictionary
+            let noteUUID = noteIndexToIdDict[at]
+            SlickNotesCoreDataHelper.deleteNoteFromCoreData(
+                noteIdToBeDeleted:        noteUUID!,
+                fromManagedObjectContext: self.managedObjectContext)
+            // update noteIndexToIdDict dictionary
+            // the element we removed was not the last one: update GUID's
+            if (at < currentIndex - 1) {
+                // currentIndex - 1 is the index of the last element
+                // but we will remove the last element, so the loop goes only
+                // until the index of the element before the last element
+                // which is currentIndex - 2
+                for i in at ... currentIndex - 2 {
+                    noteIndexToIdDict[i] = noteIndexToIdDict[i+1]
+                }
+            }
+            // remove the last element
+            noteIndexToIdDict.removeValue(forKey: currentIndex)
+            // decrease current index
+            currentIndex -= 1
+        }
+    }
     
+    func readNote(at: Int) -> SlickNotes? {
+        if managedContextHasBeenSet {
+            // check input index
+            if at < 0 || at > currentIndex-1 {
+                // TODO error handling
+                return nil
+            }
+            // get note UUID from the dictionary
+            let noteUUID = noteIndexToIdDict[at]
+            let noteReadFromCoreData: SlickNotes?
+            noteReadFromCoreData = SlickNotesCoreDataHelper.readNoteFromCoreData(
+                noteIdToBeRead:           noteUUID!,
+                fromManagedObjectContext: self.managedObjectContext)
+            return noteReadFromCoreData
+        }
+        return nil
+    }
+    
+    func changeNote(noteToBeChanged: SlickNotes) {
+        if managedContextHasBeenSet {
+            // check if UUID is in the dictionary
+            var noteToBeChangedIndex : Int?
+            noteIndexToIdDict.forEach { (index: Int, noteId: UUID) in
+                if noteId == noteToBeChanged.noteId {
+                    noteToBeChangedIndex = index
+                    return
+                }
+            }
+            if noteToBeChangedIndex != nil {
+                SlickNotesCoreDataHelper.changeNoteInCoreData(
+                noteToBeChanged: noteToBeChanged,
+                inManagedObjectContext: self.managedObjectContext)
+            } else {
+                // TODO error handling
+            }
+        }
+    }
 }
