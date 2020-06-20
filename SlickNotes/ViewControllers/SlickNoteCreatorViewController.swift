@@ -92,6 +92,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,13 +116,24 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         noteTextTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         noteTextTextView.layer.borderWidth = 1.0
         noteTextTextView.layer.cornerRadius = 5
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 
+    //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+    //tap.cancelsTouchesInView = false
+
+        view.addGestureRecognizer(tap)
+        
         // For back button in navigation bar, change text
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
-
+    
+    @objc func dismissKeyboard() {
+    //Causes the view (or one of its embedded text fields) to resign the first responder status.
+    view.endEditing(true)
+    }
     //Handle the text changes here
     func textViewDidChange(_ textView: UITextView) {
         if self.changingReallySimpleNote != nil {
