@@ -23,7 +23,8 @@ class SlickNotesStorage {
         // This will be overwritten when setManagedContext is called from the view controller.
         managedObjectContext = NSManagedObjectContext(
             concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-
+    }
+    
     func setManagedContext(managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
         self.managedContextHasBeenSet = true
@@ -31,9 +32,9 @@ class SlickNotesStorage {
         currentIndex = SlickNotesCoreDataHelper.count
         for (index, note) in notes.enumerated() {
             noteIndexToIdDict[index] = note.noteId
+            }
         }
-    }
-    }
+    
     
     func addNote(noteToBeAdded: SlickNotes) {
         if managedContextHasBeenSet {
