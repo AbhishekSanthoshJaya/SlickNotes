@@ -15,6 +15,9 @@
 		00B3F625249CE70B00C24FDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B3F624249CE70B00C24FDC /* Assets.xcassets */; };
 		00B3F628249CE70B00C24FDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B3F626249CE70B00C24FDC /* LaunchScreen.storyboard */; };
 		00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F62F249D073F00C24FDC /* SlickNotes.xcdatamodeld */; };
+		00B3F637249D83CB00C24FDC /* SlickNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F636249D83CB00C24FDC /* SlickNotes.swift */; };
+		00B3F639249D85BF00C24FDC /* SlickNotesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */; };
+		00B3F63B249D86F400C24FDC /* SlickNotesDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		00B3F627249CE70B00C24FDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00B3F629249CE70B00C24FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B3F630249D073F00C24FDC /* SlickNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlickNotes.xcdatamodel; sourceTree = "<group>"; };
+		00B3F636249D83CB00C24FDC /* SlickNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotes.swift; sourceTree = "<group>"; };
+		00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotesStorage.swift; sourceTree = "<group>"; };
+		00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotesDateHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 		00B3F618249CE70900C24FDC /* SlickNotes */ = {
 			isa = PBXGroup;
 			children = (
+				00B3F633249D80FC00C24FDC /* Extensions */,
 				00B3F632249D074B00C24FDC /* CoreDataModel */,
 				00B3F619249CE70900C24FDC /* AppDelegate.swift */,
 				00B3F61B249CE70900C24FDC /* SceneDelegate.swift */,
@@ -69,6 +76,9 @@
 				00B3F624249CE70B00C24FDC /* Assets.xcassets */,
 				00B3F626249CE70B00C24FDC /* LaunchScreen.storyboard */,
 				00B3F629249CE70B00C24FDC /* Info.plist */,
+				00B3F636249D83CB00C24FDC /* SlickNotes.swift */,
+				00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */,
+				00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */,
 			);
 			path = SlickNotes;
 			sourceTree = "<group>";
@@ -79,6 +89,13 @@
 				00B3F62F249D073F00C24FDC /* SlickNotes.xcdatamodeld */,
 			);
 			path = CoreDataModel;
+			sourceTree = "<group>";
+		};
+		00B3F633249D80FC00C24FDC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +170,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B3F61A249CE70900C24FDC /* AppDelegate.swift in Sources */,
+				00B3F637249D83CB00C24FDC /* SlickNotes.swift in Sources */,
 				00B3F61C249CE70900C24FDC /* SceneDelegate.swift in Sources */,
 				00B3F61E249CE70900C24FDC /* MasterViewController.swift in Sources */,
 				00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */,
+				00B3F639249D85BF00C24FDC /* SlickNotesStorage.swift in Sources */,
+				00B3F63B249D86F400C24FDC /* SlickNotesDateHelper.swift in Sources */,
 				00B3F620249CE70900C24FDC /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,6 +16,27 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         // Core data initialization
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            // create alert
+            let alert = UIAlertController(
+                title: "Could note get app delegate",
+                message: "Could note get app delegate, unexpected error occurred. Try again later.",
+                preferredStyle: .alert)
+            
+            // add OK action
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default))
+            // show alert
+            self.present(alert, animated: true)
+            return
+            
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        // set context in the storage
+        SlickNotesStorage.storage.setManagedContext(managedObjectContext: managedContext)
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
 
