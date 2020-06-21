@@ -226,7 +226,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         noteTextTextView.layer.borderWidth = 1.0
         noteTextTextView.layer.cornerRadius = 5
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 
     //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
     //tap.cancelsTouchesInView = false
@@ -242,7 +242,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     
     @objc func dismissKeyboard() {
     //Causes the view (or one of its embedded text fields) to resign the first responder status.
-    view.endEditing(true)
+        view.endEditing(true)
     }
     //Handle the text changes here
     func textViewDidChange(_ textView: UITextView) {
