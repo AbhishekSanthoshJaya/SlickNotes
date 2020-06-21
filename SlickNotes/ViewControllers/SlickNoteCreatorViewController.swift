@@ -18,6 +18,9 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     let locationManager = CLLocationManager()
     var userLocation: CLLocation!
     
+    var imagePicker: ImagePicker!
+    @IBOutlet var imageView: UIImageView!
+    
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var Micbutton: UIButton!
     
@@ -191,6 +194,8 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
+        
         // set text view delegate so that we can react on text change
         noteTextTextView.delegate = self
         
@@ -234,6 +239,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
+    
     @objc func dismissKeyboard() {
     //Causes the view (or one of its embedded text fields) to resign the first responder status.
     view.endEditing(true)
@@ -252,8 +258,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
             }
         }
     }
+    
+    
 
-}
+    @IBAction func cameraShowImage(_ sender: UIButton) {
+              self.imagePicker.present(from: sender)
+          }
+      }
+
 
 
 extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
@@ -262,5 +274,14 @@ extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
         userLocation = locations[0]
         
         
+    }
+}
+
+
+
+extension SlickNoteCreatorViewController: ImagePickerDelegate {
+
+    func didSelect(image: UIImage?) {
+        self.imageView.image = image
     }
 }

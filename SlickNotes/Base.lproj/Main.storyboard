@@ -160,8 +160,9 @@
                                     <action selector="textTitleChanged:forEvent:" destination="pJp-4i-4zG" eventType="valueChanged" id="Wu0-jG-RQ5"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0j-ww-jez">
-                                <rect key="frame" x="16" y="164" width="343" height="413"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C0j-ww-jez">
+                                <rect key="frame" x="16" y="164" width="343" height="207"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -193,9 +194,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="camera.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="cameraShowImage:" destination="pJp-4i-4zG" eventType="touchUpInside" id="mU1-ed-HLe"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4b-qi-BQb">
-                                <rect key="frame" x="16" y="364" width="343" height="200"/>
+                                <rect key="frame" x="14" y="372" width="347" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -204,20 +208,16 @@
                             <constraint firstItem="Ut0-il-KPg" firstAttribute="top" secondItem="Ep7-Da-01O" secondAttribute="bottom" constant="8" id="8Nx-Pl-fk7"/>
                             <constraint firstItem="lcf-CU-5cX" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="16" id="8ab-cf-xAS"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="Ep7-Da-01O" secondAttribute="trailing" constant="16" id="9gq-4r-bx9"/>
-                            <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="C0j-ww-jez" secondAttribute="trailing" constant="16" id="Ado-v5-1Qi"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="Ut0-il-KPg" secondAttribute="trailing" constant="16" id="O4n-k6-uWi"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="JXb-w8-Aje" secondAttribute="trailing" constant="16" id="Q4Y-hq-wQg"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="qGz-T5-2KI" secondAttribute="trailing" constant="216" id="dN5-VO-Pin"/>
                             <constraint firstItem="Ut0-il-KPg" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="16" id="eCb-wJ-C31"/>
                             <constraint firstItem="Ep7-Da-01O" firstAttribute="top" secondItem="qGz-T5-2KI" secondAttribute="bottom" constant="8" id="iSz-Le-Yrz"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="trailing" secondItem="lcf-CU-5cX" secondAttribute="trailing" constant="16" id="k4y-UI-5YP"/>
-                            <constraint firstItem="lcf-CU-5cX" firstAttribute="top" secondItem="C0j-ww-jez" secondAttribute="bottom" constant="8" id="kW0-eQ-UdQ"/>
                             <constraint firstItem="JXb-w8-Aje" firstAttribute="top" secondItem="baM-kJ-2U9" secondAttribute="top" constant="16" id="nQ8-th-XM6"/>
                             <constraint firstItem="qGz-T5-2KI" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="16" id="pCL-ge-Q3l"/>
                             <constraint firstItem="qGz-T5-2KI" firstAttribute="top" secondItem="baM-kJ-2U9" secondAttribute="top" constant="16" id="qMN-LG-dK6"/>
                             <constraint firstItem="JXb-w8-Aje" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="150" id="tf4-3U-W05"/>
-                            <constraint firstItem="C0j-ww-jez" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="16" id="uO2-NU-IKm"/>
-                            <constraint firstItem="C0j-ww-jez" firstAttribute="top" secondItem="Ut0-il-KPg" secondAttribute="bottom" constant="8" id="uVn-Yh-qq8"/>
                             <constraint firstItem="baM-kJ-2U9" firstAttribute="bottom" secondItem="lcf-CU-5cX" secondAttribute="bottom" constant="20" id="wrH-Xh-SJs"/>
                             <constraint firstItem="Ep7-Da-01O" firstAttribute="leading" secondItem="baM-kJ-2U9" secondAttribute="leading" constant="16" id="wxr-P3-CmN"/>
                         </constraints>
@@ -226,6 +226,8 @@
                     <navigationItem key="navigationItem" id="lmZ-wv-JBj"/>
                     <connections>
                         <outlet property="Micbutton" destination="02k-hd-Iy7" id="Y0m-VR-9ej"/>
+                        <outlet property="cameraButton" destination="Fxb-WX-C7B" id="OD2-Os-CK6"/>
+                        <outlet property="imageView" destination="M4b-qi-BQb" id="3Dg-4Q-0ff"/>
                         <outlet property="noteDateLabel" destination="JXb-w8-Aje" id="4q7-Vo-x6n"/>
                         <outlet property="noteDoneButton" destination="lcf-CU-5cX" id="CNQ-iy-yx7"/>
                         <outlet property="noteTextTextView" destination="C0j-ww-jez" id="vUi-JD-P0U"/>
