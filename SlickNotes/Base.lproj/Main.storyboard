@@ -108,6 +108,7 @@
                     <connections>
                         <outlet property="noteDate" destination="Nkq-dP-66J" id="rmc-TH-LRC"/>
                         <outlet property="noteLocationLabel" destination="j3E-Gx-Qeh" id="owQ-uX-3lr"/>
+                        <outlet property="noteLocationOutImg" destination="GWY-vX-eoj" id="Qyb-bw-6yd"/>
                         <outlet property="noteTextTextView" destination="Zxg-qG-x94" id="BD0-v6-tYL"/>
                         <outlet property="noteTitleLabel" destination="1Uh-6m-Vox" id="eUh-rm-ZU3"/>
                     </connections>

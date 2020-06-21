@@ -16,7 +16,8 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var noteLocationLabel: UILabel!
     
-     func configureView() {
+    @IBOutlet weak var noteLocationOutImg: UIImageView!
+    func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
             if let topicLabel = noteTitleLabel,
@@ -36,13 +37,26 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configureView()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        noteLocationOutImg.isUserInteractionEnabled = true
+        noteLocationOutImg.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    
+    
    var detailItem: SlickNotes? {
         didSet {
             // Update the view.
             configureView()
         }
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        
+        // Your action
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
