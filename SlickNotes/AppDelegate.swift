@@ -17,13 +17,14 @@ var navigationBarAppearace = UINavigationBar.appearance()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        UINavigationBar.appearance().backgroundColor = UIColor.blue;
-        UINavigationBar.appearance().tintColor = UIColor.blue
+        UINavigationBar.appearance().backgroundColor = UIColor.yellow;
+        UINavigationBar.appearance().tintColor = UIColor.black
 
         
-        navigationBarAppearace.titleTextAttributes = [ NSAttributedString.Key.foregroundColor:UIColor.blue]
+        navigationBarAppearace.titleTextAttributes = [ NSAttributedString.Key.foregroundColor:UIColor.black]
 
         UIApplication.shared.statusBarStyle = .darkContent
+        
         return true
     }
 

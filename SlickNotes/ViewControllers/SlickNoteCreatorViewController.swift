@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
+class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINavigationControllerDelegate,  UIImagePickerControllerDelegate {
     
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteTextTextView: UITextView!
