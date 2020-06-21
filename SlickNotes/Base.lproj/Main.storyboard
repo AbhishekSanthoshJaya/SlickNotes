@@ -193,6 +193,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="camera.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="addImagesInNotes:" destination="pJp-4i-4zG" eventType="touchUpInside" id="H6u-MG-Axi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -221,6 +224,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="lmZ-wv-JBj"/>
                     <connections>
+                        <outlet property="Micbutton" destination="02k-hd-Iy7" id="Y0m-VR-9ej"/>
+                        <outlet property="cameraButton" destination="Fxb-WX-C7B" id="Fpr-dY-qXR"/>
                         <outlet property="noteDateLabel" destination="JXb-w8-Aje" id="4q7-Vo-x6n"/>
                         <outlet property="noteDoneButton" destination="lcf-CU-5cX" id="CNQ-iy-yx7"/>
                         <outlet property="noteTextTextView" destination="C0j-ww-jez" id="vUi-JD-P0U"/>
