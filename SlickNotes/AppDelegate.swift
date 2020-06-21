@@ -13,15 +13,18 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 var navigationBarAppearace = UINavigationBar.appearance()
+    
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        UINavigationBar.appearance().backgroundColor = UIColor(red: 128, green: 212, blue: 255, alpha: 1.0)
-         UINavigationBar.appearance().tintColor = UIColor(red: 240 , green: 248, blue: 255, alpha: 1.0)
-        
-        navigationBarAppearace.titleTextAttributes = [ NSAttributedString.Key.foregroundColor:UIColor(red: 240 , green: 248, blue: 255, alpha: 1.0), NSAttributedString.Key.font: UIFont(name: "Roberto-Medium", size: 19)!]
+        UINavigationBar.appearance().backgroundColor = UIColor.blue;
+        UINavigationBar.appearance().tintColor = UIColor.blue
 
-       
+        
+        navigationBarAppearace.titleTextAttributes = [ NSAttributedString.Key.foregroundColor:UIColor.blue]
+
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 
