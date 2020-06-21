@@ -78,7 +78,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="✎ Edit"/>
                                 <connections>
-                                    <segue destination="pJp-4i-4zG" kind="show" identifier="showChangeNoteSegue" id="Qis-PK-fHa"/>
+                                    <segue destination="A7q-xa-9tS" kind="show" identifier="showChangeNoteSegue" id="Qis-PK-fHa"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -140,19 +140,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGz-T5-2KI">
-                                <rect key="frame" x="16" y="16" width="143" height="17"/>
+                                <rect key="frame" x="16" y="72" width="143" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ut0-il-KPg">
-                                <rect key="frame" x="16" y="83" width="343" height="17"/>
+                                <rect key="frame" x="16" y="139" width="343" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Note 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ep7-Da-01O">
-                                <rect key="frame" x="16" y="41" width="343" height="34"/>
+                                <rect key="frame" x="16" y="97" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -161,13 +161,13 @@
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0j-ww-jez">
-                                <rect key="frame" x="16" y="108" width="343" height="469"/>
+                                <rect key="frame" x="16" y="164" width="343" height="413"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXb-w8-Aje">
-                                <rect key="frame" x="150" y="16" width="209" height="17"/>
+                                <rect key="frame" x="150" y="72" width="209" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -205,6 +205,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="baM-kJ-2U9"/>
                     </view>
+                    <navigationItem key="navigationItem" id="lmZ-wv-JBj"/>
                     <connections>
                         <outlet property="noteDateLabel" destination="JXb-w8-Aje" id="4q7-Vo-x6n"/>
                         <outlet property="noteDoneButton" destination="lcf-CU-5cX" id="CNQ-iy-yx7"/>
@@ -215,7 +216,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T1o-9M-J8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1476" y="127.28635682158921"/>
+            <point key="canvasLocation" x="2415.1999999999998" y="127.28635682158921"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="wz7-mN-hKA">
+            <objects>
+                <viewController storyboardIdentifier="mapView" id="FAr-7y-mSu" customClass="MapViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Hq-o7-FHw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nYF-Qr-etG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nYF-Qr-etG" firstAttribute="leading" secondItem="NbY-HG-Aw7" secondAttribute="leading" id="UDe-YJ-hTx"/>
+                            <constraint firstItem="NbY-HG-Aw7" firstAttribute="bottom" secondItem="nYF-Qr-etG" secondAttribute="bottom" id="hrf-AZ-3CC"/>
+                            <constraint firstItem="nYF-Qr-etG" firstAttribute="top" secondItem="NbY-HG-Aw7" secondAttribute="top" id="vTr-bF-WxN"/>
+                            <constraint firstItem="NbY-HG-Aw7" firstAttribute="trailing" secondItem="nYF-Qr-etG" secondAttribute="trailing" id="xoE-Yr-BPI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NbY-HG-Aw7"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="nYF-Qr-etG" id="lJZ-eM-PRN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f4W-a3-i4K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1499" y="837"/>
         </scene>
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">
@@ -270,7 +300,7 @@
                                     <outlet property="noteTextLabel" destination="eYm-Mu-hhO" id="Ncz-oR-TOm"/>
                                     <outlet property="noteTitleLabel" destination="ZBW-X0-tnb" id="cl2-rt-pD5"/>
                                     <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
-                                    <segue destination="pJp-4i-4zG" kind="show" identifier="showCreateNoteSegue" trigger="accessoryAction" id="FDD-dR-pLh"/>
+                                    <segue destination="A7q-xa-9tS" kind="show" identifier="showCreateNoteSegue" trigger="accessoryAction" id="FDD-dR-pLh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -302,11 +332,30 @@
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dPx-hz-dEG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A7q-xa-9tS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="DI1-cm-1uP"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yxw-RZ-3UX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pJp-4i-4zG" kind="relationship" relationship="rootViewController" id="ByH-5t-rUj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SM7-x1-ref" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1476" y="127.28635682158921"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="FDD-dR-pLh"/>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="I9d-PT-S2W"/>
-        <segue reference="Qis-PK-fHa"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>

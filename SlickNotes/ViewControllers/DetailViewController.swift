@@ -16,6 +16,10 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var noteLocationLabel: UILabel!
     
+    var latitude: String!
+    var longitude: String!
+
+    
     @IBOutlet weak var noteLocationOutImg: UIImageView!
     func configureView() {
         // Update the user interface for the detail item.
@@ -28,7 +32,8 @@ class DetailViewController: UIViewController {
                 dateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
                 textView.text = detail.noteText
                 location.text = "\(detail.location)"
-                
+                latitude = detail.latitude
+                longitude = detail.longitude
             }
         }
     }
@@ -56,6 +61,13 @@ class DetailViewController: UIViewController {
     {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let mapViewController = storyBoard.instantiateViewController(withIdentifier: "mapView") as! MapViewController
+        
+        mapViewController.latitude = latitude
+        mapViewController.longitude = longitude
+
+        self.navigationController?.pushViewController(mapViewController, animated: true)
         // Your action
     }
     
