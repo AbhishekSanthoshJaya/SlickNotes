@@ -91,6 +91,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if SlickNotesStorage.storage.count() == 0 {
+        self.tableView.setEmptyMessage("No notes to show")
+        } else {
+        self.tableView.restore()
+        }
+        //return places?.count ?? 0
+        
+        
         return SlickNotesStorage.storage.count()
     }
 
