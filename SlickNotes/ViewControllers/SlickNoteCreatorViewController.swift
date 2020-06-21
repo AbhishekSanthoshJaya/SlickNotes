@@ -50,39 +50,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     }
     
 
-    
-    @IBAction func addImagesInNotes(_ sender: Any){
-        
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.allowsEditing = true
-        
-        let alertController = UIAlertController(title: "Add an image", message: "Choose From", preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) {(action) in pickerController.sourceType = .camera
-            self.present(pickerController,animated: true,completion: nil)
-        }
-        
-        let photosLibraryAction = UIAlertAction(title: "Photos Library", style: .default)
-        {(action) in pickerController.sourceType = .photoLibrary
-            self.present(pickerController, animated: true, completion: nil)
-        }
-        
-        let savedPhotosAction = UIAlertAction(title: "Saved Photos Album", style: .default)
-        {(action) in pickerController.sourceType = .savedPhotosAlbum
-        self.present(pickerController,animated: true,completion: nil)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        
-         alertController.addAction(cameraAction)
-         alertController.addAction(photosLibraryAction)
-         alertController.addAction(savedPhotosAction)
-         alertController.addAction(cancelAction)
-        
-        present(alertController,animated: true,completion: nil)
-        
-    }
+
     
     
     func setChangingReallySimpleNote(changingReallySimpleNote : SlickNotes) {

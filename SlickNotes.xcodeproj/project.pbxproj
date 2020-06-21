@@ -22,6 +22,7 @@
 		00B3F639249D85BF00C24FDC /* SlickNotesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */; };
 		00B3F63B249D86F400C24FDC /* SlickNotesDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */; };
 		AB90E352249EDD5700642408 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB90E351249EDD5700642408 /* MapViewController.swift */; };
+		BD99195E249F61B200BC9263 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD99195D249F61B200BC9263 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		00B3F638249D85BF00C24FDC /* SlickNotesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotesStorage.swift; sourceTree = "<group>"; };
 		00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotesDateHelper.swift; sourceTree = "<group>"; };
 		AB90E351249EDD5700642408 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BD99195D249F61B200BC9263 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		00531F51249E352B0065CF8F /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				BD99195D249F61B200BC9263 /* ImagePicker.swift */,
 				00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */,
 				00531F4F249E308C0065CF8F /* SlickNotesCoreDataHelper.swift */,
 			);
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD99195E249F61B200BC9263 /* ImagePicker.swift in Sources */,
 				00B3F61A249CE70900C24FDC /* AppDelegate.swift in Sources */,
 				00B3F637249D83CB00C24FDC /* SlickNotes.swift in Sources */,
 				00B3F61C249CE70900C24FDC /* SceneDelegate.swift in Sources */,
