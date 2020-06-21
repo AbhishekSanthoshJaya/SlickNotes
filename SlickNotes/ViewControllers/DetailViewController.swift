@@ -14,16 +14,20 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var noteTextTextView: UITextView!
     @IBOutlet weak var noteDate: UILabel!
 
-
+    @IBOutlet weak var noteLocationLabel: UILabel!
+    
      func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
             if let topicLabel = noteTitleLabel,
                let dateLabel = noteDate,
-               let textView = noteTextTextView {
+               let textView = noteTextTextView,
+                let location = noteLocationLabel{
                 topicLabel.text = detail.noteTitle
                 dateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
                 textView.text = detail.noteText
+                location.text = "\(detail.location)"
+                
             }
         }
     }

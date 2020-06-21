@@ -50,42 +50,119 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate {
         self.changingReallySimpleNote = changingReallySimpleNote
     }
     
+    
+
+    
     private func addItem() -> Void {
-        let note = SlickNotes(
-            noteTitle:     noteTitleTextField.text!,
-            noteText:      noteTextTextView.text,
-            noteTimeStamp: noteCreationTimeStamp,
-            latitude: String(userLocation.coordinate.latitude),
-            longitude: String(userLocation.coordinate.longitude)
-
-            )
-
-        SlickNotesStorage.storage.addNote(noteToBeAdded: note)
         
-        performSegue(
-            withIdentifier: "backToMasterView",
-            sender: self)
+        let lat = userLocation.coordinate.latitude
+        let long  = userLocation.coordinate.longitude
+        
+        
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
+                   
+                   placemark, error in
+                   
+                   
+                   if let error = error as? CLError
+                   {
+                       print("CLError:", error)
+                       return
+                   }
+                       
+                   else if let placemark = placemark?[0]
+                   {
+                               
+                       
+                       var placeName = ""
+                       var city = ""
+                       var postalCode = ""
+                       var country = ""
+                       if let name = placemark.name { placeName += name }
+                       if let locality = placemark.subLocality { city += locality }
+                       if let code = placemark.postalCode { postalCode += code }
+                       if let countryName = placemark.country { country += countryName }
+                       
+                       var location = "\(placeName), \(country)"
+                       
+                    
+                        let note = SlickNotes(
+                            noteTitle:     self.noteTitleTextField.text!,
+                            noteText:      self.noteTextTextView.text,
+                            noteTimeStamp: self.noteCreationTimeStamp,
+                            latitude: String(self.userLocation.coordinate.latitude),
+                            longitude: String(self.userLocation.coordinate.longitude),
+                                   location: location
+                                   )
+
+                               SlickNotesStorage.storage.addNote(noteToBeAdded: note)
+                               
+                    self.performSegue(
+                                   withIdentifier: "backToMasterView",
+                                   sender: self)
+                    }
+                   
+               }
+       
     }
 
     private func changeItem() -> Void {
         // get changed note instance
         if let changingReallySimpleNote = self.changingReallySimpleNote {
             // change the note through note storage
-            SlickNotesStorage.storage.changeNote(
-                noteToBeChanged: SlickNotes(
-                    noteId:        changingReallySimpleNote.noteId,
-                    noteTitle:     noteTitleTextField.text!,
-                    noteText:      noteTextTextView.text,
-                    noteTimeStamp: noteCreationTimeStamp,
-                    latitude: String(userLocation.coordinate.latitude),
-                     longitude: String(userLocation.coordinate.longitude)
-                    
-                    )
-            )
-            // navigate back to list of notes
-            performSegue(
-                withIdentifier: "backToMasterView",
-                sender: self)
+            let lat = userLocation.coordinate.latitude
+            let long  = userLocation.coordinate.longitude
+            
+            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
+                         
+                         placemark, error in
+                         
+                         
+                         if let error = error as? CLError
+                         {
+                             print("CLError:", error)
+                             return
+                         }
+                             
+                         else if let placemark = placemark?[0]
+                         {
+                                     
+                             
+                             var placeName = ""
+                             var city = ""
+                             var postalCode = ""
+                             var country = ""
+                             if let name = placemark.name { placeName += name }
+                             if let locality = placemark.subLocality { city += locality }
+                             if let code = placemark.postalCode { postalCode += code }
+                             if let countryName = placemark.country { country += countryName }
+                             
+                             var location = "\(placeName), \(country)"
+                        
+                            
+                            SlickNotesStorage.storage.changeNote(
+                                           noteToBeChanged: SlickNotes(
+                                               noteId:        changingReallySimpleNote.noteId,
+                                               noteTitle:     self.noteTitleTextField.text!,
+                                               noteText:      self.noteTextTextView.text,
+                                               noteTimeStamp: self.noteCreationTimeStamp,
+                                               latitude: String(self.userLocation.coordinate.latitude),
+                                               longitude: String(self.userLocation.coordinate.longitude),
+                                               location: location
+                                               )
+                                       )
+                                       // navigate back to list of notes
+                            self.performSegue(
+                                           withIdentifier: "backToMasterView",
+                                           sender: self)
+                
+                
+                        }
+                
+            }
+            
+            
+           
         } else {
             // create alert
             let alert = UIAlertController(

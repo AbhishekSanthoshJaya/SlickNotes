@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,18 +38,41 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Note Text" translatesAutoresizingMaskIntoConstraints="NO" id="Zxg-qG-x94" userLabel="Note Text View">
-                                <rect key="frame" x="16" y="144" width="343" height="433"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nkq-dP-66J">
                                 <rect key="frame" x="16" y="120" width="343" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="center" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yiK-CZ-om3">
+                                <rect key="frame" x="5" y="144" width="365" height="25"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5J-um-d68">
+                                        <rect key="frame" x="140" y="0.0" width="85.5" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3E-Gx-Qeh" userLabel="Location">
+                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GWY-vX-eoj">
+                                                <rect key="frame" x="60.5" y="-1" width="25" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="Zgf-Gp-iON"/>
+                                                    <constraint firstAttribute="height" constant="25" id="iTx-H2-phu"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Note Text" translatesAutoresizingMaskIntoConstraints="NO" id="Zxg-qG-x94" userLabel="Note Text View">
+                                <rect key="frame" x="16" y="177" width="343" height="400"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lpY-fw-8fX">
                                 <rect key="frame" x="20" y="585" width="335" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -61,9 +85,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="lpY-fw-8fX" secondAttribute="trailing" constant="20" id="0bg-c5-vVu"/>
+                            <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="yiK-CZ-om3" secondAttribute="trailing" constant="5" id="A8h-bv-Rjx"/>
                             <constraint firstItem="Nkq-dP-66J" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="16" id="AyE-Bg-ib3"/>
                             <constraint firstItem="Zxg-qG-x94" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="16" id="GpF-vd-FMl"/>
-                            <constraint firstItem="Zxg-qG-x94" firstAttribute="top" secondItem="Nkq-dP-66J" secondAttribute="bottom" constant="8" id="IEm-93-RZE"/>
+                            <constraint firstItem="yiK-CZ-om3" firstAttribute="top" secondItem="Nkq-dP-66J" secondAttribute="bottom" constant="8" id="KgB-4o-Agl"/>
                             <constraint firstItem="lpY-fw-8fX" firstAttribute="top" secondItem="Zxg-qG-x94" secondAttribute="bottom" constant="8" id="LGE-fm-hSg"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="Zxg-qG-x94" secondAttribute="trailing" constant="16" id="S6t-Ou-UHD"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="Nkq-dP-66J" secondAttribute="trailing" constant="16" id="SMn-2D-L8u"/>
@@ -71,6 +96,8 @@
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="trailing" secondItem="1Uh-6m-Vox" secondAttribute="trailing" constant="20" id="f7P-Wx-bva"/>
                             <constraint firstItem="1Uh-6m-Vox" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="20" id="kic-Wa-9ng"/>
                             <constraint firstItem="lpY-fw-8fX" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="20" id="kua-1z-qbi"/>
+                            <constraint firstItem="Zxg-qG-x94" firstAttribute="top" secondItem="yiK-CZ-om3" secondAttribute="bottom" constant="8" id="pUT-gM-Yw5"/>
+                            <constraint firstItem="yiK-CZ-om3" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" constant="5" id="qtN-on-b0B"/>
                             <constraint firstItem="Nkq-dP-66J" firstAttribute="top" secondItem="1Uh-6m-Vox" secondAttribute="bottom" constant="8" id="s0a-dS-xTc"/>
                             <constraint firstItem="VUw-jc-0yf" firstAttribute="bottom" secondItem="lpY-fw-8fX" secondAttribute="bottom" constant="20" id="uoc-dx-1A0"/>
                         </constraints>
@@ -80,6 +107,7 @@
                     <navigationItem key="navigationItem" title="Note Details" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="noteDate" destination="Nkq-dP-66J" id="rmc-TH-LRC"/>
+                        <outlet property="noteLocationLabel" destination="j3E-Gx-Qeh" id="owQ-uX-3lr"/>
                         <outlet property="noteTextTextView" destination="Zxg-qG-x94" id="BD0-v6-tYL"/>
                         <outlet property="noteTitleLabel" destination="1Uh-6m-Vox" id="eUh-rm-ZU3"/>
                     </connections>
@@ -277,6 +305,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="I9d-PT-S2W"/>
-        <segue reference="FDD-dR-pLh"/>
+        <segue reference="Qis-PK-fHa"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+    </resources>
 </document>

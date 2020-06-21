@@ -50,6 +50,10 @@ class SlickNotesCoreDataHelper
         noteToBeCreated.longitude,
         forKey: "longitude")
         
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.location,
+        forKey: "location")
+        
         do {
             try intoManagedObjectContext.save()
             count += 1
@@ -114,7 +118,8 @@ class SlickNotesCoreDataHelper
                     noteTimeStamp: noteManagedObjectRead.value(forKey: "noteTimeStamp") as! Int64,
                     
                     latitude: noteManagedObjectRead.value(forKey: "latitude") as! String,
-                    longitude: noteManagedObjectRead.value(forKey: "longitude") as! String
+                    longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
+                    location: noteManagedObjectRead.value(forKey: "location") as! String
 
                     ))
             }
@@ -148,7 +153,9 @@ class SlickNotesCoreDataHelper
                 noteText:      noteManagedObjectToBeRead.value(forKey: "noteText")      as! String,
                 noteTimeStamp: noteManagedObjectToBeRead.value(forKey: "noteTimeStamp") as! Int64,
             latitude: noteManagedObjectToBeRead.value(forKey: "latitude") as! String,
-                longitude: noteManagedObjectToBeRead.value(forKey: "longitude") as! String)
+                longitude: noteManagedObjectToBeRead.value(forKey: "longitude") as! String,
+            location: noteManagedObjectToBeRead.value(forKey: "location") as! String
+                )
         } catch let error as NSError {
             // TODO error handling
             print("Could not read. \(error), \(error.userInfo)")
