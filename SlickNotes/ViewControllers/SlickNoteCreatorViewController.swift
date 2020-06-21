@@ -49,6 +49,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         }
     }
     
+
     
     @IBAction func addImagesInNotes(_ sender: Any){
         
