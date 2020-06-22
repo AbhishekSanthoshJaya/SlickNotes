@@ -20,7 +20,7 @@ class MasterViewController: UITableViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
         
-        self.view.addGestureRecognizer(tapGesture)
+//        self.view.addGestureRecognizer(tapGesture)
         
          // Core data initialization
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -85,6 +85,8 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Table View
+    
+
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
