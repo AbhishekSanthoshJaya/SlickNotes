@@ -73,13 +73,14 @@ class DetailViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showChangeNoteSegue" {
-            let changeNoteViewController = segue.destination as! SlickNoteCreatorViewController
+            let changeNoteViewController = (segue.destination as! UINavigationController).topViewController as! SlickNoteCreatorViewController
             if let detail = detailItem {
                 changeNoteViewController.setChangingReallySimpleNote(
                     changingReallySimpleNote: detail)
             }
         }
     }
+  //  (segue.destination as! UINavigationController).topViewController as! DetailViewController
 
 }
 
