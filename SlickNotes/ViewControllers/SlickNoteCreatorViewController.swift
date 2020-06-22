@@ -27,6 +27,8 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
     private(set) var changingReallySimpleNote : SlickNotes?
     
+    
+    // MARK: note tile changed
     @IBAction func noteTitleChanged(_ sender: UITextField, forEvent event: UIEvent) {
         if self.changingReallySimpleNote != nil {
             // change mode
@@ -41,6 +43,8 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         }
     }
     
+    
+    // MARK: DoneBtnClicked
     @IBAction func doneButtonClicked(_ sender: UIButton, forEvent event: UIEvent) {
         // distinguish change mode and create mode
         if self.changingReallySimpleNote != nil {
@@ -52,17 +56,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         }
     }
     
-
-
-    
-    
+    // MARK: Changing Simple Note
     func setChangingReallySimpleNote(changingReallySimpleNote : SlickNotes) {
         self.changingReallySimpleNote = changingReallySimpleNote
     }
     
     
-
     
+    // MARK: addItem
     private func addItem() -> Void {
         
         let lat = userLocation.coordinate.latitude
@@ -70,52 +71,53 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         
         
         CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
-                   
-                   placemark, error in
-                   
-                   
-                   if let error = error as? CLError
-                   {
-                       print("CLError:", error)
-                       return
-                   }
-                       
-                   else if let placemark = placemark?[0]
-                   {
-                               
-                       
-                       var placeName = ""
-                       var city = ""
-                       var postalCode = ""
-                       var country = ""
-                       if let name = placemark.name { placeName += name }
-                       if let locality = placemark.subLocality { city += locality }
-                       if let code = placemark.postalCode { postalCode += code }
-                       if let countryName = placemark.country { country += countryName }
-                       
-                       var location = "\(placeName), \(country)"
-                       
-                    
-                        let note = SlickNotes(
-                            noteTitle:     self.noteTitleTextField.text!,
-                            noteText:      self.noteTextTextView.text,
-                            noteTimeStamp: self.noteCreationTimeStamp,
-                            latitude: String(self.userLocation.coordinate.latitude),
-                            longitude: String(self.userLocation.coordinate.longitude),
-                                   location: location
-                                   )
-
-                               SlickNotesStorage.storage.addNote(noteToBeAdded: note)
-                               
-                    self.performSegue(
-                                   withIdentifier: "backToMasterView",
-                                   sender: self)
-                    }
-                   
-               }
-       
+            
+            placemark, error in
+            
+            
+            if let error = error as? CLError
+            {
+                print("CLError:", error)
+                return
+            }
+                
+            else if let placemark = placemark?[0]
+            {
+                
+                
+                var placeName = ""
+                var city = ""
+                var postalCode = ""
+                var country = ""
+                if let name = placemark.name { placeName += name }
+                if let locality = placemark.subLocality { city += locality }
+                if let code = placemark.postalCode { postalCode += code }
+                if let countryName = placemark.country { country += countryName }
+                
+                var location = "\(placeName), \(country)"
+                
+                
+                let note = SlickNotes(
+                    noteTitle:     self.noteTitleTextField.text!,
+                    noteText:      self.noteTextTextView.text,
+                    noteTimeStamp: self.noteCreationTimeStamp,
+                    latitude: String(self.userLocation.coordinate.latitude),
+                    longitude: String(self.userLocation.coordinate.longitude),
+                    location: location
+                )
+                
+                SlickNotesStorage.storage.addNote(noteToBeAdded: note)
+                
+                self.performSegue(
+                    withIdentifier: "backToMasterView",
+                    sender: self)
+            }
+            
+        }
+        
     }
-
+    
+    // MARK: changeItem
     private func changeItem() -> Void {
         // get changed note instance
         if let changingReallySimpleNote = self.changingReallySimpleNote {
@@ -124,55 +126,55 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
             let long  = userLocation.coordinate.longitude
             
             CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
-                         
-                         placemark, error in
-                         
-                         
-                         if let error = error as? CLError
-                         {
-                             print("CLError:", error)
-                             return
-                         }
-                             
-                         else if let placemark = placemark?[0]
-                         {
-                                     
-                             
-                             var placeName = ""
-                             var city = ""
-                             var postalCode = ""
-                             var country = ""
-                             if let name = placemark.name { placeName += name }
-                             if let locality = placemark.subLocality { city += locality }
-                             if let code = placemark.postalCode { postalCode += code }
-                             if let countryName = placemark.country { country += countryName }
-                             
-                             var location = "\(placeName), \(country)"
-                        
-                            
-                            SlickNotesStorage.storage.changeNote(
-                                           noteToBeChanged: SlickNotes(
-                                               noteId:        changingReallySimpleNote.noteId,
-                                               noteTitle:     self.noteTitleTextField.text!,
-                                               noteText:      self.noteTextTextView.text,
-                                               noteTimeStamp: self.noteCreationTimeStamp,
-                                               latitude: String(self.userLocation.coordinate.latitude),
-                                               longitude: String(self.userLocation.coordinate.longitude),
-                                               location: location
-                                               )
-                                       )
-                                       // navigate back to list of notes
-                            self.performSegue(
-                                           withIdentifier: "backToMasterView",
-                                           sender: self)
+                
+                placemark, error in
                 
                 
-                        }
+                if let error = error as? CLError
+                {
+                    print("CLError:", error)
+                    return
+                }
+                    
+                else if let placemark = placemark?[0]
+                {
+                    
+                    
+                    var placeName = ""
+                    var city = ""
+                    var postalCode = ""
+                    var country = ""
+                    if let name = placemark.name { placeName += name }
+                    if let locality = placemark.subLocality { city += locality }
+                    if let code = placemark.postalCode { postalCode += code }
+                    if let countryName = placemark.country { country += countryName }
+                    
+                    var location = "\(placeName), \(country)"
+                    
+                    
+                    SlickNotesStorage.storage.changeNote(
+                        noteToBeChanged: SlickNotes(
+                            noteId:        changingReallySimpleNote.noteId,
+                            noteTitle:     self.noteTitleTextField.text!,
+                            noteText:      self.noteTextTextView.text,
+                            noteTimeStamp: self.noteCreationTimeStamp,
+                            latitude: String(self.userLocation.coordinate.latitude),
+                            longitude: String(self.userLocation.coordinate.longitude),
+                            location: location
+                        )
+                    )
+                    // navigate back to list of notes
+                    self.performSegue(
+                        withIdentifier: "backToMasterView",
+                        sender: self)
+                    
+                    
+                }
                 
             }
             
             
-           
+            
         } else {
             // create alert
             let alert = UIAlertController(
@@ -183,14 +185,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
             // add OK action
             alert.addAction(UIAlertAction(title: "OK",
                                           style: .default ) { (_) in self.performSegue(
-                                              withIdentifier: "backToMasterView",
-                                              sender: self)})
+                                            withIdentifier: "backToMasterView",
+                                            sender: self)})
             // show alert
             self.present(alert, animated: true)
         }
     }
     
-    
+    // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -227,10 +229,10 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         noteTextTextView.layer.cornerRadius = 5
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-
-    //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-    //tap.cancelsTouchesInView = false
-
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
         view.addGestureRecognizer(tap)
         
         // For back button in navigation bar, change text
@@ -239,11 +241,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
-    
+    // MARK: dismissKeyBoard
     @objc func dismissKeyboard() {
-    //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
+    
+    
+    // MARK: textViewDidChange
     //Handle the text changes here
     func textViewDidChange(_ textView: UITextView) {
         if self.changingReallySimpleNote != nil {
@@ -260,14 +265,14 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     }
     
     
-
+    // MARK: camera show Image
     @IBAction func cameraShowImage(_ sender: UIButton) {
-              self.imagePicker.present(from: sender)
-          }
-      }
+        self.imagePicker.present(from: sender)
+    }
+}
 
 
-
+// MARK extension CLLocationManager
 extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -278,9 +283,9 @@ extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
 }
 
 
-
+// MARK: ImagePicker
 extension SlickNoteCreatorViewController: ImagePickerDelegate {
-
+    
     func didSelect(image: UIImage?) {
         self.imageView.image = image
     }
