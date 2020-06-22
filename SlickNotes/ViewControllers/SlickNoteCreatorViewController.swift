@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import AVFoundation
 
-class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINavigationControllerDelegate,  UIImagePickerControllerDelegate {
+class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINavigationControllerDelegate,  UIImagePickerControllerDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteTextTextView: UITextView!
@@ -23,6 +24,9 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var Micbutton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    
+
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
     private(set) var changingReallySimpleNote : SlickNotes?
@@ -269,6 +273,19 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     @IBAction func cameraShowImage(_ sender: UIButton) {
         self.imagePicker.present(from: sender)
     }
+    
+    
+    @IBAction func recordSound(_ sender: Any) {
+    }
+    
+    
+    @IBAction func playSound(_ sender: Any) {
+    }
+     
+    
+    
+    
+    
 }
 
 
