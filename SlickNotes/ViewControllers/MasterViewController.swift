@@ -18,10 +18,9 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
-        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
 //        self.view.addGestureRecognizer(tapGesture)
-        
+//        
          // Core data initialization
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             // create alert
@@ -60,9 +59,9 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
-    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        self.view.endEditing(true)
-    }
+//    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+//        self.view.endEditing(true)
+//    }
 
     @objc
     func insertNewObject(_ sender: Any) {
