@@ -16,7 +16,7 @@ class SlickNotes {
     private(set) var latitude : String
     private(set) var longitude : String
     private(set) var location : String
-
+    private(set) var category : SlickCategory?
 
     
     init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String) {
