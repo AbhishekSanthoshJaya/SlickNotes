@@ -51,14 +51,10 @@ class MasterViewController: UITableViewController {
         SlickNotesStorage.storage.setManagedContext(managedObjectContext: managedContext)
         
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
+       
     }
     
 
