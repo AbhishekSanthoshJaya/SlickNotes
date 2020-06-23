@@ -128,6 +128,10 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
 
         if let object = SlickCategoryStorage.storage.readCategory(at: indexPath.row) {
             cell.textLabel?.text = object.categoryName
+            
+            
+            // get the count of notes
+            cell.detailTextLabel?.text = "\(SlickNotesCoreDataHelper.readNotesFromCoreData(fromManagedObjectContext: self.managedContext).count) notes"  
         }
         return cell
     }
