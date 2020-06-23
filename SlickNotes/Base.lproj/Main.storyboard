@@ -78,7 +78,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="✎ Edit"/>
                                 <connections>
-                                    <segue destination="A7q-xa-9tS" kind="show" identifier="showChangeNoteSegue" id="Qis-PK-fHa"/>
+                                    <action selector="editButtonDown:" destination="JEX-9P-axG" eventType="touchUpInside" id="t0Y-dE-Ohd"/>
                                 </connections>
                             </button>
                         </subviews>

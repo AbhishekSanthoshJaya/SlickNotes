@@ -33,7 +33,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
 
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
-    private(set) var changingReallySimpleNote : SlickNotes?
+     var changingReallySimpleNote : SlickNotes?
     
     
     // MARK: note tile changed
@@ -178,10 +178,11 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
                         )
                     )
                     // navigate back to list of notes
-                    self.performSegue(
-                        withIdentifier: "backToMasterView",
-                        sender: self)
+                      // pop to lister
                     
+                    print("i am here")
+                    self.navigationController?.popViewController(animated: true)
+        
                     
                 }
                 

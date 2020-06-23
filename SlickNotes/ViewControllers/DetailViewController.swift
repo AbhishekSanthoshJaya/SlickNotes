@@ -71,15 +71,24 @@ class DetailViewController: UIViewController {
         // Your action
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showChangeNoteSegue" {
-            let changeNoteViewController = (segue.destination as! UINavigationController).topViewController as! SlickNoteCreatorViewController
-            if let detail = detailItem {
-                changeNoteViewController.setChangingReallySimpleNote(
-                    changingReallySimpleNote: detail)
-            }
-        }
+    @IBAction func editButtonDown(_ sender: Any) {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
+        SlickNoteCreatorViewController.changingReallySimpleNote = detailItem
+                
+        self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
+
     }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showChangeNoteSegue" {
+//            let changeNoteViewController = (segue.destination as! UINavigationController).topViewController as! SlickNoteCreatorViewController
+//            if let detail = detailItem {
+//                changeNoteViewController.setChangingReallySimpleNote(
+//                    changingReallySimpleNote: detail)
+//            }
+//        }
+//    }
   //  (segue.destination as! UINavigationController).topViewController as! DetailViewController
 
 }
