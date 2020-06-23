@@ -138,6 +138,18 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
         }
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let object = SlickCategoryStorage.storage.readCategory(at: indexPath.row) {
+            
+            let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+           let masterViewController = storyBoard.instantiateViewController(withIdentifier: "noteListerViewController") as! MasterViewController
+            masterViewController.folderSelectedName = object.categoryName
+           
+           self.navigationController?.pushViewController(masterViewController, animated: true)
+        }
+    }
 
      func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.

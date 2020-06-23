@@ -63,7 +63,7 @@ class MasterViewController: UITableViewController {
     
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+//        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
     
@@ -78,18 +78,18 @@ class MasterViewController: UITableViewController {
 
     // MARK: - Segues
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let object = SlickNotesStorage.storage.readNote(at: indexPath.row)
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showDetail" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                let object = SlickNotesStorage.storage.readNote(at: indexPath.row)
+//                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+//                controller.detailItem = object
+//                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+//                controller.navigationItem.leftItemsSupplementBackButton = true
+//                detailViewController = controller
+//            }
+//        }
+//    }
 
     // MARK: - Table View
     
@@ -120,6 +120,16 @@ class MasterViewController: UITableViewController {
             cell.noteDateLabel!.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: object.noteTimeStamp))
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let object = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)![indexPath.row]
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let NoteDetailView = storyBoard.instantiateViewController(withIdentifier: "NoteDetailView") as! DetailViewController
+        NoteDetailView.detailItem = object
+       self.navigationController?.pushViewController(NoteDetailView, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
