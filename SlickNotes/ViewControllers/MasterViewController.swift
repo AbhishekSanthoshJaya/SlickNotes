@@ -109,8 +109,10 @@ class MasterViewController: UITableViewController {
     @objc
     func insertNewObject(_ sender: Any) {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-              let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
-             self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
+        let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
+        
+        SlickNoteCreatorViewController.folderSelectedName = folderSelectedName
+        self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
     }
 
     // MARK: - Segues

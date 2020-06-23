@@ -239,6 +239,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         
         
         categoryTextField.inputView = categoryPicker
+        categoryTextField.text = folderSelectedName
         categoryPicker.delegate = self
         
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
