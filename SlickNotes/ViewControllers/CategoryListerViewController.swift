@@ -132,8 +132,9 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
             
             
             // get the count of notes
-            let notes = SlickNotesStorage.storage.readNotes(withPredicate: NSPredicate(format: "parent.categoryName=%@", object.categoryName))
-            cell.detailTextLabel?.text = "\(String(describing: notes?.count)) notes"
+            let notes = SlickNotesStorage.storage.readNotes(withPredicate: NSPredicate(format: "parent.categoryName = %@", object.categoryName as CVarArg ))
+            
+            cell.detailTextLabel?.text = "\(notes!.count) notes"
         }
         return cell
     }

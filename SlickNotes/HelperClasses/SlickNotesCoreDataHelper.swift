@@ -54,6 +54,8 @@ class SlickNotesCoreDataHelper
         noteToBeCreated.location,
         forKey: "location")
         
+        newNoteToBeCreated.setValue(noteToBeCreated.category, forKey: "parent")
+        
         do {
             try intoManagedObjectContext.save()
             count += 1

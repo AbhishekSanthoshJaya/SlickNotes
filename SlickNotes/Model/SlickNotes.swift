@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 class SlickNotes {
     private(set) var noteId        : UUID
@@ -16,7 +18,7 @@ class SlickNotes {
     private(set) var latitude : String
     private(set) var longitude : String
     private(set) var location : String
-    private(set) var category : SlickCategory?
+    private(set) var category : Category?
 
     
     init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String, category: String = "all") {
@@ -29,12 +31,21 @@ class SlickNotes {
         self.location = location
         
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
-        if let selectedCategories = SlickCategoryStorage.storage.readCategories(withPredicate: predicate){
-            if selectedCategories.count > 0{
-                self.category = selectedCategories[0]
-            }
-        }
         
+         let request: NSFetchRequest<Category> = Category.fetchRequest()
+        request.predicate = predicate
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+            let categories  = try context.fetch(request)
+            if categories.count > 0 {
+                 let category = categories[0]
+                self.category = category
+            }
+           
+        } catch {
+            print("Error loading categories \(error.localizedDescription)")
+        }
+       
     }
 
     init(noteId: UUID, noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location: String, category: String = "all"
@@ -48,13 +59,20 @@ class SlickNotes {
         self.location = location
         
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
-        if let selectedCategories = SlickCategoryStorage.storage.readCategories(withPredicate: predicate){
-            
-            if selectedCategories.count > 0{
-                self.category = selectedCategories[0]
-            }
-            
-        }
+               
+                let request: NSFetchRequest<Category> = Category.fetchRequest()
+               request.predicate = predicate
+               let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+               do {
+                   let categories  = try context.fetch(request)
+                   if categories.count > 0 {
+                        let category = categories[0]
+                       self.category = category
+                   }
+                  
+               } catch {
+                   print("Error loading categories \(error.localizedDescription)")
+               }
         
     }
 }
