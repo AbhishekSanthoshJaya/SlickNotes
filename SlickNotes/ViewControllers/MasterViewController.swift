@@ -101,12 +101,15 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if SlickNotesStorage.storage.count() == 0 {
-        self.tableView.setEmptyMessage("No notes to show")
+            self.tableView.setEmptyMessage("No notes to show")
         } else {
-        self.tableView.restore()
+            self.tableView.restore()
         }
         //return places?.count ?? 0
         
+        if folderSelectedName == "All"{
+            folderPredicate = nil
+        }
         
         return SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)!.count
     }
@@ -114,6 +117,10 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SlickNotesTableCell
 
+        if folderSelectedName == "All"{
+                   folderPredicate = nil
+               }
+        
         let object = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)![indexPath.row]
         cell.noteTitleLabel!.text = object.noteTitle
         cell.noteTextLabel!.text = object.noteText

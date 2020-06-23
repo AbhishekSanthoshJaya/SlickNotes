@@ -18,6 +18,11 @@ class CategoryListerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // check if all category is present if not add it
+        
+       
+        
+        
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
 //        self.view.addGestureRecognizer(tapGesture)
 //
@@ -43,6 +48,12 @@ class CategoryListerViewController: UIViewController {
         SlickCategoryStorage.storage.setManagedContext(managedObjectContext: managedContext)
         SlickNotesStorage.storage.setManagedContext(managedObjectContext: managedContext)
         
+        
+        let allCategories = SlickCategoryStorage.storage.readCategories(withPredicate: NSPredicate(format: "categoryName = %@", "All"))
+               if(allCategories?.count == 0){
+                   // app opened first time
+                   SlickCategoryStorage.storage.addCategory(categoryToBeAdded: .init(categoryName: "All"))
+               }
         // Do any additional setup after loading the view.
        
         
@@ -135,7 +146,12 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
             
             
             // get the count of notes
-            let notes = SlickNotesStorage.storage.readNotes(withPredicate: NSPredicate(format: "parent.categoryName = %@", object.categoryName as CVarArg ))
+            var predicate: NSPredicate? = NSPredicate(format: "parent.categoryName = %@", object.categoryName as CVarArg )
+            
+            if object.categoryName == "All"{
+                predicate = nil
+            }
+            let notes = SlickNotesStorage.storage.readNotes(withPredicate: predicate)
             
             cell.detailTextLabel?.text = "\(notes!.count) notes"
         }
