@@ -27,9 +27,12 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var Micbutton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     
+    var soundRecorder : AVAudioRecorder!
+    var fileName: String = "audioFile.m4a"
+    var soundPlayer : AVAudioPlayer!
 
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
@@ -211,7 +214,8 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupRecorder()
+        playButton.isEnabled = false
         
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -337,6 +341,10 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     @IBAction func cameraShowImage(_ sender: UIButton) {
         self.imagePicker.present(from: sender)
     }
+    
+    
+    
+    
     
     
     @IBAction func recordSound(_ sender: Any) {
