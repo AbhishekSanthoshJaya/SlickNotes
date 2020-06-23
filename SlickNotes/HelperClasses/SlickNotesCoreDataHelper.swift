@@ -128,6 +128,38 @@ class SlickNotesCoreDataHelper
             print("Could not read. \(error), \(error.userInfo)")
         }
         
+        
+        return returnedNotes
+    }
+    
+    static func readNotesFromCoreData(fromManagedObjectContext: NSManagedObjectContext ) -> [SlickNotes] {
+
+        var returnedNotes = [SlickNotes]()
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        fetchRequest.predicate = nil
+        
+        do {
+            let fetchedNotesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)
+            fetchedNotesFromCoreData.forEach { (fetchRequestResult) in
+                let noteManagedObjectRead = fetchRequestResult as! NSManagedObject
+                returnedNotes.append(SlickNotes.init(
+                    noteId:        noteManagedObjectRead.value(forKey: "noteId")        as! UUID,
+                    noteTitle:     noteManagedObjectRead.value(forKey: "noteTitle")     as! String,
+                    noteText:      noteManagedObjectRead.value(forKey: "noteText")      as! String,
+                    noteTimeStamp: noteManagedObjectRead.value(forKey: "noteTimeStamp") as! Int64,
+                    
+                    latitude: noteManagedObjectRead.value(forKey: "latitude") as! String,
+                    longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
+                    location: noteManagedObjectRead.value(forKey: "location") as! String
+
+                    ))
+            }
+        } catch let error as NSError {
+            // TODO error handling
+            print("Could not read. \(error), \(error.userInfo)")
+        }
+        
         // set note count
         self.count = returnedNotes.count
         
