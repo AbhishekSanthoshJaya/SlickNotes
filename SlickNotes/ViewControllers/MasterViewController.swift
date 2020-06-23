@@ -181,6 +181,7 @@ class MasterViewController: UITableViewController {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
         let NoteDetailView = storyBoard.instantiateViewController(withIdentifier: "NoteDetailView") as! DetailViewController
         NoteDetailView.detailItem = object
+        NoteDetailView.folderSelectedName = folderSelectedName
        self.navigationController?.pushViewController(NoteDetailView, animated: true)
     }
 

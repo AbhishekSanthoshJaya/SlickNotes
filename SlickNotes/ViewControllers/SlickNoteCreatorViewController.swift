@@ -34,7 +34,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
      var changingReallySimpleNote : SlickNotes?
-    
+    var folderSelectedName: String? 
     
     // MARK: note tile changed
     @IBAction func noteTitleChanged(_ sender: UITextField, forEvent event: UIEvent) {
@@ -263,6 +263,28 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
             noteTitleTextField.text = changingReallySimpleNote.noteTitle
             // enable done button by default
             noteDoneButton.isEnabled = true
+            
+            
+            let request: NSFetchRequest<Note> = Note.fetchRequest()
+            request.predicate = NSPredicate(format: "noteId = %@", changingReallySimpleNote.noteId as! CVarArg)
+            var note: Note? = nil
+            do {
+                let notes = try self.managedContext.fetch(request)
+                if notes.count > 0 {
+                    note = notes[0]
+                }
+                
+            } catch {
+                print("Error loading folders \(error.localizedDescription)")
+            }
+            
+            if note != nil {
+                categoryTextField.text = note?.parent?.categoryName ?? "All"
+            }
+            else{
+                categoryTextField.text = "All"
+            }
+            
         } else {
             // in create mode: set initial time stamp label
             noteDateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: noteCreationTimeStamp))

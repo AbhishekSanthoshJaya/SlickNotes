@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     
     var latitude: String!
     var longitude: String!
-
+    var folderSelectedName: String?
     
     @IBOutlet weak var noteLocationOutImg: UIImageView!
     func configureView() {
@@ -76,7 +76,7 @@ class DetailViewController: UIViewController {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
         let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
         SlickNoteCreatorViewController.changingReallySimpleNote = detailItem
-                
+        SlickNoteCreatorViewController.folderSelectedName = folderSelectedName
         self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
 
     }
