@@ -26,6 +26,7 @@
 		ABC09F0824A17A1B00138A1C /* SlickCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0724A17A1B00138A1C /* SlickCategory.swift */; };
 		ABC09F0A24A1AC2000138A1C /* SlickCategoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */; };
 		ABC09F0C24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0B24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift */; };
+		ABC09F0E24A1BB7C00138A1C /* CategoryListerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0D24A1BB7C00138A1C /* CategoryListerViewController.swift */; };
 		BD99195E249F61B200BC9263 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD99195D249F61B200BC9263 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		ABC09F0724A17A1B00138A1C /* SlickCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategory.swift; sourceTree = "<group>"; };
 		ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategoryStorage.swift; sourceTree = "<group>"; };
 		ABC09F0B24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategoryCoreDataHelper.swift; sourceTree = "<group>"; };
+		ABC09F0D24A1BB7C00138A1C /* CategoryListerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListerViewController.swift; sourceTree = "<group>"; };
 		BD99195D249F61B200BC9263 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 				00531F55249E51B50065CF8F /* SlickNoteCreatorViewController.swift */,
 				00531F57249E53430065CF8F /* SlickNotesTableCell.swift */,
 				AB90E351249EDD5700642408 /* MapViewController.swift */,
+				ABC09F0D24A1BB7C00138A1C /* CategoryListerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				BD99195E249F61B200BC9263 /* ImagePicker.swift in Sources */,
 				00B3F61A249CE70900C24FDC /* AppDelegate.swift in Sources */,
 				00B3F637249D83CB00C24FDC /* SlickNotes.swift in Sources */,
+				ABC09F0E24A1BB7C00138A1C /* CategoryListerViewController.swift in Sources */,
 				00B3F61C249CE70900C24FDC /* SceneDelegate.swift in Sources */,
 				ABC09F0C24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift in Sources */,
 				00B3F61E249CE70900C24FDC /* MasterViewController.swift in Sources */,
