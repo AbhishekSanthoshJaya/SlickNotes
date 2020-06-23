@@ -358,7 +358,7 @@
             </objects>
             <point key="canvasLocation" x="708" y="-630.13493253373315"/>
         </scene>
-        <!--Category Lister View Controller-->
+        <!--Categories-->
         <scene sceneID="MCu-Wz-6s4">
             <objects>
                 <viewController id="V1W-Zv-TnX" customClass="CategoryListerViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
@@ -394,7 +394,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3my-hq-ETM"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TJ7-oR-9Q4">
+                    <navigationItem key="navigationItem" title="Categories" id="TJ7-oR-9Q4">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1cP-oS-VDq">
                             <connections>
                                 <action selector="addCategoryBtnDown:" destination="V1W-Zv-TnX" id="f9e-ds-VF0"/>
