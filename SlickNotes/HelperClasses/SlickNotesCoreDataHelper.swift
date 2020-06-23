@@ -92,6 +92,9 @@ class SlickNotesCoreDataHelper
             noteManagedObjectToBeChanged.setValue(
                 noteToBeChanged.noteTimeStamp,
                 forKey: "noteTimeStamp")
+            
+            noteManagedObjectToBeChanged.setValue(noteToBeChanged.category, forKey: "parent")
+
 
             // save
             try inManagedObjectContext.save()

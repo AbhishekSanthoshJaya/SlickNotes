@@ -97,6 +97,7 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
 //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        loadNotes()
         tableView.reloadData()
 
     }
