@@ -14,7 +14,15 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
     var managedContext: NSManagedObjectContext!
-
+ 
+    var folderPredicate: NSPredicate?
+    var folderSelectedName: String? {
+        didSet{
+            folderPredicate = NSPredicate(format: "parent.categoryName = %@", folderSelectedName as! CVarArg)
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,17 +108,17 @@ class MasterViewController: UITableViewController {
         //return places?.count ?? 0
         
         
-        return SlickNotesStorage.storage.count()
+        return SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SlickNotesTableCell
 
-        if let object = SlickNotesStorage.storage.readNote(at: indexPath.row) {
+        let object = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)![indexPath.row]
         cell.noteTitleLabel!.text = object.noteTitle
         cell.noteTextLabel!.text = object.noteText
             cell.noteDateLabel!.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: object.noteTimeStamp))
-        }
+        
         return cell
     }
 
