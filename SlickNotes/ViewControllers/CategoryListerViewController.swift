@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CategoryViewController: UITableViewController {
+class CategoryListerViewController: UIViewController {
 
     var objects = [Any]()
     var managedContext: NSManagedObjectContext!
@@ -47,9 +47,18 @@ class CategoryViewController: UITableViewController {
     }
     
     @IBAction func addCategoryBtnDown(_ sender: Any) {
+        
+        print("clicked")
+       let alertController = UIAlertController(title: "Success", message: "Added to Favourite list", preferredStyle: .alert)
+                             let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: {(alert: UIAlertAction!) in
+                              print("hello")
+                      })
+                      
+      alertController.addAction(cancelAction)
+      present(alertController, animated: true, completion: nil)
+           
     }
-    @IBAction func editCategooryBtnDown(_ sender: Any) {
-    }
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,23 +81,28 @@ class CategoryViewController: UITableViewController {
     
 
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+  
+
+
+}
+
+
+
+
+extension CategoryListerViewController: UITableViewDataSource, UITableViewDelegate{
+     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if SlickCategoryStorage.storage.count() == 0 {
-            self.tableView.setEmptyMessage("No Categories to show")
-        } else {
-            self.tableView.restore()
-        }
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
         //return places?.count ?? 0
         
         
         return SlickCategoryStorage.storage.count()
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
 
         if let object = SlickCategoryStorage.storage.readCategory(at: indexPath.row) {
@@ -97,12 +111,12 @@ class CategoryViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row)
             SlickCategoryStorage.storage.removeCategory(at: indexPath.row)
@@ -111,7 +125,6 @@ class CategoryViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-
+    
+    
 }
-
