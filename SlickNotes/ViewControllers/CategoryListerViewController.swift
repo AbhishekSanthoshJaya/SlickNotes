@@ -48,6 +48,8 @@ class CategoryListerViewController: UIViewController {
         
     }
     
+  
+    
     @IBAction func addCategoryBtnDown(_ sender: Any) {
         
         print("clicked")
@@ -84,6 +86,7 @@ class CategoryListerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
 //    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {

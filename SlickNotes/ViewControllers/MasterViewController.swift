@@ -65,6 +65,8 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
 //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        tableView.reloadData()
+
     }
     
 //    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -73,7 +75,9 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        performSegue(withIdentifier: "showCreateNoteSegue", sender: self)
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+              let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
+             self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
     }
 
     // MARK: - Segues

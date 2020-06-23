@@ -119,9 +119,12 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
                 
                 SlickNotesStorage.storage.addNote(noteToBeAdded: note)
                 
-                self.performSegue(
-                    withIdentifier: "backToMasterView",
-                    sender: self)
+                
+                // pop to lister
+                self.navigationController?.popToRootViewController(animated: true)
+               
+                          
+                
             }
             
         }
