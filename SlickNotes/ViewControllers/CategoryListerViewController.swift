@@ -41,6 +41,7 @@ class CategoryListerViewController: UIViewController {
         
          // set context in the storage
         SlickCategoryStorage.storage.setManagedContext(managedObjectContext: managedContext)
+        SlickNotesStorage.storage.setManagedContext(managedObjectContext: managedContext)
         
         // Do any additional setup after loading the view.
        
@@ -131,7 +132,8 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
             
             
             // get the count of notes
-            cell.detailTextLabel?.text = "\(SlickNotesCoreDataHelper.readNotesFromCoreData(fromManagedObjectContext: self.managedContext).count) notes"  
+            let notes = SlickNotesStorage.storage.readNotes(withPredicate: NSPredicate(format: "parent.categoryName=%@", object.categoryName))
+            cell.detailTextLabel?.text = "\(String(describing: notes?.count)) notes"
         }
         return cell
     }

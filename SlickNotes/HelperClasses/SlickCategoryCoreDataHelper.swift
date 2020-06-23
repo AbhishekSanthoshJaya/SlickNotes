@@ -84,6 +84,31 @@ class SlickCategoryCoreDataHelper
         }
     }
     
+    
+    static func readCategoriesFromCoreData(fromManagedObjectContext: NSManagedObjectContext) -> [SlickCategory]{
+        
+        var returnedCategories = [SlickCategory]()
+               
+               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+               fetchRequest.predicate = nil
+               
+               do {
+                   let fetchedCategoriesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)
+                   fetchedCategoriesFromCoreData.forEach { (fetchRequestResult) in
+                       let categoryManagedObjectRead = fetchRequestResult as! NSManagedObject
+                       returnedCategories.append(SlickCategory.init(categoryId: categoryManagedObjectRead.value(forKey: "categoryId") as! UUID, categoryName: categoryManagedObjectRead.value(forKey: "categoryName") as! String))
+                   }
+               } catch let error as NSError {
+                   // TODO error handling
+                   print("Could not read. \(error), \(error.userInfo)")
+               }
+               
+               // set note count
+               self.count = returnedCategories.count
+               
+               return returnedCategories
+    }
+    
     static func readCategoriesFromCoreData(fromManagedObjectContext: NSManagedObjectContext, withPredicate: NSPredicate? = nil) -> [SlickCategory] {
 
         var returnedCategories = [SlickCategory]()
@@ -102,8 +127,6 @@ class SlickCategoryCoreDataHelper
             print("Could not read. \(error), \(error.userInfo)")
         }
         
-        // set note count
-        self.count = returnedCategories.count
         
         return returnedCategories
     }
@@ -121,6 +144,7 @@ class SlickCategoryCoreDataHelper
         do {
             let fetchedCategoriesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)
             let categoryManagedObjectToBeRead = fetchedCategoriesFromCoreData[0] as! NSManagedObject
+           
             return SlickCategory.init(categoryId: categoryManagedObjectToBeRead.value(forKey: "categoryId") as! UUID, categoryName: categoryManagedObjectToBeRead.value(forKey: "categoryName") as!
                 String)
         } catch let error as NSError {
