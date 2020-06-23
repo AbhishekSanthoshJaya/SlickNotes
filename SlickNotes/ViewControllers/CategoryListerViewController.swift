@@ -42,14 +42,15 @@ class CategoryViewController: UITableViewController {
         SlickCategoryStorage.storage.setManagedContext(managedObjectContext: managedContext)
         
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
+       
         
     }
     
-
+    @IBAction func addCategoryBtnDown(_ sender: Any) {
+    }
+    @IBAction func editCategooryBtnDown(_ sender: Any) {
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
