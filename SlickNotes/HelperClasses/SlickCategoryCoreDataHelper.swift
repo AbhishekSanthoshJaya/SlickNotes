@@ -137,7 +137,7 @@ class SlickCategoryCoreDataHelper
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
         
         let categoryIdAsCVarArg: CVarArg = categoryIdToBeDeleted as CVarArg
-        let categoryIdPredicate = NSPredicate(format: "noteId == %@", categoryIdAsCVarArg)
+        let categoryIdPredicate = NSPredicate(format: "categoryId == %@", categoryIdAsCVarArg)
         
         fetchRequest.predicate = categoryIdPredicate
         

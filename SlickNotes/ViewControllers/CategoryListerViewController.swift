@@ -53,7 +53,7 @@ class CategoryListerViewController: UIViewController {
        let alertController = UIAlertController(title: "Add New Category", message: "Enter Name", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
-            textField.text = "Name"
+            textField.text = ""
         }
      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in
             print("Cancelled")
