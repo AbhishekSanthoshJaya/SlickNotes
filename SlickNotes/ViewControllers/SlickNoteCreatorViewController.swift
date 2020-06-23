@@ -111,8 +111,11 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
                     noteTimeStamp: self.noteCreationTimeStamp,
                     latitude: String(self.userLocation.coordinate.latitude),
                     longitude: String(self.userLocation.coordinate.longitude),
-                    location: location
+                    location: location,
+                    category: self.categoryTextField.text!
+                    
                 )
+                
                 
                 SlickNotesStorage.storage.addNote(noteToBeAdded: note)
                 

@@ -84,12 +84,12 @@ class SlickCategoryCoreDataHelper
         }
     }
     
-    static func readCategoriesFromCoreData(fromManagedObjectContext: NSManagedObjectContext) -> [SlickCategory] {
+    static func readCategoriesFromCoreData(fromManagedObjectContext: NSManagedObjectContext, withPredicate: NSPredicate? = nil) -> [SlickCategory] {
 
         var returnedCategories = [SlickCategory]()
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
-        fetchRequest.predicate = nil
+        fetchRequest.predicate = withPredicate
         
         do {
             let fetchedCategoriesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)

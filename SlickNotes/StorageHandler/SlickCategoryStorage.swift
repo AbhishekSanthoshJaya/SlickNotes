@@ -91,10 +91,10 @@ class SlickCategoryStorage {
     }
     
     
-    func readCategories() -> [SlickCategory]?{
+    func readCategories(withPredicate: NSPredicate? = nil) -> [SlickCategory]?{
         
         if managedContextHasBeenSet {
-            return SlickCategoryCoreDataHelper.readCategoriesFromCoreData(fromManagedObjectContext: self.managedObjectContext)
+            return SlickCategoryCoreDataHelper.readCategoriesFromCoreData(fromManagedObjectContext: self.managedObjectContext, withPredicate: withPredicate)
        }
        return nil
         
