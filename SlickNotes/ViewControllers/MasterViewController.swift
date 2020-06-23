@@ -23,8 +23,35 @@ class MasterViewController: UITableViewController {
     }
     
     
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var allNotes: [SlickNotes] = []
+    var filteredNotes: [SlickNotes] = []
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadNotes()
+        
+        // code for searching
+        searchController.searchResultsUpdater = self
+        // 2
+        searchController.obscuresBackgroundDuringPresentation = false
+        // 3
+        searchController.searchBar.placeholder = "Search Notes"
+        // 4
+        navigationItem.searchController = searchController
+        // 5
+        definesPresentationContext = true
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
 //        self.view.addGestureRecognizer(tapGesture)
@@ -57,6 +84,14 @@ class MasterViewController: UITableViewController {
        
     }
     
+    
+    func loadNotes(){
+        if folderSelectedName == "All"{
+                          folderPredicate = nil
+        }
+               
+        allNotes = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)!
+    }
 
     override func viewWillAppear(_ animated: Bool) {
 //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
@@ -107,21 +142,23 @@ class MasterViewController: UITableViewController {
         }
         //return places?.count ?? 0
         
-        if folderSelectedName == "All"{
-            folderPredicate = nil
+        if isFiltering {
+          return filteredNotes.count
         }
-        
-        return SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)!.count
+        return allNotes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SlickNotesTableCell
 
-        if folderSelectedName == "All"{
-                   folderPredicate = nil
-               }
-        
-        let object = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)![indexPath.row]
+        let object: SlickNotes
+        if isFiltering {
+            object = filteredNotes[indexPath.row]
+        }
+        else
+        {
+            object = allNotes[indexPath.row]
+        }
         cell.noteTitleLabel!.text = object.noteTitle
         cell.noteTextLabel!.text = object.noteText
             cell.noteDateLabel!.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: object.noteTimeStamp))
@@ -131,7 +168,13 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let object = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)![indexPath.row]
+        let object: SlickNotes
+        if isFiltering {
+            object = filteredNotes[indexPath.row]
+        }
+        else{
+            object = allNotes[indexPath.row]
+        }
         
         let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
         let NoteDetailView = storyBoard.instantiateViewController(withIdentifier: "NoteDetailView") as! DetailViewController
@@ -147,7 +190,16 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row)
-            SlickNotesStorage.storage.removeNote(at: indexPath.row)
+            
+            var delIndex = 0
+            for val in allNotes{
+                if val.noteId == filteredNotes[indexPath.row].noteId
+                {
+                    break
+                }
+                delIndex = delIndex + 1
+            }
+            SlickNotesStorage.storage.removeNote(at: delIndex)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -157,3 +209,19 @@ class MasterViewController: UITableViewController {
 
 }
 
+extension MasterViewController: UISearchResultsUpdating {
+      func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+      }
+        
+    func filterContentForSearchText(_ searchText: String
+                                    ) {
+      filteredNotes = allNotes.filter { (note: SlickNotes) -> Bool in
+        return note.noteTitle.lowercased().contains(searchText.lowercased()) || note.noteText.lowercased().contains(searchText.lowercased()
+        )
+      }
+      
+      tableView.reloadData()
+    }
+}
