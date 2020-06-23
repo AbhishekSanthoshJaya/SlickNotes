@@ -100,12 +100,12 @@ class SlickNotesCoreDataHelper
         }
     }
     
-    static func readNotesFromCoreData(fromManagedObjectContext: NSManagedObjectContext) -> [SlickNotes] {
+    static func readNotesFromCoreData(fromManagedObjectContext: NSManagedObjectContext, predicate: NSPredicate? = nil ) -> [SlickNotes] {
 
         var returnedNotes = [SlickNotes]()
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-        fetchRequest.predicate = nil
+        fetchRequest.predicate = predicate
         
         do {
             let fetchedNotesFromCoreData = try fromManagedObjectContext.fetch(fetchRequest)

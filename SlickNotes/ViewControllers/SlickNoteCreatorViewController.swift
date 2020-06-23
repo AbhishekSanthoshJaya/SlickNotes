@@ -9,16 +9,20 @@
 import UIKit
 import MapKit
 import AVFoundation
+import CoreData
+
 
 class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINavigationControllerDelegate,  UIImagePickerControllerDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
-    
+    var managedContext: NSManagedObjectContext!
+
+    @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteTextTextView: UITextView!
     @IBOutlet weak var noteDoneButton: UIButton!
     @IBOutlet weak var noteDateLabel: UILabel!
     let locationManager = CLLocationManager()
     var userLocation: CLLocation!
-    
+    let categoryPicker = UIPickerView()
     var imagePicker: ImagePicker!
     @IBOutlet var imageView: UIImageView!
     
@@ -200,6 +204,35 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                   // create alert
+                   let alert = UIAlertController(
+                       title: "Could note get app delegate",
+                       message: "Could note get app delegate, unexpected error occurred. Try again later.",
+                       preferredStyle: .alert)
+                   
+                   // add OK action
+                   alert.addAction(UIAlertAction(title: "OK",
+                                                 style: .default))
+                   // show alert
+                   self.present(alert, animated: true)
+                   return
+                   
+               }
+        managedContext = appDelegate.persistentContainer.viewContext
+               
+                // set context in the storage
+        SlickCategoryStorage.storage.setManagedContext(managedObjectContext: managedContext)
+             
+        
+        
+        
+        
+        categoryTextField.inputView = categoryPicker
+        categoryPicker.delegate = self
+        
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
         
         // set text view delegate so that we can react on text change
@@ -305,5 +338,33 @@ extension SlickNoteCreatorViewController: ImagePickerDelegate {
     
     func didSelect(image: UIImage?) {
         self.imageView.image = image
+    }
+}
+
+
+extension SlickNoteCreatorViewController:  UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if let categories = SlickCategoryStorage.storage.readCategories(){
+            return categories.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if let categories = SlickCategoryStorage.storage.readCategories(){
+            return categories[row].categoryName
+        }
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let categories = SlickCategoryStorage.storage.readCategories(){
+            categoryTextField.text = categories[row].categoryName
+        }
     }
 }

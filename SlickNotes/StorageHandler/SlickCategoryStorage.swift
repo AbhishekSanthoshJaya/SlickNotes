@@ -90,6 +90,16 @@ class SlickCategoryStorage {
         return nil
     }
     
+    
+    func readCategories() -> [SlickCategory]?{
+        
+        if managedContextHasBeenSet {
+            return SlickCategoryCoreDataHelper.readCategoriesFromCoreData(fromManagedObjectContext: self.managedObjectContext)
+       }
+       return nil
+        
+    }
+    
     func changeCategory(categoryToBeChanged: SlickCategory) {
         if managedContextHasBeenSet {
             // check if UUID is in the dictionary
@@ -108,6 +118,7 @@ class SlickCategoryStorage {
         }
     }
     func count() -> Int {
+        print(SlickCategoryCoreDataHelper.count)
         return SlickCategoryCoreDataHelper.count
     }
 }

@@ -96,6 +96,13 @@ class SlickNotesStorage {
         return nil
     }
     
+    func readNotes(withPredicate: NSPredicate?) -> [SlickNotes]?{
+        if managedContextHasBeenSet {
+            return SlickNotesCoreDataHelper.readNotesFromCoreData(fromManagedObjectContext: self.managedObjectContext, predicate: withPredicate)
+        }
+        return nil
+    }
+    
     func changeNote(noteToBeChanged: SlickNotes) {
         if managedContextHasBeenSet {
             // check if UUID is in the dictionary
