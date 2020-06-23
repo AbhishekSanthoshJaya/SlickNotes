@@ -50,6 +50,7 @@ class MasterViewController: UITableViewController {
         searchController.searchBar.placeholder = "Search Notes"
         // 4
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         // 5
         definesPresentationContext = true
         
