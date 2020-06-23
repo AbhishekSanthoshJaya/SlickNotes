@@ -188,6 +188,9 @@
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button" image="mic.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="recordSound:" destination="pJp-4i-4zG" eventType="touchUpInside" id="hyd-Cq-FWz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxb-WX-C7B">
                                 <rect key="frame" x="20" y="607" width="40" height="40"/>
@@ -217,6 +220,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="playSound:" destination="pJp-4i-4zG" eventType="touchUpInside" id="BXK-Xe-7GP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -342,24 +342,87 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         self.imagePicker.present(from: sender)
     }
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
     
     
+    func setupRecorder() {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent(fileName)
+        let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
+                              AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+                              AVEncoderBitRateKey : 320000,
+                              AVNumberOfChannelsKey : 2,
+                              AVSampleRateKey : 44100.2] as [String : Any]
+        
+        do {
+            soundRecorder = try AVAudioRecorder(url: audioFilename, settings: recordSetting )
+            soundRecorder.delegate = self
+            soundRecorder.prepareToRecord()
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    func setupPlayer() {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent(fileName)
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: audioFilename)
+            soundPlayer.delegate = self
+            soundPlayer.prepareToPlay()
+            soundPlayer.volume = 1.0
+        } catch {
+            print(error)
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        playButton.isEnabled = true
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        recordButton.isEnabled = true
+        playButton.setImage(UIImage(named: "play.fill.png"), for: .normal)
+    }
     
     
     
     @IBAction func recordSound(_ sender: Any) {
+        
+        let play =  UIImage(systemName: "play.fill")
+        
+        if recordButton.isTouchInside == true {
+                   soundRecorder.record()
+                   recordButton.setImage(UIImage(named: "stop.fill"), for: .normal)
+                   playButton.isEnabled = false
+               } else {
+                   soundRecorder.stop()
+                    recordButton.setImage(play, for: .normal)
+                   playButton.isEnabled = false
+               }
+        
     }
     
     
     @IBAction func playSound(_ sender: Any) {
-    }
-     
-    
-    
-    
-    
-}
+        
+        
+            if playButton.titleLabel?.text == "Play" {
+               playButton.setImage(UIImage(named: "stop.fill"), for: .normal)
+                recordButton.isEnabled = false
+                setupPlayer()
+                soundPlayer.play()
+            } else {
+                soundPlayer.stop()
+               playButton.setImage(UIImage(named: "play.fill"), for: .normal)
+                recordButton.isEnabled = false
+            }
+        }
 
+    }
+    
 
 // MARK extension CLLocationManager
 extension SlickNoteCreatorViewController: CLLocationManagerDelegate{
