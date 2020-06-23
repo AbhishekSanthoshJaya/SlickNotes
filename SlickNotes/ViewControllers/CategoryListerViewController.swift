@@ -11,6 +11,7 @@ import CoreData
 
 class CategoryListerViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     var objects = [Any]()
     var managedContext: NSManagedObjectContext!
 
@@ -49,12 +50,32 @@ class CategoryListerViewController: UIViewController {
     @IBAction func addCategoryBtnDown(_ sender: Any) {
         
         print("clicked")
-       let alertController = UIAlertController(title: "Success", message: "Added to Favourite list", preferredStyle: .alert)
-                             let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: {(alert: UIAlertAction!) in
-                              print("hello")
-                      })
+       let alertController = UIAlertController(title: "Add New Category", message: "Enter Name", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.text = "Name"
+        }
+     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in
+            print("Cancelled")
+     })
+        
+        let addCatAction = UIAlertAction(title: "Add", style: .default, handler: {(alert: UIAlertAction!) in
+            let textField = alertController.textFields![0] // Force unwrapping because we know it exists.
+            
+            
+            // code to add new category
+            
+            
+            let category = SlickCategory(categoryName: textField.text!)
+            SlickCategoryStorage.storage.addCategory(categoryToBeAdded: category)
+            self.tableView.reloadData()
+            
+            
+        })
                       
       alertController.addAction(cancelAction)
+      alertController.addAction(addCatAction)
+
       present(alertController, animated: true, completion: nil)
            
     }
@@ -103,7 +124,7 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
     }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
 
         if let object = SlickCategoryStorage.storage.readCategory(at: indexPath.row) {
             cell.textLabel?.text = object.categoryName
