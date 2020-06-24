@@ -414,16 +414,21 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         let stop = UIImage(systemName: "stop.fill")
         let play = UIImage(systemName: "play.fill")
         
-            if playButton.titleLabel?.text == "Play" {
+            if playButton.titleLabel?.text == "play" {
                        playButton.setImage(stop, for: .normal)
+                playButton.setTitle("Stop", for: .normal)
                        recordButton.isEnabled = false
                        setupPlayer()
                        soundPlayer.play()
-                   } else {
+                   } else if playButton.titleLabel?.text == "Stop" {
                        soundPlayer.stop()
                        playButton.setImage(play, for: .normal)
-                       recordButton.isEnabled = false
+                    playButton.setTitle("play", for: .normal)
+                       recordButton.isEnabled = true
                    }
+            else{
+                return
+        }
                }
 }
     
