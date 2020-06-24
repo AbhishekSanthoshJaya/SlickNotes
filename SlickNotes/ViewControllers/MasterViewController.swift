@@ -106,14 +106,24 @@ class MasterViewController: UITableViewController {
 //        self.view.endEditing(true)
 //    }
 
+//    @objc
+//    func insertNewObject(_ sender: Any) {
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+//        let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
+//
+//        SlickNoteCreatorViewController.folderSelectedName = folderSelectedName
+//        self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
+//    }
+    
+    
     @objc
-    func insertNewObject(_ sender: Any) {
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        let SlickNoteCreatorViewController = storyBoard.instantiateViewController(withIdentifier: "SlickNoteCreatorViewController") as! SlickNoteCreatorViewController
-        
-        SlickNoteCreatorViewController.folderSelectedName = folderSelectedName
-        self.navigationController?.pushViewController(SlickNoteCreatorViewController, animated: true)
-    }
+       func insertNewObject(_ sender: Any) {
+           let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+           let SlickCreateNoteViewController = storyBoard.instantiateViewController(withIdentifier: "SlickCreateNoteViewController") as! SlickCreateNoteViewController
+           
+           SlickCreateNoteViewController.folderSelectedName = folderSelectedName
+           self.navigationController?.pushViewController(SlickCreateNoteViewController, animated: true)
+       }
 
     // MARK: - Segues
 

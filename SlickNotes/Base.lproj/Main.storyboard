@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zr5-Ci-afJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zr5-Ci-afJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -293,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4W-a3-i4K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2437.5999999999999" y="836.13193403298362"/>
+            <point key="canvasLocation" x="4316" y="836.13193403298362"/>
         </scene>
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">
@@ -432,6 +432,40 @@
             </objects>
             <point key="canvasLocation" x="-884" y="386.35682158920542"/>
         </scene>
+        <!--Note-->
+        <scene sceneID="SfA-pm-fvZ">
+            <objects>
+                <viewController storyboardIdentifier="SlickCreateNoteViewController" id="I1E-Ec-RXf" customClass="SlickCreateNoteViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oWh-Xg-a8v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="JyS-EG-Qrd"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Note" id="1ph-7N-KGZ">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="save" id="Gsq-5Y-PQH">
+                                <connections>
+                                    <action selector="saveNoteBtnDown:" destination="I1E-Ec-RXf" id="zqF-K5-yEm"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="microphone" id="UCn-ua-nY6">
+                                <connections>
+                                    <action selector="saveAudioBtnDown:" destination="I1E-Ec-RXf" id="rvj-JJ-Ymv"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="photo" id="N1s-PC-dEr">
+                                <connections>
+                                    <action selector="saveImageBtnDown:" destination="I1E-Ec-RXf" id="2Of-Re-202"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IWG-Vp-UBC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1109.5999999999999" y="1177.961019490255"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
@@ -485,10 +519,31 @@
             </objects>
             <point key="canvasLocation" x="-1823.2" y="386.35682158920542"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7gr-v7-nrE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BhZ-eU-Zyt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aMy-rm-gym">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="I1E-Ec-RXf" kind="relationship" relationship="rootViewController" id="seK-aQ-fmU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ygD-K8-sRv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="170.40000000000001" y="1177.961019490255"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="camera.fill" catalog="system" width="64" height="48"/>
-        <image name="mic.fill" catalog="system" width="54" height="64"/>
-        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
+        <image name="camera.fill" catalog="system" width="128" height="96"/>
+        <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="microphone" width="25" height="25"/>
+        <image name="photo" width="25" height="25"/>
+        <image name="save" width="25" height="25"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
     </resources>
 </document>
