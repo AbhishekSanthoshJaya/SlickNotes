@@ -19,9 +19,11 @@ class SlickNotes {
     private(set) var longitude : String
     private(set) var location : String
     private(set) var category : Category?
+    private(set) var texts: [String]
+    private(set) var viewOrder: [String]
 
     
-    init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String, category: String = "all") {
+    init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String, category: String = "all",texts :[String], viewOrder: [String]) {
         self.noteId        = UUID()
         self.noteTitle     = noteTitle
         self.noteText      = noteText
@@ -29,6 +31,8 @@ class SlickNotes {
         self.latitude = latitude
         self.longitude = longitude
         self.location = location
+        self.texts = texts
+        self.viewOrder = viewOrder
         
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
         
@@ -48,7 +52,7 @@ class SlickNotes {
        
     }
 
-    init(noteId: UUID, noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location: String, category: String = "all"
+    init(noteId: UUID, noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location: String, category: String = "all", texts :[String], viewOrder: [String]
     ) {
         self.noteId        = noteId
         self.noteTitle     = noteTitle
@@ -57,6 +61,8 @@ class SlickNotes {
         self.latitude = latitude
        self.longitude = longitude
         self.location = location
+        self.texts = texts
+       self.viewOrder = viewOrder
         
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
                

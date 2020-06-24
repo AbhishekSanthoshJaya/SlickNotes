@@ -54,6 +54,14 @@ class SlickNotesCoreDataHelper
         noteToBeCreated.location,
         forKey: "location")
         
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.texts,
+        forKey: "texts")
+        
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.viewOrder,
+        forKey: "viewOrder")
+        
         newNoteToBeCreated.setValue(noteToBeCreated.category, forKey: "parent")
         
         do {
@@ -95,6 +103,13 @@ class SlickNotesCoreDataHelper
             
             noteManagedObjectToBeChanged.setValue(noteToBeChanged.category, forKey: "parent")
 
+            noteManagedObjectToBeChanged.setValue(
+            noteToBeChanged.texts,
+            forKey: "texts")
+            
+            noteManagedObjectToBeChanged.setValue(
+            noteToBeChanged.viewOrder,
+            forKey: "viewOrder")
 
             // save
             try inManagedObjectContext.save()
@@ -124,7 +139,9 @@ class SlickNotesCoreDataHelper
                     
                     latitude: noteManagedObjectRead.value(forKey: "latitude") as! String,
                     longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
-                    location: noteManagedObjectRead.value(forKey: "location") as! String
+                    location: noteManagedObjectRead.value(forKey: "location") as! String,
+                    texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
+                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String]
 
                     ))
             }
@@ -156,7 +173,10 @@ class SlickNotesCoreDataHelper
                     
                     latitude: noteManagedObjectRead.value(forKey: "latitude") as! String,
                     longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
-                    location: noteManagedObjectRead.value(forKey: "location") as! String
+                    location: noteManagedObjectRead.value(forKey: "location") as! String,
+                    texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
+                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String]
+                    
 
                     ))
             }
@@ -191,7 +211,10 @@ class SlickNotesCoreDataHelper
                 noteTimeStamp: noteManagedObjectToBeRead.value(forKey: "noteTimeStamp") as! Int64,
             latitude: noteManagedObjectToBeRead.value(forKey: "latitude") as! String,
                 longitude: noteManagedObjectToBeRead.value(forKey: "longitude") as! String,
-            location: noteManagedObjectToBeRead.value(forKey: "location") as! String
+            location: noteManagedObjectToBeRead.value(forKey: "location") as! String,
+                texts: noteManagedObjectToBeRead.value(forKey: "texts") as! [String],
+                 viewOrder: noteManagedObjectToBeRead.value(forKey: "viewOrder") as! [String]
+            
                 )
         } catch let error as NSError {
             // TODO error handling

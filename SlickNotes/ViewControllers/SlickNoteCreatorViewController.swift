@@ -105,20 +105,20 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
                 var location = "\(placeName), \(country)"
                 
                 
-                let note = SlickNotes(
-                    noteTitle:     self.noteTitleTextField.text!,
-                    noteText:      self.noteTextTextView.text,
-                    noteTimeStamp: self.noteCreationTimeStamp,
-                    latitude: String(self.userLocation.coordinate.latitude),
-                    longitude: String(self.userLocation.coordinate.longitude),
-                    location: location,
-                    category: self.categoryTextField.text!
-                    
-                )
-                
-                
-                SlickNotesStorage.storage.addNote(noteToBeAdded: note)
-                
+//                let note = SlickNotes(
+//                    noteTitle:     self.noteTitleTextField.text!,
+//                    noteText:      self.noteTextTextView.text,
+//                    noteTimeStamp: self.noteCreationTimeStamp,
+//                    latitude: String(self.userLocation.coordinate.latitude),
+//                    longitude: String(self.userLocation.coordinate.longitude),
+//                    location: location,
+//                    category: self.categoryTextField.text!
+//
+//                )
+//
+//
+//                SlickNotesStorage.storage.addNote(noteToBeAdded: note)
+//
                 
                 // pop to lister
                 self.navigationController?.popToRootViewController(animated: true)
@@ -166,18 +166,18 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
                     var location = "\(placeName), \(country)"
                     
                     
-                    SlickNotesStorage.storage.changeNote(
-                        noteToBeChanged: SlickNotes(
-                            noteId:        changingReallySimpleNote.noteId,
-                            noteTitle:     self.noteTitleTextField.text!,
-                            noteText:      self.noteTextTextView.text,
-                            noteTimeStamp: self.noteCreationTimeStamp,
-                            latitude: String(self.userLocation.coordinate.latitude),
-                            longitude: String(self.userLocation.coordinate.longitude),
-                            location: location,
-                            category: self.categoryTextField.text!
-                        )
-                    )
+//                    SlickNotesStorage.storage.changeNote(
+////                        noteToBeChanged: SlickNotes(
+////                            noteId:        changingReallySimpleNote.noteId,
+////                            noteTitle:     self.noteTitleTextField.text!,
+////                            noteText:      self.noteTextTextView.text,
+////                            noteTimeStamp: self.noteCreationTimeStamp,
+////                            latitude: String(self.userLocation.coordinate.latitude),
+////                            longitude: String(self.userLocation.coordinate.longitude),
+////                            location: location,
+////                            category: self.categoryTextField.text!
+//                        )
+//                    )
                     // navigate back to list of notes
                       // pop to lister
                     

@@ -5,7 +5,12 @@
         <attribute name="categoryName" optional="YES" attributeType="String"/>
         <relationship name="child" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="parent" inverseEntity="Note"/>
     </entity>
+    <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="img" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+    </entity>
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="Transformable"/>
         <attribute name="latitude" optional="YES" attributeType="String"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="longitude" optional="YES" attributeType="String"/>
@@ -14,10 +19,13 @@
         <attribute name="noteText" optional="YES" attributeType="String"/>
         <attribute name="noteTimeStamp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="noteTitle" optional="YES" attributeType="String"/>
+        <attribute name="texts" optional="YES" attributeType="Transformable"/>
+        <attribute name="viewOrder" optional="YES" attributeType="Transformable"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="child" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="178"/>
         <element name="Category" positionX="225.25390625" positionY="-63.96484375" width="128" height="88"/>
+        <element name="Note" positionX="-63" positionY="-18" width="128" height="223"/>
+        <element name="Image" positionX="81" positionY="63" width="128" height="73"/>
     </elements>
 </model>

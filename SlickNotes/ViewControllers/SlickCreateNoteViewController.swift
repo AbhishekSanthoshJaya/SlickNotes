@@ -57,65 +57,96 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         self.changingReallySimpleNote = changingReallySimpleNote
     }
     
+    private func getAllTextInfo() -> (String , [String]){
+        
+        var all_text = ""
+        var textList = [String]()
+        viewsList.forEach { (view) in
+            if let textView = view as? UITextView{
+                all_text = all_text + " " + textView.text
+                textList.append(textView.text)
+            }
+           
+        }
+        return (all_text, textList)
+        
+    }
     
+    private func getViewOrder() -> [String]{
+        var viewOrder = [String]()
+        viewsList[4...].forEach { (view) in
+            if view is UITextView{
+                viewOrder.append("textView")
+           }
+            else if view is UIImageView{
+                viewOrder.append("imageView")
+            }
+           else{
+                viewOrder.append("audioView")
+            }
+       }
+        return viewOrder
+    }
     
     // MARK: addItem
     private func addItem() -> Void {
         
-//        let lat = userLocation.coordinate.latitude
-//        let long  = userLocation.coordinate.longitude
-//
-//
-//        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
-//
-//            placemark, error in
-//
-//
-//            if let error = error as? CLError
-//            {
-//                print("CLError:", error)
-//                return
-//            }
-//
-//            else if let placemark = placemark?[0]
-//            {
-//
-//
-//                var placeName = ""
-//                var city = ""
-//                var postalCode = ""
-//                var country = ""
-//                if let name = placemark.name { placeName += name }
-//                if let locality = placemark.subLocality { city += locality }
-//                if let code = placemark.postalCode { postalCode += code }
-//                if let countryName = placemark.country { country += countryName }
-//
-//                var location = "\(placeName), \(country)"
-//
-//
-//                let note = SlickNotes(
-//                    noteTitle:     self.noteTitleTextField.text!,
-//                    noteText:      self.noteTextTextView.text,
-//                    noteTimeStamp: self.noteCreationTimeStamp,
-//                    latitude: String(self.userLocation.coordinate.latitude),
-//                    longitude: String(self.userLocation.coordinate.longitude),
-//                    location: location,
-//                    category: self.categoryTextField.text!
-//
-//                )
-//
-//
-//                SlickNotesStorage.storage.addNote(noteToBeAdded: note)
-//
-//
-//                // pop to lister
-//                self.navigationController?.popToRootViewController(animated: true)
-//
-//
-//
-//            }
-//
-//        }
+        let lat = userLocation.coordinate.latitude
+        let long  = userLocation.coordinate.longitude
+
+
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
+
+            placemark, error in
+
+
+            if let error = error as? CLError
+            {
+                print("CLError:", error)
+                return
+            }
+
+            else if let placemark = placemark?[0]
+            {
+
+
+                var placeName = ""
+                var city = ""
+                var postalCode = ""
+                var country = ""
+                if let name = placemark.name { placeName += name }
+                if let locality = placemark.subLocality { city += locality }
+                if let code = placemark.postalCode { postalCode += code }
+                if let countryName = placemark.country { country += countryName }
+
+                var location = "\(placeName), \(country)"
+
+                let (allText, textList) = self.getAllTextInfo()
+                
+                let note = SlickNotes(
+                    noteTitle:     self.textViewTitle.text,
+                    noteText:      allText,
+                    noteTimeStamp: self.noteCreationTimeStamp,
+                    latitude: String(self.userLocation.coordinate.latitude),
+                    longitude: String(self.userLocation.coordinate.longitude),
+                    location: location,
+                    category: self.categoryTextField.text!,
+                    texts: textList,
+                    viewOrder: self.getViewOrder()
+                )
+
+
+                SlickNotesStorage.storage.addNote(noteToBeAdded: note)
+
+
+                // pop to lister
+                self.navigationController?.popToRootViewController(animated: true)
+
+
+
+            }
+
+        }
         
     }
     
@@ -253,7 +284,9 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         // add first Text view
         let textView1 = UITextView()
-        textView1.text = "Heloo asnjdajsndansjndansjdnjansdnjansjdnansndjkansjkdnas,mndans,dn,ansdnlansdnalnskldnaklsndnakls"
+        textView1.text = "Enter Description"
+        textView1.textColor = UIColor.lightGray
+        textView1.textAlignment = .center
         
         
         textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
@@ -530,7 +563,15 @@ extension SlickCreateNoteViewController: UITextViewDelegate{
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Enter Title"
+            
+            if textView == textViewTitle{
+                textView.text = "Enter Title"
+            }
+            else{
+                textView.text = "Enter Description"
+
+            }
+            
             textView.textColor = UIColor.lightGray
         }
     }
