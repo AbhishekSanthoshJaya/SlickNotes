@@ -383,45 +383,49 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        recordButton.isEnabled = true
-        playButton.setImage(UIImage(named: "play.fill.png"), for: .normal)
+        let play = UIImage(systemName: "play.fill")
+       recordButton.isEnabled = true
+       playButton.setImage(play, for: .normal)
     }
     
     
     
     @IBAction func recordSound(_ sender: Any) {
         
-        let play =  UIImage(systemName: "play.fill")
+        let stop = UIImage(systemName: "stop.fill")
+        let record = UIImage(systemName: "mic.fill")
         
-        if recordButton.isTouchInside == true {
-                   soundRecorder.record()
-                   recordButton.setImage(UIImage(named: "stop.fill"), for: .normal)
-                   playButton.isEnabled = false
-               } else {
-                   soundRecorder.stop()
-                    recordButton.setImage(play, for: .normal)
-                   playButton.isEnabled = false
-               }
         
-    }
+        if recordButton.currentImage == UIImage(systemName:"mic.fill") {
+                soundRecorder.record()
+                recordButton.setImage(stop, for: .normal)
+                playButton.isEnabled = false
+            } else {
+                soundRecorder.stop()
+                recordButton.setImage(record, for: .normal)
+                playButton.isEnabled = false
+            }
+        }
+        
     
     
     @IBAction func playSound(_ sender: Any) {
         
+        let stop = UIImage(systemName: "stop.fill")
+        let play = UIImage(systemName: "play.fill")
         
             if playButton.titleLabel?.text == "Play" {
-               playButton.setImage(UIImage(named: "stop.fill"), for: .normal)
-                recordButton.isEnabled = false
-                setupPlayer()
-                soundPlayer.play()
-            } else {
-                soundPlayer.stop()
-               playButton.setImage(UIImage(named: "play.fill"), for: .normal)
-                recordButton.isEnabled = false
-            }
-        }
-
-    }
+                       playButton.setImage(stop, for: .normal)
+                       recordButton.isEnabled = false
+                       setupPlayer()
+                       soundPlayer.play()
+                   } else {
+                       soundPlayer.stop()
+                       playButton.setImage(play, for: .normal)
+                       recordButton.isEnabled = false
+                   }
+               }
+}
     
 
 // MARK extension CLLocationManager
