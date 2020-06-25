@@ -30,8 +30,9 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     
+    var isAudioRecordingGranted: Bool!
+    
     var soundRecorder : AVAudioRecorder!
-    var fileName: String = "audioFile.m4a"
     var soundPlayer : AVAudioPlayer!
 
     
@@ -342,34 +343,86 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         self.imagePicker.present(from: sender)
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    /*_________________________________________________________________
+                Methods for voice recording starts
+        ______________________________________________________________*/
+    
+    
+    
+    
+    func check_record_permission()
+    {
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSessionRecordPermission.granted:
+            isAudioRecordingGranted = true
+            break
+        case AVAudioSessionRecordPermission.denied:
+            isAudioRecordingGranted = false
+            break
+        case AVAudioSessionRecordPermission.undetermined:
+            AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
+                    if allowed {
+                        self.isAudioRecordingGranted = true
+                    } else {
+                        self.isAudioRecordingGranted = false
+                    }
+            })
+            break
+        default:
+            break
+        }
     }
     
+    func getDocumentsDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+
+    func getFileUrl() -> URL
+    {
+        let filename = "myRecording.m4a"
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+    return filePath
+    }
     
     func setupRecorder() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent(fileName)
+        
+        if isAudioRecordingGranted
+        {
         let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
                               AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
                               AVEncoderBitRateKey : 320000,
                               AVNumberOfChannelsKey : 2,
                               AVSampleRateKey : 44100.2] as [String : Any]
         
+        
         do {
-            soundRecorder = try AVAudioRecorder(url: audioFilename, settings: recordSetting )
+            soundRecorder = try AVAudioRecorder(url: getFileUrl(), settings: recordSetting )
             soundRecorder.delegate = self
             soundRecorder.prepareToRecord()
-        } catch {
-            print(error)
         }
+        catch {
+            print(error)
+              }
+        }
+            else
+            {
+        let alert = UIAlertController(title: "Access to mic denied", message: "You denied us from accessing your microphone, to record the voice please grant us access in your settinga.", preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+                self.present(alert, animated: true)
+            }
+
     }
     
     
     func setupPlayer() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent(fileName)
+        
         do {
-            soundPlayer = try AVAudioPlayer(contentsOf: audioFilename)
+            soundPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
             soundPlayer.delegate = self
             soundPlayer.prepareToPlay()
             soundPlayer.volume = 1.0
@@ -414,13 +467,13 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         let stop = UIImage(systemName: "stop.fill")
         let play = UIImage(systemName: "play.fill")
         
-            if playButton.titleLabel?.text == "play" {
+            if playButton.titleLabel?.text == "p" && FileManager.default.fileExists(atPath: getFileUrl().path) {
                        playButton.setImage(stop, for: .normal)
-                playButton.setTitle("Stop", for: .normal)
+                playButton.setTitle("S", for: .normal)
                        recordButton.isEnabled = false
                        setupPlayer()
                        soundPlayer.play()
-                   } else if playButton.titleLabel?.text == "Stop" {
+                   } else if playButton.titleLabel?.text == "S"  {
                        soundPlayer.stop()
                        playButton.setImage(play, for: .normal)
                     playButton.setTitle("play", for: .normal)
