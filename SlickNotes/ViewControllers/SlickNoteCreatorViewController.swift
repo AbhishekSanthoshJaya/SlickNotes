@@ -27,9 +27,13 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var Micbutton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     
+    var isAudioRecordingGranted: Bool!
+    
+    var soundRecorder : AVAudioRecorder!
+    var soundPlayer : AVAudioPlayer!
 
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
@@ -211,14 +215,16 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        check_record_permission()
+        setupRecorder()
+        playButton.isEnabled = false
         
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                    // create alert
                    let alert = UIAlertController(
-                       title: "Could note get app delegate",
-                       message: "Could note get app delegate, unexpected error occurred. Try again later.",
+                       title: "Could not get app delegate",
+                       message: "Could not get app delegate, unexpected error occurred. Try again later.",
                        preferredStyle: .alert)
                    
                    // add OK action
@@ -338,20 +344,165 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         self.imagePicker.present(from: sender)
     }
     
+    /*_________________________________________________________________
+                Methods for voice recording starts
+        ______________________________________________________________*/
+    
+    
+    
+    
+    func check_record_permission()
+    {
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSessionRecordPermission.granted:
+            isAudioRecordingGranted = true
+            break
+        case AVAudioSessionRecordPermission.denied:
+            isAudioRecordingGranted = false
+            break
+        case AVAudioSessionRecordPermission.undetermined:
+            AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
+                    if allowed {
+                        self.isAudioRecordingGranted = true
+                    } else {
+                        self.isAudioRecordingGranted = false
+                    }
+            })
+            break
+        default:
+            break
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+
+    func getFileUrl() -> URL
+    {
+        let filename = "myRecording.m4a"
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+    return filePath
+    }
+    
+    func setupRecorder() {
+        
+        if isAudioRecordingGranted
+        {
+            let session = AVAudioSession.sharedInstance()
+        
+        do {
+            try session.setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
+            try session.setActive(true)
+            let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
+                                  AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+                                  AVEncoderBitRateKey : 320000,
+                                  AVNumberOfChannelsKey : 2,
+                                  AVSampleRateKey : 44100.2] as [String : Any]
+            
+            soundRecorder = try AVAudioRecorder(url: getFileUrl(), settings: recordSetting )
+            soundRecorder.delegate = self as? AVAudioRecorderDelegate
+            soundRecorder.prepareToRecord()
+        }
+        catch {
+            print(error)
+              }
+        }
+            else
+            {
+        let alert = UIAlertController(title: "Access to mic denied", message: "You denied us from accessing your microphone, to record the voice please grant us access in your settinga.", preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+                self.present(alert, animated: true)
+            }
+
+    }
+    
+    
+    func setupPlayer() {
+        
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+            soundPlayer.delegate = self
+            soundPlayer.prepareToPlay()
+            soundPlayer.volume = 1.0
+        } catch {
+            print(error)
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        playButton.isEnabled = true
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        let play = UIImage(systemName: "play.fill")
+       recordButton.isEnabled = true
+       playButton.setImage(play, for: .normal)
+    }
+    
+    
     
     @IBAction func recordSound(_ sender: Any) {
-    }
+        
+        
+        let stop = UIImage(systemName: "stop.fill")
+        let record = UIImage(systemName: "mic.fill")
+        
+        
+        if recordButton.titleLabel?.text == "r" {
+                soundRecorder.record()
+                recordButton.setImage(stop, for: .normal)
+                recordButton.setTitle("s", for: .normal)
+                playButton.isEnabled = false
+            } else if recordButton.titleLabel?.text == "s"{
+                soundRecorder.stop()
+                recordButton.setImage(record, for: .normal)
+                recordButton.setTitle("r", for: .normal)
+                playButton.isEnabled = true
+            }
+        else{
+            return
+        }
+        }
+        
     
     
     @IBAction func playSound(_ sender: Any) {
-    }
-     
-    
-    
-    
-    
+        
+        let stop = UIImage(systemName: "stop.fill")
+        let play = UIImage(systemName: "play.fill")
+        
+            if playButton.titleLabel?.text == "p" {
+                
+                do{
+                    FileManager.default.fileExists(atPath: getFileUrl().path)
+                }
+                catch{
+                    print(error)
+                }
+                       playButton.setImage(stop, for: .normal)
+                playButton.setTitle("S", for: .normal)
+                       recordButton.isEnabled = false
+                       setupPlayer()
+                       soundPlayer.play()
+                   }
+            else if playButton.titleLabel?.text == "S"  {
+                       soundPlayer.stop()
+                       playButton.setImage(play, for: .normal)
+                    playButton.setTitle("p", for: .normal)
+                       recordButton.isEnabled = true
+                   }
+            else{
+                return
+                }
+        }
 }
-
+    
 
 // MARK extension CLLocationManager
 extension SlickNoteCreatorViewController: CLLocationManagerDelegate{

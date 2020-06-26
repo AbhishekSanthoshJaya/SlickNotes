@@ -16,6 +16,9 @@ var navigationBarAppearace = UINavigationBar.appearance()
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // Override point for customization after application launch.
+               print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
     
         UINavigationBar.appearance().backgroundColor = UIColor.yellow;
         UINavigationBar.appearance().tintColor = UIColor.black
@@ -24,7 +27,6 @@ var navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.titleTextAttributes = [ NSAttributedString.Key.foregroundColor:UIColor.black]
 
         UIApplication.shared.statusBarStyle = .darkContent
-        
         return true
     }
 
