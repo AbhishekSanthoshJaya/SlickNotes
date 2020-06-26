@@ -215,6 +215,7 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        check_record_permission()
         setupRecorder()
         playButton.isEnabled = false
         
@@ -222,8 +223,8 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                    // create alert
                    let alert = UIAlertController(
-                       title: "Could note get app delegate",
-                       message: "Could note get app delegate, unexpected error occurred. Try again later.",
+                       title: "Could not get app delegate",
+                       message: "Could not get app delegate, unexpected error occurred. Try again later.",
                        preferredStyle: .alert)
                    
                    // add OK action
@@ -391,16 +392,19 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         
         if isAudioRecordingGranted
         {
-        let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
-                              AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
-                              AVEncoderBitRateKey : 320000,
-                              AVNumberOfChannelsKey : 2,
-                              AVSampleRateKey : 44100.2] as [String : Any]
-        
+            let session = AVAudioSession.sharedInstance()
         
         do {
+            try session.setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
+            try session.setActive(true)
+            let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
+                                  AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+                                  AVEncoderBitRateKey : 320000,
+                                  AVNumberOfChannelsKey : 2,
+                                  AVSampleRateKey : 44100.2] as [String : Any]
+            
             soundRecorder = try AVAudioRecorder(url: getFileUrl(), settings: recordSetting )
-            soundRecorder.delegate = self
+            soundRecorder.delegate = self as? AVAudioRecorderDelegate
             soundRecorder.prepareToRecord()
         }
         catch {
@@ -445,19 +449,25 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
     
     @IBAction func recordSound(_ sender: Any) {
         
+        
         let stop = UIImage(systemName: "stop.fill")
         let record = UIImage(systemName: "mic.fill")
         
         
-        if recordButton.currentImage == UIImage(systemName:"mic.fill") {
+        if recordButton.titleLabel?.text == "r" {
                 soundRecorder.record()
                 recordButton.setImage(stop, for: .normal)
+                recordButton.setTitle("s", for: .normal)
                 playButton.isEnabled = false
-            } else {
+            } else if recordButton.titleLabel?.text == "s"{
                 soundRecorder.stop()
                 recordButton.setImage(record, for: .normal)
-                playButton.isEnabled = false
+                recordButton.setTitle("r", for: .normal)
+                playButton.isEnabled = true
             }
+        else{
+            return
+        }
         }
         
     
@@ -467,22 +477,30 @@ class SlickNoteCreatorViewController : UIViewController, UITextViewDelegate,UINa
         let stop = UIImage(systemName: "stop.fill")
         let play = UIImage(systemName: "play.fill")
         
-            if playButton.titleLabel?.text == "p" && FileManager.default.fileExists(atPath: getFileUrl().path) {
+            if playButton.titleLabel?.text == "p" {
+                
+                do{
+                    FileManager.default.fileExists(atPath: getFileUrl().path)
+                }
+                catch{
+                    print(error)
+                }
                        playButton.setImage(stop, for: .normal)
                 playButton.setTitle("S", for: .normal)
                        recordButton.isEnabled = false
                        setupPlayer()
                        soundPlayer.play()
-                   } else if playButton.titleLabel?.text == "S"  {
+                   }
+            else if playButton.titleLabel?.text == "S"  {
                        soundPlayer.stop()
                        playButton.setImage(play, for: .normal)
-                    playButton.setTitle("play", for: .normal)
+                    playButton.setTitle("p", for: .normal)
                        recordButton.isEnabled = true
                    }
             else{
                 return
+                }
         }
-               }
 }
     
 

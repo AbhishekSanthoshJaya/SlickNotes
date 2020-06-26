@@ -187,7 +187,7 @@
                                     <constraint firstAttribute="width" constant="40" id="jqn-p4-OH5"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="mic.fill" catalog="system">
+                                <state key="normal" title="r" image="mic.fill" catalog="system">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
