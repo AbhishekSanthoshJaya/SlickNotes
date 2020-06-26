@@ -30,8 +30,14 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     var categoryTextField: UITextField!
     var noteDateLabel: UITextField!
     
+    var isEditMode: Bool = false
+    
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
-     var changingReallySimpleNote : SlickNotes?
+    var changingReallySimpleNote : SlickNotes? {
+        didSet{
+            isEditMode = true
+        }
+    }
     var folderSelectedName: String?
     
     // MARK: note tile changed
@@ -271,16 +277,101 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     }
     
     
+    func createTextView(textIndex: Int) -> UITextView{
+        if let detail = changingReallySimpleNote{
+            
+            var text1 = detail.texts[textIndex]
+            print(text1)
+            
+            let textView1 = UITextView()
+            textView1.text = text1
+            textView1.textAlignment = .center
+            textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
+            textView1.delegate = self
+            textView1.isScrollEnabled = false
+            textView1.font = UIFont.preferredFont(forTextStyle: .headline)
+            textViewDidChange(textView1)
+            return textView1
+        }
+        return UITextView()
+    }
+    
+    func createImageView(imageId: String) -> UIImageView{
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let request: NSFetchRequest<Image> = Image.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", imageId as! CVarArg)
+        var image: Image? = nil
+        do {
+            let images = try context.fetch(request)
+            if images.count > 0 {
+                print(images[0])
+                image = images[0]
+            }
+            
+        } catch {
+            print("Error loading folders \(error.localizedDescription)")
+        }
+        
+        
+        print(image?.img)
+        let imageViewNew = UIImageView(image: UIImage(data: (image?.img)!))
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        imageViewNew.heightAnchor.constraint(equalToConstant:
+        imageViewNew.sizeThatFits(size).height).isActive = true
+        return imageViewNew
+    }
+    
+    func addExtaViews(){
+        var textIndex = 0
+        var imageIndex = 0
+        var audioIndex = 0
+        if let detail = changingReallySimpleNote{
+            for viewType in detail.viewOrder{
+                if viewType  == "textView"{
+                    var textViewNew = createTextView(textIndex:textIndex)
+                    print("DEbug:  " + textViewNew.text)
+                    viewsList.append(textViewNew)
+                    
+                    
+                    textIndex += 1
+                }
+                else if viewType == "imageView"{
+                    var imageViewNew = createImageView(imageId: detail.images[imageIndex])
+                    viewsList.append(imageViewNew)
+                    
+                    imageIndex += 1
+                }
+                else{
+                    //                    var audioView = createAudioView(audioIndex)
+                    //                    audioIndex += 1
+                }
+                
+            }
+            
+        }
+     
+    }
+    
+    
     func setUpView(){
         
         
         // Add title
         
         textViewTitle = UITextView()
-        textViewTitle.text = "Enter Title"
-        textViewTitle.textColor = UIColor.lightGray
+        
+        if changingReallySimpleNote == nil {
+            textViewTitle.text = "Enter Title"
+            textViewTitle.textColor = UIColor.lightGray
+        }
+        else{
+            textViewTitle.text = changingReallySimpleNote?.noteTitle
+
+        }
+      
         textViewTitle.textAlignment = .center
-       
+        viewsList.append(textViewTitle)
        
        textViewTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
        textViewTitle.delegate = self
@@ -292,7 +383,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         noteDateLabel =  UITextField()
         noteDateLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         noteDateLabel.textAlignment = .center
-        
+        viewsList.append(noteDateLabel)
+
         
         
         // Add a horizontal line
@@ -301,7 +393,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         hr.translatesAutoresizingMaskIntoConstraints = false
         hr.heightAnchor.constraint(equalToConstant: 50)
         hr.widthAnchor.constraint(equalToConstant: 50)
-        
+        viewsList.append(hr)
+
         
         
         // Add category
@@ -310,6 +403,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         categoryLabel.text = "Category: "
         categoryLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         categoryLabel.textAlignment = .right
+        
+        
         
         categoryTextField = UITextField()
         categoryTextField.inputView = categoryPicker
@@ -322,11 +417,14 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         let hStack = UIStackView(arrangedSubviews: [ categoryLabel,categoryTextField])
         hStack.distribution = .fillEqually
         hStack.alignment = .center
+        viewsList.append(hStack)
 
         
         
         // add first Text view
         let textView1 = UITextView()
+        
+        
         textView1.text = "Enter Description"
         textView1.textColor = UIColor.lightGray
         textView1.textAlignment = .center
@@ -338,10 +436,13 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         textView1.font = UIFont.preferredFont(forTextStyle: .headline)
         textViewDidChange(textView1)
         
+        if changingReallySimpleNote == nil {
+            viewsList.append(textView1)
+        }
         
+        addExtaViews()
         
-        
-        
+       
         
         // add scroll view and vertical stack
         let scrollView = UIScrollView()
@@ -366,7 +467,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         ])
         
         
-        viewsList = [textViewTitle,noteDateLabel,hStack,hr,textView1]
+       
         vstackView = UIStackView(arrangedSubviews:  viewsList)
         vstackView.translatesAutoresizingMaskIntoConstraints = false
         vstackView.distribution = .fillProportionally
