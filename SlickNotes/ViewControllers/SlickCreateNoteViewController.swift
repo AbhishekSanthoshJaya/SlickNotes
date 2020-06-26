@@ -119,6 +119,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                  let imageData = iamgeView.image?.pngData()
                  print(imageData)
                 var id = UUID().uuidString
+                images.append(id)
                 saveImage(data: imageData!, id: id)
             }
         }
