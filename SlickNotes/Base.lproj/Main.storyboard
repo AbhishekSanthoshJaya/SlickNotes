@@ -476,7 +476,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="dqc-sq-DIW"/>
                     </view>
-                    <navigationItem key="navigationItem" id="8F1-yh-kUh"/>
+                    <navigationItem key="navigationItem" id="8F1-yh-kUh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="ODB-BX-Jfw">
+                            <connections>
+                                <action selector="editBtnDown:" destination="JMe-tr-byM" id="92v-oF-Z53"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spP-Ym-d7X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
