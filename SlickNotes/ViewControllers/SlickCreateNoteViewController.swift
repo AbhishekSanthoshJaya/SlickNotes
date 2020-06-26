@@ -22,6 +22,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
 
     
     // UI elements
+    var scrollView: UIScrollView! = nil
     var vstackView:UIStackView! = nil
     var viewsList: [UIView] = []
     var imagePicker: ImagePicker!
@@ -319,11 +320,15 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         }
         
         
-        print(image?.img)
         let imageViewNew = UIImageView(image: UIImage(data: (image?.img)!))
         let size = CGSize(width: view.frame.width, height: .infinity)
         imageViewNew.heightAnchor.constraint(equalToConstant:
         imageViewNew.sizeThatFits(size).height).isActive = true
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+                swipeLeft.direction = .left
+        imageViewNew.addGestureRecognizer(swipeLeft)
+         imageViewNew.isUserInteractionEnabled = true
         return imageViewNew
     }
     
@@ -343,6 +348,10 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                 }
                 else if viewType == "imageView"{
                     var imageViewNew = createImageView(imageId: detail.images[imageIndex])
+                    
+                    
+
+                  
                     viewsList.append(imageViewNew)
                     
                     imageIndex += 1
@@ -361,6 +370,12 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     
     func setUpView(){
         
+        
+        // clear layout
+        
+        if scrollView != nil {
+             scrollView.removeFromSuperview()
+        }
         
         // Add title
         
@@ -450,7 +465,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
        
         
         // add scroll view and vertical stack
-        let scrollView = UIScrollView()
+        scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         //        textView1.translatesAutoresizingMaskIntoConstraints = false
         
@@ -522,10 +537,44 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
          self.imagePicker.present(from: self.view)
     }
     
+    
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        let alert = UIAlertController(
+            title: "Confirm Delete",
+            message: "",
+            preferredStyle: .alert)
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in
+               print("Cancelled")
+        })
+        
+        let okAction = UIAlertAction(title: "Delete", style: .destructive, handler: {(alert: UIAlertAction!) in
+             if let viewSwipped = gesture.view{
+                self.viewsList.remove(at: self.viewsList.index(of: viewSwipped)!)
+                     viewSwipped.removeFromSuperview()
+                 }
+        })
+        
+        // add OK action
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+
+        // show alert
+        self.present(alert, animated: true)
+    
+        
+      
+       
+    }
+    
     // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                    // create alert
                    let alert = UIAlertController(
@@ -545,11 +594,12 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                
                 // set context in the storage
         SlickCategoryStorage.storage.setManagedContext(managedObjectContext: managedContext)
-             
+            
+        
         
         setUpView()
- 
         
+
         
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
         
@@ -741,6 +791,11 @@ extension SlickCreateNoteViewController: ImagePickerDelegate{
                 let size = CGSize(width: view.frame.width, height: .infinity)
                 imageViewNew.heightAnchor.constraint(equalToConstant:
                 imageViewNew.sizeThatFits(size).height).isActive = true
+                let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+                        swipeLeft.direction = .left
+                imageViewNew.addGestureRecognizer(swipeLeft)
+                 imageViewNew.isUserInteractionEnabled = true
+                
                 
                 viewsList.insert(imageViewNew, at: viewsList.firstIndex(of: view)! + 1)
                 
@@ -771,10 +826,7 @@ extension SlickCreateNoteViewController: ImagePickerDelegate{
                         
                 }
                     
-                    
-                
-                
-                
+   
                 vstackView.removeAllArrangedSubviews()
                 viewsList.forEach { (vw) in
                     vstackView.addArrangedSubview(vw)
