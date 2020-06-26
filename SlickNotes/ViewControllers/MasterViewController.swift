@@ -191,10 +191,10 @@ class MasterViewController: UITableViewController {
         }
         
         let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        let NoteDetailView = storyBoard.instantiateViewController(withIdentifier: "NoteDetailView") as! DetailViewController
-        NoteDetailView.detailItem = object
-        NoteDetailView.folderSelectedName = folderSelectedName
-       self.navigationController?.pushViewController(NoteDetailView, animated: true)
+        let NoteDetailViewController = storyBoard.instantiateViewController(withIdentifier: "NoteDetailViewController") as! NoteDetailViewController
+        NoteDetailViewController.detailItem = object
+        NoteDetailViewController.folderSelectedName = folderSelectedName
+       self.navigationController?.pushViewController(NoteDetailViewController, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

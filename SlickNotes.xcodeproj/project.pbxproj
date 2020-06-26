@@ -23,6 +23,7 @@
 		00B3F63B249D86F400C24FDC /* SlickNotesDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */; };
 		00EF439B249FF99A004A2908 /* Extension+TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF439A249FF99A004A2908 /* Extension+TableViewController.swift */; };
 		AB57AED424A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AED324A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift */; };
+		AB57AED824A3245F005F9AA3 /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AED724A3245F005F9AA3 /* NoteDetailViewController.swift */; };
 		AB90E352249EDD5700642408 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB90E351249EDD5700642408 /* MapViewController.swift */; };
 		ABC09F0824A17A1B00138A1C /* SlickCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0724A17A1B00138A1C /* SlickCategory.swift */; };
 		ABC09F0A24A1AC2000138A1C /* SlickCategoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */; };
@@ -51,6 +52,7 @@
 		00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNotesDateHelper.swift; sourceTree = "<group>"; };
 		00EF439A249FF99A004A2908 /* Extension+TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TableViewController.swift"; sourceTree = "<group>"; };
 		AB57AED324A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCreateNoteViewController.swift; sourceTree = "<group>"; };
+		AB57AED724A3245F005F9AA3 /* NoteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteDetailViewController.swift; path = ../../../../Documents/NoteDetailViewController.swift; sourceTree = "<group>"; };
 		AB90E351249EDD5700642408 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		ABC09F0724A17A1B00138A1C /* SlickCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategory.swift; sourceTree = "<group>"; };
 		ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategoryStorage.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		00531F54249E35920065CF8F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				AB57AED724A3245F005F9AA3 /* NoteDetailViewController.swift */,
 				00B3F61D249CE70900C24FDC /* MasterViewController.swift */,
 				00B3F61F249CE70900C24FDC /* DetailViewController.swift */,
 				00531F55249E51B50065CF8F /* SlickNoteCreatorViewController.swift */,
@@ -245,6 +248,7 @@
 				ABC09F0C24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift in Sources */,
 				00B3F61E249CE70900C24FDC /* MasterViewController.swift in Sources */,
 				00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */,
+				AB57AED824A3245F005F9AA3 /* NoteDetailViewController.swift in Sources */,
 				00B3F639249D85BF00C24FDC /* SlickNotesStorage.swift in Sources */,
 				00B3F63B249D86F400C24FDC /* SlickNotesDateHelper.swift in Sources */,
 				ABC09F1024A27E3300138A1C /* CreateNoteViewController.swift in Sources */,

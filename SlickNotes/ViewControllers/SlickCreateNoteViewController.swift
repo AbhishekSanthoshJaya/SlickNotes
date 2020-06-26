@@ -61,9 +61,16 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         var all_text = ""
         var textList = [String]()
+        
         viewsList.forEach { (view) in
             if let textView = view as? UITextView{
                 all_text = all_text + " " + textView.text
+            }
+           
+        }
+        
+        viewsList[4...].forEach { (view) in
+            if let textView = view as? UITextView{
                 textList.append(textView.text)
             }
            
