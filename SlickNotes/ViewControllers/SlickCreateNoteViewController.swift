@@ -238,7 +238,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                     
                     let imagesList = self.getAllImagesInfo()
                     
-                    let note = SlickNotes(
+                    let note = SlickNotes(noteId: changingReallySimpleNote.noteId,
                         noteTitle:     self.textViewTitle.text,
                         noteText:      allText,
                         noteTimeStamp: self.noteCreationTimeStamp,

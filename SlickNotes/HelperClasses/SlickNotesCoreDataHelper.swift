@@ -114,6 +114,10 @@ class SlickNotesCoreDataHelper
             noteManagedObjectToBeChanged.setValue(
             noteToBeChanged.viewOrder,
             forKey: "viewOrder")
+            
+            noteManagedObjectToBeChanged.setValue(
+            noteToBeChanged.images,
+            forKey: "images")
 
             // save
             try inManagedObjectContext.save()
