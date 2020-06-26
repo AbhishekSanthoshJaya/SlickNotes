@@ -202,78 +202,83 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     // MARK: changeItem
     private func changeItem() -> Void {
         // get changed note instance
-//        if let changingReallySimpleNote = self.changingReallySimpleNote {
-//            // change the note through note storage
-//            let lat = userLocation.coordinate.latitude
-//            let long  = userLocation.coordinate.longitude
-//
-//            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
-//
-//                placemark, error in
-//
-//
-//                if let error = error as? CLError
-//                {
-//                    print("CLError:", error)
-//                    return
-//                }
-//
-//                else if let placemark = placemark?[0]
-//                {
-//
-//
-//                    var placeName = ""
-//                    var city = ""
-//                    var postalCode = ""
-//                    var country = ""
-//                    if let name = placemark.name { placeName += name }
-//                    if let locality = placemark.subLocality { city += locality }
-//                    if let code = placemark.postalCode { postalCode += code }
-//                    if let countryName = placemark.country { country += countryName }
-//
-//                    var location = "\(placeName), \(country)"
-//
-//
-//                    SlickNotesStorage.storage.changeNote(
-//                        noteToBeChanged: SlickNotes(
-//                            noteId:        changingReallySimpleNote.noteId,
-//                            noteTitle:     self.noteTitleTextField.text!,
-//                            noteText:      self.noteTextTextView.text,
-//                            noteTimeStamp: self.noteCreationTimeStamp,
-//                            latitude: String(self.userLocation.coordinate.latitude),
-//                            longitude: String(self.userLocation.coordinate.longitude),
-//                            location: location,
-//                            category: self.categoryTextField.text!
-//                        )
-//                    )
-//                    // navigate back to list of notes
-//                      // pop to lister
-//
-//                    print("i am here")
-//                    self.navigationController?.popViewController(animated: true)
-//
-//
-//                }
-//
-//            }
-//
-//
-//
-//        } else {
-//            // create alert
-//            let alert = UIAlertController(
-//                title: "Unexpected error",
-//                message: "Cannot change the note, unexpected error occurred. Try again later.",
-//                preferredStyle: .alert)
-//
-//            // add OK action
-//            alert.addAction(UIAlertAction(title: "OK",
-//                                          style: .default ) { (_) in self.performSegue(
-//                                            withIdentifier: "backToMasterView",
-//                                            sender: self)})
-//            // show alert
-//            self.present(alert, animated: true)
-//        }
+        if let changingReallySimpleNote = self.changingReallySimpleNote {
+            // change the note through note storage
+            let lat = userLocation.coordinate.latitude
+            let long  = userLocation.coordinate.longitude
+
+            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)){
+
+                placemark, error in
+
+
+                if let error = error as? CLError
+                {
+                    print("CLError:", error)
+                    return
+                }
+
+                else if let placemark = placemark?[0]
+                {
+
+
+                    var placeName = ""
+                    var city = ""
+                    var postalCode = ""
+                    var country = ""
+                    if let name = placemark.name { placeName += name }
+                    if let locality = placemark.subLocality { city += locality }
+                    if let code = placemark.postalCode { postalCode += code }
+                    if let countryName = placemark.country { country += countryName }
+
+                    var location = "\(placeName), \(country)"
+
+
+                    let (allText, textList) = self.getAllTextInfo()
+                    
+                    let imagesList = self.getAllImagesInfo()
+                    
+                    let note = SlickNotes(
+                        noteTitle:     self.textViewTitle.text,
+                        noteText:      allText,
+                        noteTimeStamp: self.noteCreationTimeStamp,
+                        latitude: String(self.userLocation.coordinate.latitude),
+                        longitude: String(self.userLocation.coordinate.longitude),
+                        location: location,
+                        category: self.categoryTextField.text!,
+                        texts: textList,
+                        viewOrder: self.getViewOrder(),
+                        images:imagesList
+                        
+                    )
+
+
+                    SlickNotesStorage.storage.changeNote(noteToBeChanged: note)
+
+                    self.navigationController?.popViewController(animated: true)
+
+
+                }
+
+            }
+
+
+
+        } else {
+            // create alert
+            let alert = UIAlertController(
+                title: "Unexpected error",
+                message: "Cannot change the note, unexpected error occurred. Try again later.",
+                preferredStyle: .alert)
+
+            // add OK action
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default ) { (_) in self.performSegue(
+                                            withIdentifier: "backToMasterView",
+                                            sender: self)})
+            // show alert
+            self.present(alert, animated: true)
+        }
     }
     
     
