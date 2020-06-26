@@ -95,6 +95,37 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         return viewOrder
     }
     
+    
+    private func saveImage(data : Data, id: String) {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let imageInstance = Image(context: context)
+        imageInstance.img = data
+        imageInstance.id = id
+        do {
+            try context.save()
+            print("Image is saved")
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    private func getAllImagesInfo() -> [String]{
+        var images = [String]()
+        viewsList[4...].forEach { (view) in
+             if let iamgeView = view as? UIImageView{
+                 let imageData = iamgeView.image?.pngData()
+                 print(imageData)
+                var id = UUID().uuidString
+                saveImage(data: imageData!, id: id)
+            }
+        }
+        return images
+        
+    }
+    
     // MARK: addItem
     private func addItem() -> Void {
         
@@ -130,6 +161,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
 
                 let (allText, textList) = self.getAllTextInfo()
                 
+                let imagesList = self.getAllImagesInfo()
+                
                 let note = SlickNotes(
                     noteTitle:     self.textViewTitle.text,
                     noteText:      allText,
@@ -139,7 +172,9 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                     location: location,
                     category: self.categoryTextField.text!,
                     texts: textList,
-                    viewOrder: self.getViewOrder()
+                    viewOrder: self.getViewOrder(),
+                    images:imagesList
+                    
                 )
 
 

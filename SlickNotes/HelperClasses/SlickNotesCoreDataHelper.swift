@@ -62,6 +62,10 @@ class SlickNotesCoreDataHelper
         noteToBeCreated.viewOrder,
         forKey: "viewOrder")
         
+        newNoteToBeCreated.setValue(
+               noteToBeCreated.images,
+               forKey: "images")
+        
         newNoteToBeCreated.setValue(noteToBeCreated.category, forKey: "parent")
         
         do {
@@ -141,7 +145,8 @@ class SlickNotesCoreDataHelper
                     longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
                     location: noteManagedObjectRead.value(forKey: "location") as! String,
                     texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
-                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String]
+                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String],
+                    images:noteManagedObjectRead.value(forKey: "images") as! [String]
 
                     ))
             }
@@ -175,9 +180,9 @@ class SlickNotesCoreDataHelper
                     longitude: noteManagedObjectRead.value(forKey: "longitude") as! String,
                     location: noteManagedObjectRead.value(forKey: "location") as! String,
                     texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
-                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String]
+                    viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String],
+                    images: noteManagedObjectRead.value(forKey: "images") as! [String]
                     
-
                     ))
             }
         } catch let error as NSError {
@@ -213,7 +218,8 @@ class SlickNotesCoreDataHelper
                 longitude: noteManagedObjectToBeRead.value(forKey: "longitude") as! String,
             location: noteManagedObjectToBeRead.value(forKey: "location") as! String,
                 texts: noteManagedObjectToBeRead.value(forKey: "texts") as! [String],
-                 viewOrder: noteManagedObjectToBeRead.value(forKey: "viewOrder") as! [String]
+                 viewOrder: noteManagedObjectToBeRead.value(forKey: "viewOrder") as! [String],
+                images: noteManagedObjectToBeRead.value(forKey: "images") as! [String]
             
                 )
         } catch let error as NSError {
