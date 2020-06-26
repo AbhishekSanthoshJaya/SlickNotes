@@ -447,7 +447,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
         
-    
+        categoryPicker.delegate = self
+
         
         // Add delegate
         locationManager.delegate = self
