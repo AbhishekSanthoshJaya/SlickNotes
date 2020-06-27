@@ -347,7 +347,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         let size = CGSize(width: view.frame.width - 40 , height: .infinity)
         imageViewNew.heightAnchor.constraint(equalToConstant:
         imageViewNew.sizeThatFits(size).height).isActive = true
-        
+        imageViewNew.addShadow()
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
                 swipeLeft.direction = .left
         imageViewNew.addGestureRecognizer(swipeLeft)
@@ -840,6 +840,7 @@ extension SlickCreateNoteViewController: ImagePickerDelegate{
                         swipeLeft.direction = .left
                 imageViewNew.addGestureRecognizer(swipeLeft)
                  imageViewNew.isUserInteractionEnabled = true
+                imageViewNew.addShadow()
                 
                 
                 viewsList.insert(imageViewNew, at: viewsList.firstIndex(of: view)! + 1)
