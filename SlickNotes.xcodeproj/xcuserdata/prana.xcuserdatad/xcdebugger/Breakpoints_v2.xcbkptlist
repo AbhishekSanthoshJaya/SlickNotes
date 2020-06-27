@@ -286,8 +286,8 @@
             filePath = "SlickNotes/ViewControllers/CategoryListerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             filePath = "SlickNotes/ViewControllers/CategoryListerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -654,8 +654,8 @@
             filePath = "SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "779"
-            endingLineNumber = "779"
+            startingLineNumber = "781"
+            endingLineNumber = "781"
             landmarkName = "pickerView(_:titleForRow:forComponent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -670,8 +670,8 @@
             filePath = "SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "786"
-            endingLineNumber = "786"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
             landmarkName = "pickerView(_:didSelectRow:inComponent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -772,14 +772,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BF25DCE1-9B16-4F6B-9672-566D59FBA9B9 - 8ef52d45a365f8fe"
+                  uuid = "BF25DCE1-9B16-4F6B-9672-566D59FBA9B9 - 20fc5acc7f586604"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "SlickNotes.SlickCreateNoteViewController.(changeItem in _7621D3E3925ADD36FD9EA5BEFFA171B1)() -&gt; ()"
                   moduleName = "SlickNotes"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/prana/IOS/SlickNotes/SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
+                  urlString = "file:///Users/prana/IOS/tester/testerv2/SlickNotes/SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "233"
@@ -787,14 +787,14 @@
                   offsetFromSymbolStart = "679">
                </Location>
                <Location
-                  uuid = "BF25DCE1-9B16-4F6B-9672-566D59FBA9B9 - 25fdaa1314baf0e6"
+                  uuid = "BF25DCE1-9B16-4F6B-9672-566D59FBA9B9 - 8bf4dd9ac8876e1c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;__C.CLPlacemark&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in SlickNotes.SlickCreateNoteViewController.(changeItem in _7621D3E3925ADD36FD9EA5BEFFA171B1)() -&gt; ()"
                   moduleName = "SlickNotes"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/prana/IOS/SlickNotes/SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
+                  urlString = "file:///Users/prana/IOS/tester/testerv2/SlickNotes/SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "238"
@@ -926,8 +926,8 @@
             filePath = "SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "655"
-            endingLineNumber = "655"
+            startingLineNumber = "657"
+            endingLineNumber = "657"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -942,8 +942,8 @@
             filePath = "SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -958,8 +958,8 @@
             filePath = "SlickNotes/ViewControllers/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "respondToSwipeGesture(gesture:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1006,8 +1006,8 @@
             filePath = "SlickNotes/ViewControllers/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "finishRecording(success:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1153,6 +1153,22 @@
             startingLineNumber = "224"
             endingLineNumber = "224"
             landmarkName = "setUpView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E9ACEA0-EE45-4513-A248-085DEF550924"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SlickNotes/ViewControllers/SlickCreateNoteViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "608"
+            endingLineNumber = "608"
+            landmarkName = "respondToSwipeGesture(gesture:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

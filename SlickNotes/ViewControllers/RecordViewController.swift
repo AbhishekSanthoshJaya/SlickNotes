@@ -234,6 +234,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        gesture.view?.shake()
            let alert = UIAlertController(
                title: "Confirm Delete",
                message: "",

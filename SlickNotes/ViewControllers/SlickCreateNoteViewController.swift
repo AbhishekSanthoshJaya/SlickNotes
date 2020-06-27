@@ -604,6 +604,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        gesture.view?.shake()
         let alert = UIAlertController(
             title: "Confirm Delete",
             message: "",
