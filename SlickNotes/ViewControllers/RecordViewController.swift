@@ -169,6 +169,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
                 sender.backgroundColor  = .red
             }, completion: nil)
             
+            sender.layer.removeAllAnimations()
+            sender.alpha = 1
             // stop recording code and save
             recordTapped()
         }
@@ -177,7 +179,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
            recordTapped()
           
             // change btn ui
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 sender.backgroundColor  = .white
             },completion: {_ in
                 UIView.animate(withDuration: 0.2, animations: {
@@ -187,6 +189,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
                 },completion: nil)
                 
             })
+            
+            
+            UIView.animate(withDuration: 0.6, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction, .curveEaseInOut], animations: {
+
+                sender.alpha  = 0.5
+
+
+            }, completion: nil)
      
         }
         
