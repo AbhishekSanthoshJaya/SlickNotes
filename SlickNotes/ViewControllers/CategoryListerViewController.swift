@@ -176,7 +176,7 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
-        cell.layer.borderWidth = 2
+//        cell.layer.borderWidth = 2
         cell.textLabel?.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(23)
         
         cell.detailTextLabel?.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(17)

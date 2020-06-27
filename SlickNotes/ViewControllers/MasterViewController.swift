@@ -167,6 +167,19 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SlickNotesTableCell
 
+        cell.noteTitleLabel.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(23)
+        cell.noteTitleLabel.textAlignment = .center
+        
+        cell.noteTextLabel.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(15)
+        cell.noteTextLabel.alpha = 0.8
+
+        
+        cell.noteDateLabel.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(15)
+        cell.noteDateLabel.alpha = 0.8
+        cell.noteDateLabel.textAlignment = .center
+
+        
+        
         let object: SlickNotes
         if isFiltering {
             object = filteredNotes[indexPath.row]
