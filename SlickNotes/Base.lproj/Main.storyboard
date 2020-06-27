@@ -269,7 +269,7 @@
         <!--Map View Controller-->
         <scene sceneID="wz7-mN-hKA">
             <objects>
-                <viewController storyboardIdentifier="mapView" id="FAr-7y-mSu" customClass="MapViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="FAr-7y-mSu" customClass="MapViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Hq-o7-FHw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
