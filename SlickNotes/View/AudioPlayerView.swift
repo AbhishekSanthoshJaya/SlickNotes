@@ -158,8 +158,8 @@ class AudioPlayerView: UIView{
              try player = AVAudioPlayer(contentsOf: path)
 
              let duration = player.duration
-             let seconds = Int(duration)
-             audioLengthLabel.text = String(format: "%02d:%02d", ((Int)((player.duration))) / 60, ((Int)((player.duration))) % 60)
+             let seconds = Int(ceil(duration))
+             audioLengthLabel.text = String(format: "%02d:%02d", ((Int)((seconds))) / 60, ((Int)((seconds))) % 60)
              
              audioSlider.maximumValue = Float(player.duration)
         } catch {
@@ -252,7 +252,7 @@ class AudioPlayerView: UIView{
     
     @objc func updateScrubber() {
         audioSlider.value = Float(player.currentTime)
-        audioCurrentLabel.text = String(format: "%02d:%02d", ((Int)((player.currentTime))) / 60, ((Int)((player.currentTime))) % 60)
+        audioCurrentLabel.text = String(format: "%02d:%02d", ((Int)(ceil((player.currentTime)))) / 60, ((Int)(ceil((player.currentTime)))) % 60)
         if audioSlider.value == audioSlider.minimumValue {
             isPlaying = false
             UIView.animate(withDuration: 0.4) {
@@ -265,7 +265,7 @@ class AudioPlayerView: UIView{
     
     @objc func sliderMoved(_ sender: UISlider) {
         player.currentTime = TimeInterval(audioSlider.value)
-        audioCurrentLabel.text = String(format: "%02d:%02d", ((Int)((player.currentTime))) / 60, ((Int)((player.currentTime))) % 60)
+        audioCurrentLabel.text = String(format: "%02d:%02d", ((Int)(ceil((player.currentTime)))) / 60, ((Int)(ceil((player.currentTime)))) % 60)
         if isPlaying {
             player.play()
         }
