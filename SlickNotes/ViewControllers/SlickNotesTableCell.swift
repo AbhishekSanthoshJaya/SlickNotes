@@ -17,4 +17,6 @@ class SlickNotesTableCell : UITableViewCell {
     @IBOutlet weak var noteTitleLabel: UILabel!
     @IBOutlet weak var noteTextLabel: UILabel!
     @IBOutlet weak var noteDateLabel: UILabel!
+   
+   
 }

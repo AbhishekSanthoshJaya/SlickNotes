@@ -167,9 +167,20 @@ extension CategoryListerViewController: UITableViewDataSource, UITableViewDelega
         
         return SlickCategoryStorage.storage.count()
     }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        
+        cell.layer.borderWidth = 2
+        cell.textLabel?.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(23)
+        
+        cell.detailTextLabel?.font =  UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black")).withSize(17)
+        cell.detailTextLabel?.alpha = 0.7
 
         if let object = SlickCategoryStorage.storage.readCategory(at: indexPath.row) {
             cell.textLabel?.text = object.categoryName
