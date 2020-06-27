@@ -233,6 +233,41 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+           let alert = UIAlertController(
+               title: "Confirm Delete",
+               message: "",
+               preferredStyle: .alert)
+           
+           
+           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert: UIAlertAction!) in
+                  print("Cancelled")
+           })
+           
+           let okAction = UIAlertAction(title: "Delete", style: .destructive, handler: {(alert: UIAlertAction!) in
+                if let viewSwipped = gesture.view{
+                    
+                    let audioName = (viewSwipped as! AudioPlayerView).audioName
+                    
+                    self.audioNames.remove(at: self.audioNames.lastIndex(of: audioName)!)
+                    
+                    viewSwipped.removeFromSuperview()
+                   
+            }}
+            )
+           
+           // add OK action
+           alert.addAction(cancelAction)
+           alert.addAction(okAction)
+
+           // show alert
+           self.present(alert, animated: true)
+       
+           
+         
+          
+       }
+    
     func finishRecording(success: Bool) {
         audioRecorder.stop()
         audioRecorder = nil
@@ -242,6 +277,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             audioNames.append(currentAudioFileName)
              let audioWrapper = AudioPlayerView()
              audioWrapper.setFileName(audioName: currentAudioFileName)
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+                    swipeLeft.direction = .left
+            audioWrapper.addGestureRecognizer(swipeLeft)
+             audioWrapper.isUserInteractionEnabled = true
              audioStack.addArrangedSubview(audioWrapper)
             audioStack.setCustomSpacing( 10, after: audioWrapper)
         }

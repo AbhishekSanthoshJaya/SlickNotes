@@ -371,10 +371,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                 }
                 else if viewType == "imageView"{
                     var imageViewNew = createImageView(imageId: detail.images[imageIndex])
-                    
-                    
 
-                  
                     viewsList.append(imageViewNew)
                     
                     imageIndex += 1
@@ -382,6 +379,10 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                 else{
                     var audioViewNew = AudioPlayerView()
                     audioViewNew.setFileName(audioName: detail.sounds[audioIndex])
+                    let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+                            swipeLeft.direction = .left
+                    audioViewNew.addGestureRecognizer(swipeLeft)
+                     audioViewNew.isUserInteractionEnabled = true
                     viewsList.append(audioViewNew)
                     
                     audioIndex += 1
@@ -437,7 +438,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         let hr = UIView()
         hr.backgroundColor = .black
         hr.translatesAutoresizingMaskIntoConstraints = false
-        hr.heightAnchor.constraint(equalToConstant: 50)
+        hr.heightAnchor.constraint(equalToConstant: 5)
         hr.widthAnchor.constraint(equalToConstant: 50)
         viewsList.append(hr)
 
@@ -471,12 +472,12 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         let textView1 = UITextView()
         
         
-        textView1.text = "Enter Description"
+        textView1.text = ""
         textView1.textColor = UIColor.lightGray
         textView1.textAlignment = .center
         
         
-        textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        textView1.heightAnchor.constraint(equalToConstant: 40).isActive = true
         textView1.delegate = self
         textView1.isScrollEnabled = false
         textView1.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -519,7 +520,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
             vstackView.setCustomSpacing(10, after: view)
         }
         vstackView.translatesAutoresizingMaskIntoConstraints = false
-        vstackView.distribution = .fillProportionally
+        vstackView.distribution = .fill
         vstackView.axis = .vertical
         
         
@@ -809,10 +810,7 @@ extension SlickCreateNoteViewController: UITextViewDelegate{
             if textView == textViewTitle{
                 textView.text = "Enter Title"
             }
-            else{
-                textView.text = "Enter Description"
-
-            }
+            
             
             textView.textColor = UIColor.lightGray
         }
@@ -922,7 +920,11 @@ extension SlickCreateNoteViewController {
     
     func addAudioView(belowView: UIView, audioNames: [String]){
          var vStackSubViews = viewsList
-         
+        
+        if  audioNames.count == 0 {
+            return
+        }
+        
          for view in vStackSubViews{
              if view == belowView{
                  
@@ -934,6 +936,10 @@ extension SlickCreateNoteViewController {
                 for audioFileName in audioNames{
                     let audioViewNew = AudioPlayerView()
                     audioViewNew.setFileName(audioName: audioFileName)
+                    let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+                    swipeLeft.direction = .left
+                    audioViewNew.addGestureRecognizer(swipeLeft)
+                    audioViewNew.isUserInteractionEnabled = true
                     viewsList.insert(audioViewNew, at: viewsList.firstIndex(of: view)! + currIndex)
                     lastAddedAudioView = audioViewNew
                     currIndex += 1
