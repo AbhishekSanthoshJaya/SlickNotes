@@ -13,7 +13,20 @@ import AVFoundation
 class AudioPlayerView: UIView{
     
     var isPlaying: Bool = false
-    var audioName: String = "recording.m4a"
+    var fileNamelabel: UILabel = {
+        let fileNamelabel = UILabel()
+       fileNamelabel.font = UIFont(name: "Montserrat-Black", size: 15)
+       fileNamelabel.translatesAutoresizingMaskIntoConstraints = false
+       fileNamelabel.textColor = .white
+        return fileNamelabel
+        
+    }()
+    var audioName: String = "recording.m4a" {
+        didSet{
+            fileNamelabel.text =  "\(audioName.prefix(5)).m4a"
+            setUp()
+        }
+    }
     
     var player = AVAudioPlayer()
     
@@ -38,6 +51,7 @@ class AudioPlayerView: UIView{
         let image = UIImage(named: "circle")
         slider.setThumbImage(image, for: .normal)
         slider.setThumbImage(image, for: .focused)
+        slider.translatesAutoresizingMaskIntoConstraints = false
 
         slider.minimumTrackTintColor = .red
         slider.maximumTrackTintColor = .white
@@ -47,6 +61,7 @@ class AudioPlayerView: UIView{
     var audioLengthLabel: UILabel = {
         let label =  UILabel()
         label.text = "00:00"
+        label.font = UIFont(name: "Montserrat-Black", size: 13)
         label.textColor = .white
         return label
     }()
@@ -54,6 +69,7 @@ class AudioPlayerView: UIView{
     var audioCurrentLabel: UILabel = {
         let label =  UILabel()
         label.text = "00:00"
+        label.font = UIFont(name: "Montserrat-Black", size: 13)
         label.textColor = .white
         return label
     }()
@@ -66,7 +82,7 @@ class AudioPlayerView: UIView{
         return view
     }()
     
-    var seekHStack: UIStackView = {
+    var headerHStack: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -74,10 +90,18 @@ class AudioPlayerView: UIView{
         return view
     }()
     
+    var seekHStack: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alignment = .center
+        view.axis = .horizontal
+        return view
+    }()
+    
     var controlsHStack: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
-
+        view.alignment = .center
         view.axis = .horizontal
         return view
     }()
@@ -127,8 +151,8 @@ class AudioPlayerView: UIView{
     
     
     func setUp(){
-        let path  = getDocumentsDirectory().appendingPathComponent(audioName)
-         
+        let path  = getDocumentsDirectory().appendingPathComponent("\(audioName).m4a")
+         print(path)
          do {
              try player = AVAudioPlayer(contentsOf: path)
 
@@ -148,6 +172,7 @@ class AudioPlayerView: UIView{
     
     func setFileName(audioName: String){
         self.audioName = audioName
+        
         setUp()
     }
     
@@ -159,8 +184,8 @@ class AudioPlayerView: UIView{
          backgroundColor = .black
          self.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
-                  self.heightAnchor.constraint(equalToConstant: 80),
-                  self.widthAnchor.constraint(equalToConstant: 300),
+                  self.heightAnchor.constraint(equalToConstant: 120),
+                  self.widthAnchor.constraint(equalToConstant: 350),
               
              ]
          )
@@ -179,17 +204,32 @@ class AudioPlayerView: UIView{
          ])
          
          
-         
+         vStackView.addArrangedSubview(headerHStack)
          vStackView.addArrangedSubview(seekHStack)
          vStackView.addArrangedSubview(controlsHStack)
-
+        
+        vStackView.setCustomSpacing(10, after: headerHStack)
+        vStackView.setCustomSpacing(10, after: seekHStack)
+        vStackView.setCustomSpacing(10, after: controlsHStack)
+        
+        vStackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        vStackView.isLayoutMarginsRelativeArrangement = true
          
+         // setup headers
+        
+        fileNamelabel.text = audioName
+        headerHStack.addArrangedSubview(fileNamelabel)
+        
          
          // setUp internal views
          
          seekHStack.addArrangedSubview(audioCurrentLabel)
          seekHStack.addArrangedSubview(audioSlider)
          seekHStack.addArrangedSubview(audioLengthLabel)
+         seekHStack.setCustomSpacing(5, after: audioCurrentLabel)
+         seekHStack.setCustomSpacing(5, after: audioSlider)
+         seekHStack.setCustomSpacing(5, after: audioLengthLabel)
+         
          
          
          // add controls
