@@ -7,57 +7,52 @@
 //
 
 import UIKit
-
+import CoreData
 class NoteDetailViewController: UIViewController {
 
-    @IBOutlet weak var noteTitleLabel: UILabel!
-    @IBOutlet weak var noteTextTextView: UITextView!
-    @IBOutlet weak var noteDate: UILabel!
-
-    @IBOutlet weak var noteLocationLabel: UILabel!
-    
+ 
     var latitude: String!
     var longitude: String!
     var folderSelectedName: String?
-    
-    @IBOutlet weak var noteLocationOutImg: UIImageView!
-    
-    
-    
-    
+
     // All views
-    
+    var scrollView:UIScrollView! = nil
     var textViewTitle: UITextView!
-    var noteDateLabel: UITextField!
+    var noteDateLabel: UITextView!
+    var viewsList: [UIView] = []
+    var vstackView: UIStackView!
+    var locationLabel : UILabel! = nil
     
     
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let topicLabel = noteTitleLabel,
-               let dateLabel = noteDate,
-               let textView = noteTextTextView,
-                let location = noteLocationLabel{
-                topicLabel.text = detail.noteTitle
-                dateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
-                textView.text = detail.noteText
-                location.text = "\(detail.location)"
-                latitude = detail.latitude
-                longitude = detail.longitude
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let detail = detailItem{
+            let noteId = detail.noteId
+            var predicate = NSPredicate(format: "noteId = %@", noteId as! CVarArg)
+            var notes = SlickNotesStorage.storage.readNotes(withPredicate:predicate)
+            if notes!.count > 0{
+                detailItem = notes![0]
             }
         }
+       
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureView()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        noteLocationOutImg.isUserInteractionEnabled = true
-        noteLocationOutImg.addGestureRecognizer(tapGestureRecognizer)
-    }
+        
+        // Do any additional setup after loading the view.
+//         setUpView()
+      }
 
+    @IBAction func editBtnDown(_ sender: Any) {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let SlickCreateNoteViewController = storyBoard.instantiateViewController(withIdentifier: "SlickCreateNoteViewController") as! SlickCreateNoteViewController
+        SlickCreateNoteViewController.changingReallySimpleNote = detailItem
+        SlickCreateNoteViewController.folderSelectedName = folderSelectedName
+        self.navigationController?.pushViewController(SlickCreateNoteViewController, animated: true)
+    }
     
     
    var detailItem: SlickNotes? {
@@ -103,84 +98,196 @@ class NoteDetailViewController: UIViewController {
 //    }
   //  (segue.destination as! UINavigationController).topViewController as! DetailViewController
 
+    func createTextView(textIndex: Int) -> UITextView{
+       var detail = detailItem!
+       var text1 = detail.texts[textIndex]
+       print(text1)
+       
+       let textView1 = UITextView()
+       textView1.text = text1
+       textView1.textAlignment = .left
+       textView1.isEditable = false
+       textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
+      textView1.delegate = self
+      textView1.isScrollEnabled = false
+      textView1.font = UIFont.preferredFont(forTextStyle: .headline)
+      textViewDidChange(textView1)
+       return textView1
+    }
+    
+    func createImageView(imageId: String) -> UIImageView{
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let request: NSFetchRequest<Image> = Image.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", imageId as! CVarArg)
+        var image: Image? = nil
+        do {
+            let images = try context.fetch(request)
+            if images.count > 0 {
+                print(images[0])
+                image = images[0]
+            }
+            
+        } catch {
+            print("Error loading folders \(error.localizedDescription)")
+        }
+        
+        
+        print(image?.img)
+        let imageViewNew = UIImageView(image: UIImage(data: (image?.img)!))
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        imageViewNew.heightAnchor.constraint(equalToConstant:
+        imageViewNew.sizeThatFits(size).height).isActive = true
+        imageViewNew.addShadow()
+        return imageViewNew
+    }
+    
+    @objc func labelTapped(_ sender: UITapGestureRecognizer) {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let MapViewController = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        
+        if let detail = detailItem{
+            MapViewController.latitude = detail.latitude
+            MapViewController.longitude = detail.longitude
+            self.navigationController?.pushViewController(MapViewController, animated: true)
+        }
+        
+    }
     
     
     func setUpView(){
-           
-           
+
+        if scrollView != nil {
+            scrollView.removeFromSuperview()
+        }
+
+        viewsList = []
            // Add title
-           
+        if let detail = detailItem{
+         
            textViewTitle = UITextView()
-           textViewTitle.text = "Enter Title"
-           textViewTitle.textColor = UIColor.lightGray
+            textViewTitle.text = detail.noteTitle
            textViewTitle.textAlignment = .center
-          
+            textViewTitle.isEditable = false
           
           textViewTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
           textViewTitle.delegate = self
           textViewTitle.isScrollEnabled = false
            textViewTitle.font = UIFont.preferredFont(forTextStyle: .largeTitle)
           textViewDidChange(textViewTitle)
+            
+           viewsList.append(textViewTitle)
+        
            
            // Add date
-           noteDateLabel =  UITextField()
+           noteDateLabel =  UITextView()
+            noteDateLabel.delegate = self
+            noteDateLabel.isEditable = false
+
+            
            noteDateLabel.font = UIFont.preferredFont(forTextStyle: .headline)
            noteDateLabel.textAlignment = .center
-           
-           
-           
+            noteDateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: detail.noteTimeStamp))
+            noteDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            noteDateLabel.isScrollEnabled = false
+            
+            textViewDidChange(noteDateLabel)
+            viewsList.append(noteDateLabel)
+
+            
+            
            // Add a horizontal line
            let hr = UIView()
            hr.backgroundColor = .black
            hr.translatesAutoresizingMaskIntoConstraints = false
-           hr.heightAnchor.constraint(equalToConstant: 50)
-           hr.widthAnchor.constraint(equalToConstant: 50)
+            hr.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            hr.widthAnchor.constraint(equalToConstant: 50).isActive = true
            
            
            
-           // Add category
-           
-//           let categoryLabel = UILabel()
-//           categoryLabel.text = "Category: "
-//           categoryLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-//           categoryLabel.textAlignment = .right
-//
-//           categoryTextField = UITextField()
-//           categoryTextField.inputView = categoryPicker
-//           categoryTextField.text = folderSelectedName
-//           categoryTextField.textAlignment = .left
-//           categoryTextField.font = UIFont.preferredFont(forTextStyle: .headline)
-//
+        
             
-            let locationLabel = UITextField()
-            locationLabel.text = 
-           
-           let hStack = UIStackView(arrangedSubviews: [ categoryLabel,categoryTextField])
+            
+            
+            locationLabel = UILabel()
+            locationLabel.attributedText = NSAttributedString(string: detail.location, attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue])
+            
+            locationLabel.textAlignment = .center
+            locationLabel.isUserInteractionEnabled = true
+            locationLabel.textColor = .blue
+
+            locationLabel.translatesAutoresizingMaskIntoConstraints = false
+            locationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            
+            locationLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+            
+            
+            let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
+
+            locationLabel.addGestureRecognizer(labelTap)
+            
+            viewsList.append(locationLabel)
+
+            
+            
+            
+            let locationOutBtn = UIButton()
+            locationOutBtn.setImage(UIImage(named:"square.and.arrow.up" ), for: .normal)
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+           locationOutBtn.isUserInteractionEnabled = true
+           locationOutBtn.addGestureRecognizer(tapGestureRecognizer)
+                     
+               
+            
+            
+           let hStack = UIStackView(arrangedSubviews: [ locationLabel,locationOutBtn])
            hStack.distribution = .fillEqually
            hStack.alignment = .center
+            hStack.widthAnchor.constraint(equalToConstant: 300)
+            
+            hStack.translatesAutoresizingMaskIntoConstraints  = false
+           
+           
+            // generate all view order view
+            
+            var textIndex = 0
+            var imageIndex = 0
+            var audioIndex = 0
+            for viewType in detail.viewOrder{
+                if viewType  == "textView"{
+                    var textViewNew = createTextView(textIndex:textIndex)
+                    viewsList.append(textViewNew)
 
-           
-           
-           // add first Text view
-           let textView1 = UITextView()
-           textView1.text = "Enter Description"
-           textView1.textColor = UIColor.lightGray
-           textView1.textAlignment = .center
-           
-           
-           textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
-           textView1.delegate = self
-           textView1.isScrollEnabled = false
-           textView1.font = UIFont.preferredFont(forTextStyle: .headline)
-           textViewDidChange(textView1)
-           
-           
+
+                    textIndex += 1
+                }
+                else if viewType == "imageView"{
+                    var imageViewNew = createImageView(imageId: detail.images[imageIndex])
+                    viewsList.append(imageViewNew)
+
+                    imageIndex += 1
+                }
+                else{
+                    var audioViewNew = AudioPlayerView()
+                    
+                    let audioName = detail.sounds[audioIndex]
+                    audioViewNew.setFileName(audioName: audioName)
+                    viewsList.append(audioViewNew)
+
+                    audioIndex += 1
+                }
+                
+            }
+                  
            
            
            
            
            // add scroll view and vertical stack
-           let scrollView = UIScrollView()
+           scrollView = UIScrollView()
            scrollView.translatesAutoresizingMaskIntoConstraints = false
            //        textView1.translatesAutoresizingMaskIntoConstraints = false
            
@@ -202,12 +309,15 @@ class NoteDetailViewController: UIViewController {
            ])
            
            
-           viewsList = [textViewTitle,noteDateLabel,hStack,hr,textView1]
+//           viewsList = [textViewTitle,noteDateLabel,locationLabel] + viewsList
            vstackView = UIStackView(arrangedSubviews:  viewsList)
            vstackView.translatesAutoresizingMaskIntoConstraints = false
-           vstackView.distribution = .fillProportionally
+            vstackView.distribution = .fillProportionally
            vstackView.axis = .vertical
            scrollView.addSubview(vstackView)
+            for view in viewsList{
+                vstackView.setCustomSpacing(10, after: view)
+            }
            
            vstackView.backgroundColor = .red
            
@@ -217,22 +327,49 @@ class NoteDetailViewController: UIViewController {
                ),
                
                
-               vstackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor
+               vstackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15
                ),
                
-               vstackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor
+               vstackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15
                ),
                
                vstackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
                
-               vstackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+               vstackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -30),
                
                //              vstackView.heightAnchor.constraint(equalToConstant: 2000)
                
                
                
            ])
-           
+        }
        }
 }
 
+
+
+
+
+
+
+// text view customization
+extension NoteDetailViewController: UITextViewDelegate{
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        textView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
+            }
+        }
+        
+
+    }
+    
+   
+    
+    
+}
