@@ -314,7 +314,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
             
             let textView1 = UITextView()
             textView1.text = text1
-            textView1.textAlignment = .center
+            textView1.textAlignment = .left
             textView1.heightAnchor.constraint(equalToConstant: 200).isActive = true
             textView1.delegate = self
             textView1.isScrollEnabled = false
@@ -344,7 +344,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         
         let imageViewNew = UIImageView(image: UIImage(data: (image?.img)!))
-        let size = CGSize(width: view.frame.width, height: .infinity)
+        let size = CGSize(width: view.frame.width - 40 , height: .infinity)
         imageViewNew.heightAnchor.constraint(equalToConstant:
         imageViewNew.sizeThatFits(size).height).isActive = true
         
@@ -417,7 +417,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
 
         }
       
-        textViewTitle.textAlignment = .center
+        textViewTitle.textAlignment = .left
         viewsList.append(textViewTitle)
        
        textViewTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -474,7 +474,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         textView1.text = ""
         textView1.textColor = UIColor.lightGray
-        textView1.textAlignment = .center
+        textView1.textAlignment = .left
         
         
         textView1.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -534,15 +534,15 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
             ),
             
             
-            vstackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor
+            vstackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15
             ),
             
-            vstackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor
+            vstackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15
             ),
             
             vstackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
-            vstackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            vstackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor,constant: -30 )
             
             //              vstackView.heightAnchor.constraint(equalToConstant: 2000)
             
