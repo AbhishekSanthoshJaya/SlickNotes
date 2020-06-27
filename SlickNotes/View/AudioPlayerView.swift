@@ -152,7 +152,7 @@ class AudioPlayerView: UIView{
     
     
     func setUp(){
-        let path  = getDocumentsDirectory().appendingPathComponent("\(audioName).m4a")
+        let path  = getDocumentsDirectory().appendingPathComponent(audioName)
          print(path)
          do {
              try player = AVAudioPlayer(contentsOf: path)
@@ -173,7 +173,6 @@ class AudioPlayerView: UIView{
     
     func setFileName(audioName: String){
         self.audioName = audioName
-        
         setUp()
     }
     

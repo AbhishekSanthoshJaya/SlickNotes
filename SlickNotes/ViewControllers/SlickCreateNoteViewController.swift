@@ -151,7 +151,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     
     func getSoundsList() -> [String]{
         return audioFileNames.map { (name) -> String in
-            return "\(name).m4a"
+            return name
         }
     }
     
@@ -417,7 +417,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
 
         }
       
-        textViewTitle.textAlignment = .left
+        textViewTitle.textAlignment = .center
         viewsList.append(textViewTitle)
        
        textViewTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true

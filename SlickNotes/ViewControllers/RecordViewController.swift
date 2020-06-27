@@ -22,7 +22,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var recordButton: UIButton!
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
-    var currentAudioFileName: String!
+    var currentAudioFileName: String = ""
     
     // for recorded view
     var audioStack: UIStackView!
@@ -196,8 +196,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     func startRecording() {
         
-        let randomName = UUID().uuidString
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(randomName).m4a")
+        var randomName = "\(UUID().uuidString).m4a"
+        let audioFilename = getDocumentsDirectory().appendingPathComponent(randomName)
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
