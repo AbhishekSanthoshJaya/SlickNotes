@@ -52,7 +52,8 @@ class AudioPlayerView: UIView{
         slider.setThumbImage(image, for: .normal)
         slider.setThumbImage(image, for: .focused)
         slider.translatesAutoresizingMaskIntoConstraints = false
-
+        slider.addTarget(self, action: #selector(sliderMoved), for: .valueChanged)
+        
         slider.minimumTrackTintColor = .red
         slider.maximumTrackTintColor = .white
         return slider
@@ -179,7 +180,16 @@ class AudioPlayerView: UIView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+ 
         setUp()
+        
+        
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.6
+        self.layer.shadowOffset = .init(width: 4, height: 4)
+        self.layer.shadowRadius = 6
+
         // set the anchor
          backgroundColor = .black
          self.translatesAutoresizingMaskIntoConstraints = false
@@ -234,6 +244,10 @@ class AudioPlayerView: UIView{
          
          // add controls
          controlsHStack.addArrangedSubview(playBtn)
+        
+        
+       
+        
     }
     
     @objc func updateScrubber() {
@@ -248,6 +262,15 @@ class AudioPlayerView: UIView{
             
         }
     }
+    
+    @objc func sliderMoved(_ sender: UISlider) {
+        player.currentTime = TimeInterval(audioSlider.value)
+        audioCurrentLabel.text = String(format: "%02d:%02d", ((Int)((player.currentTime))) / 60, ((Int)((player.currentTime))) % 60)
+        if isPlaying {
+            player.play()
+        }
+    }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

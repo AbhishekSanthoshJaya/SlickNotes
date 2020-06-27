@@ -9,10 +9,14 @@
 import UIKit
 import AVFoundation
 
-
+protocol SendRecordingBack {
+    func sendRecordingInfo(audioNames: [String])
+}
 
 class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
+    
+    var delegate: SendRecordingBack? = nil
     
     // for recorder
     var recordButton: UIButton!
@@ -149,6 +153,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     
+    @IBAction func doneBtnDown(_ sender: Any) {
+        if delegate != nil {
+            delegate?.sendRecordingInfo(audioNames: audioNames)
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
     
     
     @objc func recordClicked(sender: UIButton!){

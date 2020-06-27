@@ -12,10 +12,9 @@ import AVFoundation
 import CoreData
 
 
-class SlickCreateNoteViewController : UIViewController, UINavigationControllerDelegate,  UIImagePickerControllerDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
+class SlickCreateNoteViewController : UIViewController, UINavigationControllerDelegate,  UIImagePickerControllerDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate, SendRecordingBack {
+    
     var managedContext: NSManagedObjectContext!
-
-   
     let locationManager = CLLocationManager()
     var userLocation: CLLocation!
     let categoryPicker = UIPickerView()
@@ -33,8 +32,20 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     var textViewTitle: UITextView!
     var categoryTextField: UITextField!
     var noteDateLabel: UITextField!
+    var audioFileNames: [String] = []
     
     var isEditMode: Bool = false
+    
+    func sendRecordingInfo(audioNames: [String]) {
+        audioFileNames = audioFileNames + audioNames
+        print("data Came back \(audioFileNames)")
+        if currentView == nil{
+            currentView = viewsList[viewsList.endIndex-1]
+        }
+               
+        self.addAudioView(belowView: currentView , audioNames: audioNames)
+    }
+    
     
     private let noteCreationTimeStamp : Int64 = Date().toSeconds()
     var changingReallySimpleNote : SlickNotes? {
@@ -492,9 +503,14 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
        
         vstackView = UIStackView(arrangedSubviews:  viewsList)
+        for view in viewsList{
+            vstackView.setCustomSpacing(10, after: view)
+        }
         vstackView.translatesAutoresizingMaskIntoConstraints = false
         vstackView.distribution = .fillProportionally
         vstackView.axis = .vertical
+        
+        
         scrollView.addSubview(vstackView)
         
         vstackView.backgroundColor = .red
@@ -536,9 +552,12 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
    
     
     @IBAction func saveAudioBtnDown(_ sender: Any) {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let RecordViewController = storyBoard.instantiateViewController(withIdentifier: "RecordViewController") as! RecordViewController
         
+        RecordViewController.delegate = self
+        self.navigationController?.pushViewController(RecordViewController, animated: true)
        
-        
         
     }
     @IBAction func saveImageBtnDown(_ sender: Any) {
@@ -784,6 +803,11 @@ extension SlickCreateNoteViewController: UITextViewDelegate{
             textView.textColor = UIColor.lightGray
         }
     }
+    
+    
+    
+    
+    
 }
 
 
@@ -877,3 +901,60 @@ extension UIStackView {
 }
 
 
+extension SlickCreateNoteViewController {
+    
+    func addAudioView(belowView: UIView, audioNames: [String]){
+         var vStackSubViews = viewsList
+         
+         for view in vStackSubViews{
+             if view == belowView{
+                 
+                
+                 // Add audioView
+                var currIndex = 1
+                var lastAddedAudioView: AudioPlayerView! = nil
+                
+                for audioFileName in audioNames{
+                    let audioViewNew = AudioPlayerView()
+                    audioViewNew.setFileName(audioName: audioFileName)
+                    viewsList.insert(audioViewNew, at: viewsList.firstIndex(of: view)! + currIndex)
+                    lastAddedAudioView = audioViewNew
+                    currIndex += 1
+                }
+                
+                if(viewsList.firstIndex(of: lastAddedAudioView) != (viewsList.endIndex - 1)){
+                    
+                    let nextView = viewsList[viewsList.firstIndex(of: lastAddedAudioView)! + 1]
+                    if let nextView2 = nextView as? UITextView{
+                        print("next view is textView so skipping")
+                    }
+                    else{
+                        let textViewNew = UITextView()
+                                  textViewNew.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                                  textViewNew.delegate = self
+                                  textViewNew.isScrollEnabled = false
+                                textViewNew.font = UIFont.preferredFont(forTextStyle: .headline)
+
+                                  viewsList.insert(textViewNew, at: viewsList.firstIndex(of: lastAddedAudioView)! + 1)
+                    }
+                }
+                else
+                    {
+                        let textViewNew = UITextView()
+                        textViewNew.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                        textViewNew.delegate = self
+                        textViewNew.isScrollEnabled = false
+                        textViewNew.font = UIFont.preferredFont(forTextStyle: .headline)
+                        viewsList.insert(textViewNew, at: viewsList.firstIndex(of: lastAddedAudioView)! + 1)
+                        
+                }
+                vstackView.removeAllArrangedSubviews()
+                viewsList.forEach { (vw) in
+                    vstackView.addArrangedSubview(vw)
+                    vstackView.setCustomSpacing(10, after: vw)
+                }
+    
+             }
+         }
+     }
+}

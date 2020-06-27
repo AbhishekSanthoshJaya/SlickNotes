@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="abP-Qt-gDH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zr5-Ci-afJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -466,7 +466,7 @@
             </objects>
             <point key="canvasLocation" x="1109.5999999999999" y="1177.961019490255"/>
         </scene>
-        <!--Record View Controller-->
+        <!--Title-->
         <scene sceneID="SH9-DT-Rkp">
             <objects>
                 <viewController storyboardIdentifier="RecordViewController" id="abP-Qt-gDH" customClass="RecordViewController" customModule="SlickNotes" customModuleProvider="target" sceneMemberID="viewController">
@@ -476,7 +476,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="dJV-q4-PbD"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZFv-3k-c6u"/>
+                    <navigationItem key="navigationItem" title="Title" id="fFu-Bv-amP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="nSu-Kd-eSU">
+                            <connections>
+                                <action selector="doneBtnDown:" destination="abP-Qt-gDH" id="ZPU-6T-hCa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SF7-mX-gG7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
