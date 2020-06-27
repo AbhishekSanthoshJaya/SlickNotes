@@ -137,7 +137,7 @@ class NoteDetailViewController: UIViewController {
         let imageViewNew = UIImageView(image: UIImage(data: (image?.img)!))
         let size = CGSize(width: view.frame.width, height: .infinity)
         imageViewNew.heightAnchor.constraint(equalToConstant:
-        imageViewNew.sizeThatFits(size).height).isActive = true
+        view.frame.width).isActive = true
         imageViewNew.addShadow()
         return imageViewNew
     }
