@@ -66,6 +66,10 @@ class SlickNotesCoreDataHelper
                noteToBeCreated.images,
                forKey: "images")
         
+        newNoteToBeCreated.setValue(
+        noteToBeCreated.sounds,
+        forKey: "sounds")
+        
         newNoteToBeCreated.setValue(noteToBeCreated.category, forKey: "parent")
         
         do {
@@ -118,6 +122,10 @@ class SlickNotesCoreDataHelper
             noteManagedObjectToBeChanged.setValue(
             noteToBeChanged.images,
             forKey: "images")
+            
+            noteManagedObjectToBeChanged.setValue(
+                       noteToBeChanged.sounds,
+                       forKey: "sounds")
 
             // save
             try inManagedObjectContext.save()
@@ -150,7 +158,8 @@ class SlickNotesCoreDataHelper
                     location: noteManagedObjectRead.value(forKey: "location") as! String,
                     texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
                     viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String],
-                    images:noteManagedObjectRead.value(forKey: "images") as! [String]
+                    images:noteManagedObjectRead.value(forKey: "images") as! [String],
+                    sounds:noteManagedObjectRead.value(forKey: "sounds") as! [String]
 
                     ))
             }
@@ -185,7 +194,8 @@ class SlickNotesCoreDataHelper
                     location: noteManagedObjectRead.value(forKey: "location") as! String,
                     texts: noteManagedObjectRead.value(forKey: "texts") as! [String],
                     viewOrder: noteManagedObjectRead.value(forKey: "viewOrder") as! [String],
-                    images: noteManagedObjectRead.value(forKey: "images") as! [String]
+                    images: noteManagedObjectRead.value(forKey: "images") as! [String],
+                    sounds: noteManagedObjectRead.value(forKey: "sounds") as! [String]
                     
                     ))
             }
@@ -223,7 +233,8 @@ class SlickNotesCoreDataHelper
             location: noteManagedObjectToBeRead.value(forKey: "location") as! String,
                 texts: noteManagedObjectToBeRead.value(forKey: "texts") as! [String],
                  viewOrder: noteManagedObjectToBeRead.value(forKey: "viewOrder") as! [String],
-                images: noteManagedObjectToBeRead.value(forKey: "images") as! [String]
+                images: noteManagedObjectToBeRead.value(forKey: "images") as! [String],
+                sounds: noteManagedObjectToBeRead.value(forKey: "sounds") as! [String]
             
                 )
         } catch let error as NSError {

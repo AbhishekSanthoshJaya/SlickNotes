@@ -22,8 +22,10 @@ class SlickNotes {
     private(set) var texts: [String]
     private(set) var viewOrder: [String]
     private(set) var images: [String]
+    private(set) var sounds: [String]
+
     
-    init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String, category: String = "all",texts :[String], viewOrder: [String], images: [String]) {
+    init(noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location:String, category: String = "all",texts :[String], viewOrder: [String], images: [String], sounds: [String]) {
         self.noteId        = UUID()
         self.noteTitle     = noteTitle
         self.noteText      = noteText
@@ -34,6 +36,7 @@ class SlickNotes {
         self.texts = texts
         self.viewOrder = viewOrder
         self.images = images
+        self.sounds = sounds
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
         
          let request: NSFetchRequest<Category> = Category.fetchRequest()
@@ -52,7 +55,7 @@ class SlickNotes {
        
     }
 
-    init(noteId: UUID, noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location: String, category: String = "all", texts :[String], viewOrder: [String], images: [String]
+    init(noteId: UUID, noteTitle:String, noteText:String, noteTimeStamp:Int64, latitude: String, longitude: String, location: String, category: String = "all", texts :[String], viewOrder: [String], images: [String], sounds: [String]
     ) {
         self.noteId        = noteId
         self.noteTitle     = noteTitle
@@ -64,6 +67,7 @@ class SlickNotes {
         self.texts = texts
        self.viewOrder = viewOrder
         self.images = images
+        self.sounds = sounds
         
         let predicate = NSPredicate(format: "categoryName = %@", category as CVarArg)
                

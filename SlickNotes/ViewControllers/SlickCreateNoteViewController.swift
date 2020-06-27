@@ -51,6 +51,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     var changingReallySimpleNote : SlickNotes? {
         didSet{
             isEditMode = true
+            audioFileNames = audioFileNames + changingReallySimpleNote!.sounds
         }
     }
     var folderSelectedName: String?
@@ -148,6 +149,12 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
     }
     
+    func getSoundsList() -> [String]{
+        return audioFileNames.map { (name) -> String in
+            return "\(name).m4a"
+        }
+    }
+    
     // MARK: addItem
     private func addItem() -> Void {
         
@@ -195,7 +202,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                     category: self.categoryTextField.text!,
                     texts: textList,
                     viewOrder: self.getViewOrder(),
-                    images:imagesList
+                    images:imagesList,
+                    sounds: self.getSoundsList()
                     
                 )
 
@@ -263,7 +271,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                         category: self.categoryTextField.text!,
                         texts: textList,
                         viewOrder: self.getViewOrder(),
-                        images:imagesList
+                        images:imagesList,
+                        sounds: self.getSoundsList()
                         
                     )
 
@@ -371,8 +380,11 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
                     imageIndex += 1
                 }
                 else{
-                    //                    var audioView = createAudioView(audioIndex)
-                    //                    audioIndex += 1
+                    var audioViewNew = AudioPlayerView()
+                    audioViewNew.setFileName(audioName: detail.sounds[audioIndex])
+                    viewsList.append(audioViewNew)
+                    
+                    audioIndex += 1
                 }
                 
             }
@@ -596,6 +608,8 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
       
        
     }
+    
+    
     
     // MARK: didLoad
     override func viewDidLoad() {
@@ -863,6 +877,8 @@ extension SlickCreateNoteViewController: ImagePickerDelegate{
                 vstackView.removeAllArrangedSubviews()
                 viewsList.forEach { (vw) in
                     vstackView.addArrangedSubview(vw)
+                    vstackView.setCustomSpacing(10, after: vw)
+
                 }
             }
         }
@@ -878,6 +894,7 @@ extension SlickCreateNoteViewController: ImagePickerDelegate{
         
         
         self.addImageView(belowView: currentView, image: image!)
+        
     }
     
     
@@ -919,6 +936,14 @@ extension SlickCreateNoteViewController {
                     audioViewNew.setFileName(audioName: audioFileName)
                     viewsList.insert(audioViewNew, at: viewsList.firstIndex(of: view)! + currIndex)
                     lastAddedAudioView = audioViewNew
+                    currIndex += 1
+                    
+                    let textViewNew = UITextView()
+                    textViewNew.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                    textViewNew.delegate = self
+                    textViewNew.isScrollEnabled = false
+                    textViewNew.font = UIFont.preferredFont(forTextStyle: .headline)
+                    viewsList.insert(textViewNew, at: viewsList.firstIndex(of: lastAddedAudioView)! + 1)
                     currIndex += 1
                 }
                 
