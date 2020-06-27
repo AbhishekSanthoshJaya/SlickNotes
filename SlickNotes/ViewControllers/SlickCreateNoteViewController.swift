@@ -394,6 +394,13 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
      
     }
     
+    @objc func donePicker() {
+
+        categoryTextField.resignFirstResponder()
+
+    }
+
+    
     
     func setUpView(){
         
@@ -428,6 +435,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         
         // Add date
         noteDateLabel =  UITextField()
+        noteDateLabel.isUserInteractionEnabled = false
         noteDateLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         noteDateLabel.textAlignment = .center
         viewsList.append(noteDateLabel)
@@ -456,8 +464,23 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
         categoryTextField = UITextField()
         categoryTextField.inputView = categoryPicker
         categoryTextField.text = folderSelectedName
-        categoryTextField.textAlignment = .left
+        categoryTextField.textAlignment = .center
         categoryTextField.font = UIFont.preferredFont(forTextStyle: .headline)
+        categoryTextField.layer.borderWidth = 2
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        toolBar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        categoryTextField.inputAccessoryView = toolBar
         
     
         
@@ -609,14 +632,30 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
       
        
     }
-    
+    @objc func keyboardWillShow(notification:NSNotification){
+
+        let userInfo = notification.userInfo!
+        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height + 40
+        scrollView.contentInset = contentInset
+    }
+
+    @objc func keyboardWillHide(notification:NSNotification){
+
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
+    }
     
     
     // MARK: didLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                    // create alert
@@ -693,22 +732,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
             noteDateLabel.text = SlickNotesDateHelper.convertDate(date: Date.init(seconds: noteCreationTimeStamp))
         }
         
-        // initialize text view UI - border width, radius and color
-//        noteTextTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-//        noteTextTextView.layer.borderWidth = 1.0
-//        noteTextTextView.layer.cornerRadius = 5
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        
-        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
-        view.addGestureRecognizer(tap)
-        
-        // For back button in navigation bar, change text
-//        let backButton = UIBarButtonItem()
-//        backButton.title = "Back"
-//        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+       
     }
     
     // MARK: dismissKeyBoard

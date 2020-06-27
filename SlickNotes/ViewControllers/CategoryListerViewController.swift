@@ -78,11 +78,41 @@ class CategoryListerViewController: UIViewController {
             
             
             // code to add new category
+            if let inputText = textField.text {
+                if inputText == "" {
+                    let alertController = UIAlertController(title: "Category Name can't be empty", message: "", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: {(alert: UIAlertAction!) in
+                           print("Cancelled")
+                    })
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+    
+
+                }
+                
+                // check if duplicate
+                
+                let presentCategory  = SlickCategoryStorage.storage.readCategories(withPredicate: NSPredicate(format: "categoryName = %@", inputText))
+                if presentCategory!.count > 0{
+                    let alertController = UIAlertController(title: "Category with name \(inputText) already present", message: "", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: {(alert: UIAlertAction!) in
+                           print("Cancelled")
+                    })
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                }
+                
+                
+                
+                let category = SlickCategory(categoryName: textField.text!)
+                SlickCategoryStorage.storage.addCategory(categoryToBeAdded: category)
+                self.tableView.reloadData()
+                
+            }
             
             
-            let category = SlickCategory(categoryName: textField.text!)
-            SlickCategoryStorage.storage.addCategory(categoryToBeAdded: category)
-            self.tableView.reloadData()
             
             
         })

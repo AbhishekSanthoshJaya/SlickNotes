@@ -19,6 +19,7 @@ class MasterViewController: UITableViewController {
     var folderSelectedName: String? {
         didSet{
             folderPredicate = NSPredicate(format: "parent.categoryName = %@", folderSelectedName as! CVarArg)
+            self.title = folderSelectedName
         }
     }
     
