@@ -18,6 +18,13 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var recordButton: UIButton!
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    var currentAudioFileName: String!
+    
+    // for recorded view
+    var audioStack: UIStackView!
+    
+    var audioNames: [String] = []
+    var audioPlayers: [AudioPlayerView] = []
     
     var isRecording:Bool = false
     override func viewDidLoad() {
@@ -107,11 +114,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         
         // vertical stack
-        let audioStack = UIStackView()
+        audioStack = UIStackView()
         audioStack.translatesAutoresizingMaskIntoConstraints = false
         audioStack.axis = .vertical
         audioStack.alignment = .center
-        audioStack.distribution = .equalSpacing
+        audioStack.distribution = .fill
+        
         view.addSubview(audioStack)
         
         NSLayoutConstraint.activate([
@@ -128,30 +136,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         // audio view
    
-        
-        
-        let audioWrapper = AudioPlayerView()
-//        audioWrapper.backgroundColor = .red
-        audioStack.addArrangedSubview(audioWrapper)
-   
-        
-        let audioWrapper2 = AudioPlayerView()
-             
-        audioStack.addArrangedSubview(audioWrapper2)
-
-        
-        NSLayoutConstraint.activate([
-            audioWrapper.centerXAnchor.constraint(equalTo: audioStack.centerXAnchor)
-        
-        
-        ])
-        
-        
-        NSLayoutConstraint.activate([
-            audioWrapper2.centerXAnchor.constraint(equalTo: audioStack.centerXAnchor)
-        
-        
-        ])
+        let spacer = UIView()
+        spacer.backgroundColor = .blue
+        spacer.setContentHuggingPriority(.defaultLow, for: .vertical)
+        audioStack.addArrangedSubview(
+            spacer
+        )
        
         
         
@@ -195,7 +185,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        
+        let randomName = UUID().uuidString
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(randomName).m4a")
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -208,8 +200,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.record()
+            currentAudioFileName = randomName
+           
             
         } catch {
+            print(error)
             finishRecording(success: false)
         }
     }
@@ -232,8 +227,15 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         audioRecorder = nil
         print("done recording")
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        print(audioFilename)
+        
+        if success{
+            audioNames.append(currentAudioFileName)
+             let audioWrapper = AudioPlayerView()
+             audioWrapper.setFileName(audioName: currentAudioFileName)
+             audioStack.addArrangedSubview(audioWrapper)
+            audioStack.setCustomSpacing( 10, after: audioWrapper)
+        }
+        
     }
     
     func getDocumentsDirectory() -> URL {
