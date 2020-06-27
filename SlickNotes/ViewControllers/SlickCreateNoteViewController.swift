@@ -21,6 +21,9 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
     let categoryPicker = UIPickerView()
 
     
+   
+    
+    
     // UI elements
     var scrollView: UIScrollView! = nil
     var vstackView:UIStackView! = nil
@@ -292,7 +295,7 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
             let textView1 = UITextView()
             textView1.text = text1
             textView1.textAlignment = .center
-            textView1.heightAnchor.constraint(equalToConstant: 80).isActive = true
+            textView1.heightAnchor.constraint(equalToConstant: 200).isActive = true
             textView1.delegate = self
             textView1.isScrollEnabled = false
             textView1.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -530,7 +533,13 @@ class SlickCreateNoteViewController : UIViewController, UINavigationControllerDe
               }
     }
     
+   
+    
     @IBAction func saveAudioBtnDown(_ sender: Any) {
+        
+       
+        
+        
     }
     @IBAction func saveImageBtnDown(_ sender: Any) {
         
@@ -866,3 +875,5 @@ extension UIStackView {
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
+
+

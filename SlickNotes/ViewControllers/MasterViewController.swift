@@ -92,6 +92,7 @@ class MasterViewController: UITableViewController {
         }
                
         allNotes = SlickNotesStorage.storage.readNotes(withPredicate: folderPredicate)!
+        filteredNotes = allNotes
     }
 
     override func viewWillAppear(_ animated: Bool) {

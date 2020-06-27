@@ -24,6 +24,9 @@
 		00EF439B249FF99A004A2908 /* Extension+TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF439A249FF99A004A2908 /* Extension+TableViewController.swift */; };
 		AB57AED424A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AED324A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift */; };
 		AB57AED824A3245F005F9AA3 /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AED724A3245F005F9AA3 /* NoteDetailViewController.swift */; };
+		AB57AEDD24A6916D005F9AA3 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB57AEDC24A6916D005F9AA3 /* Montserrat-Black.ttf */; };
+		AB57AEDF24A6ADDC005F9AA3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AEDE24A6ADDC005F9AA3 /* RecordViewController.swift */; };
+		AB57AEE224A729FA005F9AA3 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57AEE124A729FA005F9AA3 /* AudioPlayerView.swift */; };
 		AB90E352249EDD5700642408 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB90E351249EDD5700642408 /* MapViewController.swift */; };
 		ABC09F0824A17A1B00138A1C /* SlickCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0724A17A1B00138A1C /* SlickCategory.swift */; };
 		ABC09F0A24A1AC2000138A1C /* SlickCategoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */; };
@@ -53,6 +56,9 @@
 		00EF439A249FF99A004A2908 /* Extension+TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TableViewController.swift"; sourceTree = "<group>"; };
 		AB57AED324A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCreateNoteViewController.swift; sourceTree = "<group>"; };
 		AB57AED724A3245F005F9AA3 /* NoteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteDetailViewController.swift; path = ../../../../Documents/NoteDetailViewController.swift; sourceTree = "<group>"; };
+		AB57AEDC24A6916D005F9AA3 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Black.ttf"; path = "Montserrat/Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		AB57AEDE24A6ADDC005F9AA3 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		AB57AEE124A729FA005F9AA3 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		AB90E351249EDD5700642408 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		ABC09F0724A17A1B00138A1C /* SlickCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategory.swift; sourceTree = "<group>"; };
 		ABC09F0924A1AC2000138A1C /* SlickCategoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickCategoryStorage.swift; sourceTree = "<group>"; };
@@ -77,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				BD99195D249F61B200BC9263 /* ImagePicker.swift */,
-				BD8687C924A543B100F7C987 /* VoiceRecHelper.swift */,
 				00B3F63A249D86F400C24FDC /* SlickNotesDateHelper.swift */,
 				00531F4F249E308C0065CF8F /* SlickNotesCoreDataHelper.swift */,
 				ABC09F0B24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift */,
@@ -115,6 +120,7 @@
 				ABC09F0D24A1BB7C00138A1C /* CategoryListerViewController.swift */,
 				ABC09F0F24A27E3300138A1C /* CreateNoteViewController.swift */,
 				AB57AED324A2DC3F005F9AA3 /* SlickCreateNoteViewController.swift */,
+				AB57AEDE24A6ADDC005F9AA3 /* RecordViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 		00B3F618249CE70900C24FDC /* SlickNotes */ = {
 			isa = PBXGroup;
 			children = (
+				AB57AEE024A729DC005F9AA3 /* View */,
+				AB57AED924A68EA9005F9AA3 /* Font */,
 				00531F54249E35920065CF8F /* ViewControllers */,
 				00531F53249E35700065CF8F /* StorageHandler */,
 				00531F52249E355B0065CF8F /* Model */,
@@ -168,6 +176,22 @@
 				00EF439A249FF99A004A2908 /* Extension+TableViewController.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AB57AED924A68EA9005F9AA3 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				AB57AEDC24A6916D005F9AA3 /* Montserrat-Black.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		AB57AEE024A729DC005F9AA3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB57AEE124A729FA005F9AA3 /* AudioPlayerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B3F628249CE70B00C24FDC /* LaunchScreen.storyboard in Resources */,
+				AB57AEDD24A6916D005F9AA3 /* Montserrat-Black.ttf in Resources */,
 				00B3F625249CE70B00C24FDC /* Assets.xcassets in Resources */,
 				00B3F623249CE70900C24FDC /* Main.storyboard in Resources */,
 			);
@@ -242,11 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD99195E249F61B200BC9263 /* ImagePicker.swift in Sources */,
-				BD8687CA24A543B100F7C987 /* VoiceRecHelper.swift in Sources */,
 				00B3F61A249CE70900C24FDC /* AppDelegate.swift in Sources */,
 				00B3F637249D83CB00C24FDC /* SlickNotes.swift in Sources */,
 				ABC09F0E24A1BB7C00138A1C /* CategoryListerViewController.swift in Sources */,
 				00B3F61C249CE70900C24FDC /* SceneDelegate.swift in Sources */,
+				AB57AEDF24A6ADDC005F9AA3 /* RecordViewController.swift in Sources */,
 				ABC09F0C24A1AC6900138A1C /* SlickCategoryCoreDataHelper.swift in Sources */,
 				00B3F61E249CE70900C24FDC /* MasterViewController.swift in Sources */,
 				00B3F631249D073F00C24FDC /* SlickNotes.xcdatamodeld in Sources */,
@@ -256,6 +281,7 @@
 				ABC09F1024A27E3300138A1C /* CreateNoteViewController.swift in Sources */,
 				AB90E352249EDD5700642408 /* MapViewController.swift in Sources */,
 				00EF439B249FF99A004A2908 /* Extension+TableViewController.swift in Sources */,
+				AB57AEE224A729FA005F9AA3 /* AudioPlayerView.swift in Sources */,
 				00B3F620249CE70900C24FDC /* DetailViewController.swift in Sources */,
 				ABC09F0824A17A1B00138A1C /* SlickCategory.swift in Sources */,
 				00531F56249E51B50065CF8F /* SlickNoteCreatorViewController.swift in Sources */,

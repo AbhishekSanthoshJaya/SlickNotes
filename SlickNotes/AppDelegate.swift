@@ -17,6 +17,13 @@ var navigationBarAppearace = UINavigationBar.appearance()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
+       
+        
+        UILabel.appearance().font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black"))
+
+        UITextView.appearance().font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle(rawValue: "Montserrat-Black"))
+
         // Override point for customization after application launch.
                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
     
